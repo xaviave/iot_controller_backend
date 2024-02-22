@@ -1,0 +1,6 @@
+django
+psycopg2
+django-bootstrap-v5
+django-polymorphic
+django-colorfield
+django-socio-grpc
