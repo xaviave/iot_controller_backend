@@ -50,6 +50,7 @@ so adapt your psql command with the right variable
     CREATE DATABASE led_controller_db;
     ALTER USER gmx WITH PASSWORD '1234';
     ALTER ROLE gmx WITH LOGIN;
+    ALTER ROLE gmx WITH CREATEDB;
     ALTER ROLE gmx SET default_transaction_isolation TO 'read committed';
     GRANT ALL PRIVILEGES ON DATABASE led_controller_db TO gmx;
     ALTER DATABASE led_controller_db OWNER TO gmx;
@@ -60,21 +61,25 @@ Let's install all the python requirements
     python3 -m pip install --upgrade pip
     pip3 install -r requirements/requirements_base.txt
 
+Generate the gRPC files from srcs:
+
+     python3 manage.py generateproto --directory features/products_controller/gen_grpc
+
 Export the env variables for the project
 
     set -a && . env/.env && set +a
 
 Then simply launch these commands once and the site is initialised
 
-    python3 software/server/manage.py makemigrations
-    python3 software/server/manage.py migrate
-    python3 software/server/manage.py createsuperuser
+    python3 srcs/manage.py makemigrations
+    python3 srcs/manage.py migrate
+    python3 srcs/manage.py createsuperuser
 
-[//]: # "    python3 software/server/manage.py loaddata fixtures/base_fixture.json"
+[//]: # "    python3 srcs/manage.py loaddata fixtures/base_fixture.json"
 
 Then launch the server
 
-    python3 software/server/manage.py runserver
+    python3 srcsmanage.py runserver
 
 ---
 
@@ -82,7 +87,7 @@ Then launch the server
 
 if you want a custom namespace, add to `ALLOWED_HOSTS` the name of this namespace.
 To allow the server on local network, add your IP address to `ALLOWED_HOST`
-in `software/server/base_app/settings.py` like:
+in `srcs/base_app/settings.py` like:
 
     ALLOWED_HOSTS = ['mywebsite.local', 'YOU_IP']
 

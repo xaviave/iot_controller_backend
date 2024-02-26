@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views import generic
+from django_socio_grpc import generics
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.products.base_product import (
-    BaseProductPolymorphicSerializer,
+    BaseProductSerializer,
 )
-from rest_framework import permissions, viewsets
 
 
 class ProductDetailView(LoginRequiredMixin, generic.DetailView):
@@ -35,10 +35,6 @@ class ProductDetailView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
-# views.py
-
-
-class BaseProductViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+class BaseProductService(generics.AsyncModelService):
     queryset = BaseProduct.objects.all()
-    serializer_class = BaseProductPolymorphicSerializer
+    serializer_class = BaseProductSerializer

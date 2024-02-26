@@ -4,8 +4,8 @@ from .forms.project import create_project, edit_project
 from .views.communication.brightness import BrightnessView
 from .views.communication.mode import ModeView
 from .views.communication.status import StatusView
-from .views.product import ProductDetailView
-from .views.project import ProjectDetailApiView, ProjectDetailView, ProjectListApiView
+from .views.products.base_product import ProductDetailView
+from .views.project import ProjectDetailView
 from .views.views import IndexView
 
 app_name = "products_controller"
@@ -21,7 +21,4 @@ urlpatterns = [
     path("products/<int:pk>/mode/<str:mode>", ModeView.as_view(), name="mode_view"),
     path("products/<int:pk>/mode/<str:mode>/<int:mode_pk>", ModeView.as_view(), name="mode_view"),
     path("products/<int:pk>/brightness", BrightnessView.as_view(), name="brightness_view"),
-    # Rest API
-    path("rest_api/projects", ProjectListApiView.as_view(), name="project_list_rest_api"),
-    path("rest_api/projects/<int:pk>/", ProjectDetailApiView.as_view(), name="project_detail_rest_api"),
 ]

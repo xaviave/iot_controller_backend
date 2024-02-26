@@ -1,26 +1,23 @@
-# serializers.py
+from django_socio_grpc import proto_serializers
+from features.products_controller.grpc.products_controller_pb2 import (
+    BaseProductListResponse,
+    BaseProductResponse,
+)
+from features.products_controller.models.category import Category
 from features.products_controller.models.products.base_product import BaseProduct
-from features.products_controller.models.products.coffee_machine import CoffeeMachine
-from features.products_controller.models.products.led.led_panel import LedPanel
-from features.products_controller.serializers.products.coffee_machine import (
-    CoffeeMachineSerializer,
-)
-from features.products_controller.serializers.products.led.led_panel import (
-    LedPanelSerializer,
-)
-from rest_framework import serializers
-from rest_polymorphic.serializers import PolymorphicSerializer
+from rest_framework.serializers import PrimaryKeyRelatedField, UUIDField
 
 
-class BaseProductSerializer(serializers.ModelSerializer):
+class BaseProductSerializer(proto_serializers.ModelProtoSerializer):
+    categories = PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        pk_field=UUIDField(format="hex_verbose"),
+        many=True,
+    )
+
     class Meta:
         model = BaseProduct
         fields = "__all__"
 
-
-class BaseProductPolymorphicSerializer(PolymorphicSerializer):
-    model_serializer_mapping = {
-        BaseProduct: BaseProductSerializer,
-        CoffeeMachine: CoffeeMachineSerializer,
-        LedPanel: LedPanelSerializer,
-    }
+        proto_class = BaseProductResponse
+        proto_class_list = BaseProductListResponse

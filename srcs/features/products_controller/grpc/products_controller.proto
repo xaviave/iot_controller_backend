@@ -1,0 +1,298 @@
+syntax = "proto3";
+
+package base_app.products_controller;
+
+import "google/protobuf/empty.proto";
+
+service BaseProductController {
+    rpc Create(BaseProductRequest) returns (BaseProductResponse) {}
+    rpc Destroy(BaseProductDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(BaseProductListRequest) returns (BaseProductListResponse) {}
+    rpc PartialUpdate(BaseProductPartialUpdateRequest) returns (BaseProductResponse) {}
+    rpc Retrieve(BaseProductRetrieveRequest) returns (BaseProductResponse) {}
+    rpc Update(BaseProductRequest) returns (BaseProductResponse) {}
+}
+
+service CategoryController {
+    rpc Create(CategoryRequest) returns (CategoryResponse) {}
+    rpc Destroy(CategoryDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(CategoryListRequest) returns (CategoryListResponse) {}
+    rpc PartialUpdate(CategoryPartialUpdateRequest) returns (CategoryResponse) {}
+    rpc Retrieve(CategoryRetrieveRequest) returns (CategoryResponse) {}
+    rpc Update(CategoryRequest) returns (CategoryResponse) {}
+}
+
+service CoffeeMachineController {
+    rpc Create(CoffeeMachineRequest) returns (CoffeeMachineResponse) {}
+    rpc Destroy(CoffeeMachineDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(CoffeeMachineListRequest) returns (CoffeeMachineListResponse) {}
+    rpc PartialUpdate(CoffeeMachinePartialUpdateRequest) returns (CoffeeMachineResponse) {}
+    rpc Retrieve(CoffeeMachineRetrieveRequest) returns (CoffeeMachineResponse) {}
+    rpc Update(CoffeeMachineRequest) returns (CoffeeMachineResponse) {}
+}
+
+service LedModeController {
+    rpc Create(LedModeRequest) returns (LedModeResponse) {}
+    rpc Destroy(LedModeDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(LedModeListRequest) returns (LedModeListResponse) {}
+    rpc PartialUpdate(LedModePartialUpdateRequest) returns (LedModeResponse) {}
+    rpc Retrieve(LedModeRetrieveRequest) returns (LedModeResponse) {}
+    rpc Update(LedModeRequest) returns (LedModeResponse) {}
+}
+
+service LedPanelController {
+    rpc Create(LedPanelRequest) returns (LedPanelResponse) {}
+    rpc Destroy(LedPanelDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(LedPanelListRequest) returns (LedPanelListResponse) {}
+    rpc PartialUpdate(LedPanelPartialUpdateRequest) returns (LedPanelResponse) {}
+    rpc Retrieve(LedPanelRetrieveRequest) returns (LedPanelResponse) {}
+    rpc Update(LedPanelRequest) returns (LedPanelResponse) {}
+}
+
+service ProjectController {
+    rpc Create(ProjectRequest) returns (ProjectResponse) {}
+    rpc Destroy(ProjectDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(ProjectListRequest) returns (ProjectListResponse) {}
+    rpc PartialUpdate(ProjectPartialUpdateRequest) returns (ProjectResponse) {}
+    rpc Retrieve(ProjectRetrieveRequest) returns (ProjectResponse) {}
+    rpc Update(ProjectRequest) returns (ProjectResponse) {}
+}
+
+message BaseProductDestroyRequest {
+    int32 id = 1;
+}
+
+message BaseProductListRequest {
+}
+
+message BaseProductListResponse {
+    repeated BaseProductResponse results = 1;
+}
+
+message BaseProductPartialUpdateRequest {
+    int32 id = 1;
+    repeated string categories = 2;
+    repeated string _partial_update_fields = 3;
+    string name = 4;
+}
+
+message BaseProductRequest {
+    int32 id = 1;
+    repeated string categories = 2;
+    string name = 3;
+}
+
+message BaseProductResponse {
+    int32 id = 1;
+    repeated string categories = 2;
+    string name = 3;
+    optional int32 polymorphic_ctype = 4;
+}
+
+message BaseProductRetrieveRequest {
+    int32 id = 1;
+}
+
+message CategoryDestroyRequest {
+    int32 id = 1;
+}
+
+message CategoryListRequest {
+}
+
+message CategoryListResponse {
+    repeated CategoryResponse results = 1;
+}
+
+message CategoryPartialUpdateRequest {
+    int32 id = 1;
+    repeated string _partial_update_fields = 2;
+    string name = 3;
+}
+
+message CategoryRequest {
+    int32 id = 1;
+    string name = 2;
+}
+
+message CategoryResponse {
+    int32 id = 1;
+    string name = 2;
+}
+
+message CategoryRetrieveRequest {
+    int32 id = 1;
+}
+
+message CoffeeMachineDestroyRequest {
+    int32 id = 1;
+}
+
+message CoffeeMachineListRequest {
+}
+
+message CoffeeMachineListResponse {
+    repeated CoffeeMachineResponse results = 1;
+}
+
+message CoffeeMachinePartialUpdateRequest {
+    int32 id = 1;
+    repeated string _partial_update_fields = 2;
+    string name = 3;
+    int32 status = 4;
+    float heat = 5;
+    int32 water_level = 6;
+    int32 used_water_level = 7;
+    int32 coffee_level = 8;
+    bool filter_position = 9;
+    int32 mode_value = 10;
+    repeated int64 categories = 11;
+}
+
+message CoffeeMachineRequest {
+    int32 id = 1;
+    string name = 2;
+    int32 status = 3;
+    float heat = 4;
+    int32 water_level = 5;
+    int32 used_water_level = 6;
+    int32 coffee_level = 7;
+    bool filter_position = 8;
+    int32 mode_value = 9;
+    repeated int64 categories = 10;
+}
+
+message CoffeeMachineResponse {
+    int32 id = 1;
+    string name = 2;
+    int32 status = 3;
+    float heat = 4;
+    int32 water_level = 5;
+    int32 used_water_level = 6;
+    int32 coffee_level = 7;
+    bool filter_position = 8;
+    int32 mode_value = 9;
+    optional int32 polymorphic_ctype = 10;
+    repeated int64 categories = 11;
+}
+
+message CoffeeMachineRetrieveRequest {
+    int32 id = 1;
+}
+
+message LedModeDestroyRequest {
+    int32 id = 1;
+}
+
+message LedModeListRequest {
+}
+
+message LedModeListResponse {
+    repeated LedModeResponse results = 1;
+}
+
+message LedModePartialUpdateRequest {
+    int32 id = 1;
+    repeated string _partial_update_fields = 2;
+    string name = 3;
+}
+
+message LedModeRequest {
+    int32 id = 1;
+    string name = 2;
+}
+
+message LedModeResponse {
+    int32 id = 1;
+    string name = 2;
+    optional int32 polymorphic_ctype = 3;
+}
+
+message LedModeRetrieveRequest {
+    int32 id = 1;
+}
+
+message LedPanelDestroyRequest {
+    int32 id = 1;
+}
+
+message LedPanelListRequest {
+}
+
+message LedPanelListResponse {
+    repeated LedPanelResponse results = 1;
+}
+
+message LedPanelPartialUpdateRequest {
+    int32 id = 1;
+    repeated string _partial_update_fields = 2;
+    string name = 3;
+    int32 status = 4;
+    double brightness = 5;
+    int64 mode = 6;
+    repeated int64 categories = 7;
+}
+
+message LedPanelRequest {
+    int32 id = 1;
+    string name = 2;
+    int32 status = 3;
+    double brightness = 4;
+    int64 mode = 5;
+    repeated int64 categories = 6;
+}
+
+message LedPanelResponse {
+    int32 id = 1;
+    string name = 2;
+    int32 status = 3;
+    double brightness = 4;
+    optional int32 polymorphic_ctype = 5;
+    int64 mode = 6;
+    repeated int64 categories = 7;
+}
+
+message LedPanelRetrieveRequest {
+    int32 id = 1;
+}
+
+message ProjectDestroyRequest {
+    int32 id = 1;
+}
+
+message ProjectListRequest {
+}
+
+message ProjectListResponse {
+    repeated ProjectResponse results = 1;
+}
+
+message ProjectPartialUpdateRequest {
+    int32 id = 1;
+    repeated string products = 2;
+    repeated string _partial_update_fields = 3;
+    string pub_date = 4;
+    string name = 5;
+    int32 owner = 6;
+}
+
+message ProjectRequest {
+    int32 id = 1;
+    repeated string products = 2;
+    string pub_date = 3;
+    string name = 4;
+    int32 owner = 5;
+}
+
+message ProjectResponse {
+    int32 id = 1;
+    repeated string products = 2;
+    string pub_date = 3;
+    string name = 4;
+    int32 owner = 5;
+}
+
+message ProjectRetrieveRequest {
+    int32 id = 1;
+}
+

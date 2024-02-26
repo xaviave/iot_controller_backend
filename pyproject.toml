@@ -38,6 +38,7 @@ exclude = [
     "node_modules",
     "venv",
     "protos",
+    "*pb2.py"
 ]
 
 [tool.ruff.lint]
