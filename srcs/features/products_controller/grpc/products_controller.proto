@@ -229,7 +229,7 @@ message LedPanelPartialUpdateRequest {
     string name = 3;
     int32 status = 4;
     double brightness = 5;
-    int64 mode = 6;
+    optional int64 mode = 6;
     repeated int64 categories = 7;
 }
 
@@ -238,7 +238,7 @@ message LedPanelRequest {
     string name = 2;
     int32 status = 3;
     double brightness = 4;
-    int64 mode = 5;
+    optional int64 mode = 5;
     repeated int64 categories = 6;
 }
 
@@ -248,7 +248,7 @@ message LedPanelResponse {
     int32 status = 3;
     double brightness = 4;
     optional int32 polymorphic_ctype = 5;
-    int64 mode = 6;
+    optional int64 mode = 6;
     repeated int64 categories = 7;
 }
 

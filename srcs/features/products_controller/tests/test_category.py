@@ -1,5 +1,4 @@
-
-from django.test import TestCase, override_settings
+from django.test import TransactionTestCase, override_settings
 from django_socio_grpc.tests.grpc_test_utils.fake_grpc import FakeFullAIOGRPC
 from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 from features.products_controller.views.category import CategoryService
@@ -7,7 +6,9 @@ from google.protobuf import json_format
 
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
-class TestCategory(TestCase):
+class TestCategory(TransactionTestCase):
+    reset_sequences = True
+
     def setUp(self):
         self.fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,
@@ -43,7 +44,7 @@ class TestCategory(TestCase):
         # Check one Category Object in dataset
         res = await grpc_stub.List(products_controller_pb2.CategoryListRequest())
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"results": [{"id": 2, "name": "kill me"}]})
+        self.assertDictEqual(json_res, {"results": [{"id": 1, "name": "kill me"}]})
 
         # Delete Category Object
         request = products_controller_pb2.CategoryDestroyRequest(id=json_res["results"][0]["id"])
@@ -69,7 +70,7 @@ class TestCategory(TestCase):
         json_res = json_format.MessageToDict(res)
         self.assertDictEqual(
             json_res,
-            {"results": [{"id": 3, "name": "person_1"}, {"id": 4, "name": "person_2"}, {"id": 5, "name": "person_3"}]},
+            {"results": [{"id": 1, "name": "person_1"}, {"id": 2, "name": "person_2"}, {"id": 3, "name": "person_3"}]},
         )
 
     async def test_async_partial_update_category(self):
@@ -80,17 +81,19 @@ class TestCategory(TestCase):
         await grpc_stub.Create(request)
 
         # Query one Category Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=6))
+        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=1))
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"id": 6, "name": "person_6"})
+        self.assertDictEqual(json_res, {"id": 1, "name": "person_6"})
 
         # Query one Partial Update Object in dataset
-        res = await grpc_stub.PartialUpdate(products_controller_pb2.CategoryPartialUpdateRequest(id=6,  _partial_update_fields=["name"], name="wow"))
+        res = await grpc_stub.PartialUpdate(
+            products_controller_pb2.CategoryPartialUpdateRequest(id=1, _partial_update_fields=["name"], name="wow")
+        )
 
         # Query one Category Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=6))
+        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=1))
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"id": 6, "name": "wow"})
+        self.assertDictEqual(json_res, {"id": 1, "name": "wow"})
 
     async def test_async_retrieve_category(self):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
@@ -102,9 +105,9 @@ class TestCategory(TestCase):
         await grpc_stub.Create(request)
 
         # Query one Category Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=8))
+        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=2))
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"id": 8, "name": "pick me"})
+        self.assertDictEqual(json_res, {"id": 2, "name": "pick me"})
 
     async def test_async_update_category(self):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
@@ -114,14 +117,14 @@ class TestCategory(TestCase):
         await grpc_stub.Create(request)
 
         # Query one Category Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=9))
+        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=1))
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"id": 9, "name": "sisi"})
+        self.assertDictEqual(json_res, {"id": 1, "name": "sisi"})
 
-        # Query one Partial Update Object in dataset
-        res = await grpc_stub.Update(products_controller_pb2.CategoryRequest(id=9, name="up"))
+        # Query one Update Object in dataset
+        res = await grpc_stub.Update(products_controller_pb2.CategoryRequest(id=1, name="up"))
 
         # Query one Category Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=9))
+        res = await grpc_stub.Retrieve(products_controller_pb2.CategoryRetrieveRequest(id=1))
         json_res = json_format.MessageToDict(res)
-        self.assertDictEqual(json_res, {"id": 9, "name": "up"})
+        self.assertDictEqual(json_res, {"id": 1, "name": "up"})

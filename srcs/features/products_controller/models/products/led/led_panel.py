@@ -11,7 +11,7 @@ from grpc_iot.protos import led_communication_pb2_grpc
 class LedPanel(BaseProduct):
     status = models.IntegerField(choices=Status.choices())
     brightness = models.DecimalField(default=0.5, max_digits=3, decimal_places=2)
-    mode = models.OneToOneField(LedMode, on_delete=models.CASCADE)
+    mode = models.ForeignKey("LedMode", on_delete=models.SET_NULL, null=True)
 
     @cached_property
     def html(self):
