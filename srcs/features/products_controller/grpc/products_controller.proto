@@ -59,7 +59,7 @@ service ProjectController {
 }
 
 message BaseProductDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message BaseProductListRequest {
@@ -70,27 +70,27 @@ message BaseProductListResponse {
 }
 
 message BaseProductPartialUpdateRequest {
-    int32 id = 1;
     repeated string categories = 2;
     repeated string _partial_update_fields = 3;
     string name = 4;
+    string uuid = 5;
 }
 
 message BaseProductRequest {
-    int32 id = 1;
     repeated string categories = 2;
     string name = 3;
+    string uuid = 4;
 }
 
 message BaseProductResponse {
-    int32 id = 1;
     repeated string categories = 2;
     string name = 3;
     optional int32 polymorphic_ctype = 4;
+    string uuid = 5;
 }
 
 message BaseProductRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message CategoryDestroyRequest {
@@ -125,7 +125,7 @@ message CategoryRetrieveRequest {
 }
 
 message CoffeeMachineDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message CoffeeMachineListRequest {
@@ -136,7 +136,6 @@ message CoffeeMachineListResponse {
 }
 
 message CoffeeMachinePartialUpdateRequest {
-    int32 id = 1;
     repeated string _partial_update_fields = 2;
     string name = 3;
     int32 status = 4;
@@ -147,10 +146,10 @@ message CoffeeMachinePartialUpdateRequest {
     bool filter_position = 9;
     int32 mode_value = 10;
     repeated int64 categories = 11;
+    string uuid = 12;
 }
 
 message CoffeeMachineRequest {
-    int32 id = 1;
     string name = 2;
     int32 status = 3;
     float heat = 4;
@@ -160,10 +159,10 @@ message CoffeeMachineRequest {
     bool filter_position = 8;
     int32 mode_value = 9;
     repeated int64 categories = 10;
+    string uuid = 11;
 }
 
 message CoffeeMachineResponse {
-    int32 id = 1;
     string name = 2;
     int32 status = 3;
     float heat = 4;
@@ -174,10 +173,11 @@ message CoffeeMachineResponse {
     int32 mode_value = 9;
     optional int32 polymorphic_ctype = 10;
     repeated int64 categories = 11;
+    string uuid = 12;
 }
 
 message CoffeeMachineRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message LedModeDestroyRequest {
@@ -213,7 +213,7 @@ message LedModeRetrieveRequest {
 }
 
 message LedPanelDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message LedPanelListRequest {
@@ -224,36 +224,36 @@ message LedPanelListResponse {
 }
 
 message LedPanelPartialUpdateRequest {
-    int32 id = 1;
     repeated string _partial_update_fields = 2;
     string name = 3;
     int32 status = 4;
     double brightness = 5;
     optional int64 mode = 6;
     repeated int64 categories = 7;
+    string uuid = 8;
 }
 
 message LedPanelRequest {
-    int32 id = 1;
     string name = 2;
     int32 status = 3;
     double brightness = 4;
     optional int64 mode = 5;
     repeated int64 categories = 6;
+    string uuid = 7;
 }
 
 message LedPanelResponse {
-    int32 id = 1;
     string name = 2;
     int32 status = 3;
     double brightness = 4;
     optional int32 polymorphic_ctype = 5;
     optional int64 mode = 6;
     repeated int64 categories = 7;
+    string uuid = 8;
 }
 
 message LedPanelRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message ProjectDestroyRequest {

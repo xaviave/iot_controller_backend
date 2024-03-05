@@ -1,6 +1,9 @@
 from django.test import TransactionTestCase, override_settings
 from django_socio_grpc.tests.grpc_test_utils.fake_grpc import FakeFullAIOGRPC
-from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
+from features.products_controller.grpc import (
+    products_controller_pb2,
+    products_controller_pb2_grpc,
+)
 from features.products_controller.views.category import CategoryService
 from features.products_controller.views.products.led.led_mode import LedModeService
 from features.products_controller.views.products.led.led_panel import LedPanelService
@@ -9,8 +12,6 @@ from google.protobuf import json_format
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestLedPanel(TransactionTestCase):
-    reset_sequences = True
-
     @property
     def _ignored_key(self) -> list:
         return ["polymorphicCtype"]
@@ -69,7 +70,7 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="home", status=1, brightness=0.02, mode=led_mode_id, categories=[category_id]
         )
-        await grpc_stub.Create(request)
+        create_res = await grpc_stub.Create(request)
         # Check one led_panel in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
         json_res = self.clean_response(json_format.MessageToDict(res))
@@ -80,7 +81,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 0.02,
                         "categories": [str(category_id)],
-                        "id": 1,
+                        "uuid": create_res.uuid,
                         "mode": str(led_mode_id),
                         "name": "home",
                         "status": 1,
@@ -100,7 +101,7 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="kill me", status=1, brightness=1.22, mode=led_mode_id, categories=[category_id]
         )
-        await grpc_stub.Create(request)
+        create_res = await grpc_stub.Create(request)
 
         # Check one LedPanel Object in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
@@ -112,7 +113,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 1.22,
                         "categories": [str(category_id)],
-                        "id": 1,
+                        "uuid": create_res.uuid,
                         "mode": str(led_mode_id),
                         "name": "kill me",
                         "status": 1,
@@ -122,7 +123,7 @@ class TestLedPanel(TransactionTestCase):
         )
 
         # Delete LedPanel Object
-        request = products_controller_pb2.LedPanelDestroyRequest(id=json_res["results"][0]["id"])
+        request = products_controller_pb2.LedPanelDestroyRequest(uuid=create_res.uuid)
         grpc_stub.Destroy(request)
 
         # Check empty dataset
@@ -143,15 +144,15 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="mamacita", status=1, brightness=1.08, mode=led_mode_id_1, categories=[category_id_1]
         )
-        await grpc_stub.Create(request)
+        create_res_0 = await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
             name="killed me", status=3, brightness=1.3, mode=led_mode_id_2, categories=[category_id_2]
         )
-        await grpc_stub.Create(request)
+        create_res_1 = await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
             name="please past", status=2, brightness=4.69, mode=led_mode_id_2, categories=[category_id_3]
         )
-        await grpc_stub.Create(request)
+        create_res_2 = await grpc_stub.Create(request)
 
         # Query all LedPanel
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
@@ -163,7 +164,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 1.08,
                         "categories": [str(category_id_1)],
-                        "id": 1,
+                        "uuid": create_res_0.uuid,
                         "mode": str(led_mode_id_1),
                         "name": "mamacita",
                         "status": 1,
@@ -171,7 +172,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 1.3,
                         "categories": [str(category_id_2)],
-                        "id": 2,
+                        "uuid": create_res_1.uuid,
                         "mode": str(led_mode_id_2),
                         "name": "killed me",
                         "status": 3,
@@ -179,7 +180,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 4.69,
                         "categories": [str(category_id_3)],
-                        "id": 3,
+                        "uuid": create_res_2.uuid,
                         "mode": str(led_mode_id_2),
                         "name": "please past",
                         "status": 2,
@@ -203,7 +204,7 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="home, ie", status=2, brightness=0.99, mode=led_mode_id, categories=[category_id]
         )
-        await grpc_stub.Create(request)
+        create_res = await grpc_stub.Create(request)
 
         # Check one led_panel in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
@@ -215,7 +216,7 @@ class TestLedPanel(TransactionTestCase):
                     {
                         "brightness": 0.99,
                         "categories": [str(category_id)],
-                        "id": 1,
+                        "uuid": create_res.uuid,
                         "mode": str(led_mode_id),
                         "name": "home, ie",
                         "status": 2,
@@ -225,14 +226,14 @@ class TestLedPanel(TransactionTestCase):
         )
 
         # Query one LedPanel Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=1))
+        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
                 "brightness": 0.99,
                 "categories": [str(category_id)],
-                "id": 1,
+                "uuid": create_res.uuid,
                 "mode": str(led_mode_id),
                 "name": "home, ie",
                 "status": 2,
@@ -240,21 +241,21 @@ class TestLedPanel(TransactionTestCase):
         )
 
         # Partial Update LedPanel Object in dataset
-        res = await grpc_stub.PartialUpdate(
+        partial_update_res = await grpc_stub.PartialUpdate(
             products_controller_pb2.LedPanelPartialUpdateRequest(
-                id=1, _partial_update_fields=["name", "brightness"], name="wow", brightness=0.55
+                uuid=create_res.uuid, _partial_update_fields=["name", "brightness"], name="wow", brightness=0.55
             )
         )
 
         # Query one LedPanel Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=1))
+        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(uuid=partial_update_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
                 "brightness": 0.55,
                 "categories": [str(category_id)],
-                "id": 1,
+                "uuid": create_res.uuid,
                 "mode": str(led_mode_id),
                 "name": "wow",
                 "status": 2,
@@ -283,17 +284,17 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="please past oh", status=2, brightness=4.69, mode=led_mode_id_2, categories=[category_id_3]
         )
-        await grpc_stub.Create(request)
+        create_res = await grpc_stub.Create(request)
 
         # Query one LedPanel Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=3))
+        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
                 "brightness": 4.69,
                 "categories": [str(category_id_3)],
-                "id": 3,
+                "uuid": create_res.uuid,
                 "mode": str(led_mode_id_2),
                 "name": "please past oh",
                 "status": 2,
@@ -311,17 +312,17 @@ class TestLedPanel(TransactionTestCase):
         request = products_controller_pb2.LedPanelRequest(
             name="no home", status=3, brightness=0.05, mode=led_mode_id, categories=[category_id]
         )
-        await grpc_stub.Create(request)
+        create_res = await grpc_stub.Create(request)
 
         # Query one LedPanel Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=1))
+        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
                 "brightness": 0.05,
                 "categories": [str(category_id)],
-                "id": 1,
+                "uuid": create_res.uuid,
                 "mode": str(led_mode_id),
                 "name": "no home",
                 "status": 3,
@@ -329,21 +330,26 @@ class TestLedPanel(TransactionTestCase):
         )
 
         # Query one Update Object in dataset
-        res = await grpc_stub.Update(
+        update_res = await grpc_stub.Update(
             products_controller_pb2.LedPanelRequest(
-                id=1, name="no hhhome", status=2, brightness=0.15, mode=led_mode_id, categories=[category_id]
+                uuid=create_res.uuid,
+                name="no hhhome",
+                status=2,
+                brightness=0.15,
+                mode=led_mode_id,
+                categories=[category_id],
             )
         )
 
         # Query one LedPanel Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=1))
+        res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(uuid=update_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
                 "brightness": 0.15,
                 "categories": [str(category_id)],
-                "id": 1,
+                "uuid": create_res.uuid,
                 "mode": str(led_mode_id),
                 "name": "no hhhome",
                 "status": 2,

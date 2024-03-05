@@ -1,7 +1,10 @@
 import asyncio
 
 import grpc
-from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
+from features.products_controller.grpc import (
+    products_controller_pb2,
+    products_controller_pb2_grpc,
+)
 
 
 async def main():
