@@ -227,14 +227,17 @@ class TestLedPanel(TransactionTestCase):
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=1))
         json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(json_res, {
-                        "brightness": 0.99,
-                        "categories": [str(category_id)],
-                        "id": 1,
-                        "mode": str(led_mode_id),
-                        "name": "home, ie",
-                        "status": 2,
-                    })
+        self.assertDictEqual(
+            json_res,
+            {
+                "brightness": 0.99,
+                "categories": [str(category_id)],
+                "id": 1,
+                "mode": str(led_mode_id),
+                "name": "home, ie",
+                "status": 2,
+            },
+        )
 
         # Partial Update LedPanel Object in dataset
         res = await grpc_stub.PartialUpdate(
