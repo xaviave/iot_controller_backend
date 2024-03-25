@@ -48,6 +48,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 GRPC_FRAMEWORK = {
     "ROOT_HANDLERS_HOOK": "features.products_controller.handlers.grpc_handlers",
     "GRPC_CHANNEL_PORT": 50051,
+    # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    # "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.BasicAuthentication"],
 }
 
 MIDDLEWARE = [

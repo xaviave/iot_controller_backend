@@ -47,13 +47,13 @@ class TestLedPanel(TransactionTestCase):
         category_grpc_stub = self.category_fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
         request = products_controller_pb2.CategoryRequest(name=name)
         category = await category_grpc_stub.Create(request)
-        return category.id
+        return category.uuid
 
     async def create_led_mode(self, name: str = "led_mode") -> int:
         led_mode_grpc_stub = self.led_mode_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedModeControllerStub)
         request = products_controller_pb2.LedModeRequest(name=name)
         led_mode = await led_mode_grpc_stub.Create(request)
-        return led_mode.id
+        return led_mode.uuid
 
     async def test_async_create_led_panel(self):
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)

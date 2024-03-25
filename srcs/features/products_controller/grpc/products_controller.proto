@@ -67,6 +67,7 @@ message BaseProductListRequest {
 
 message BaseProductListResponse {
     repeated BaseProductResponse results = 1;
+    int32 count = 2;
 }
 
 message BaseProductPartialUpdateRequest {
@@ -94,7 +95,7 @@ message BaseProductRetrieveRequest {
 }
 
 message CategoryDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message CategoryListRequest {
@@ -102,26 +103,27 @@ message CategoryListRequest {
 
 message CategoryListResponse {
     repeated CategoryResponse results = 1;
+    int32 count = 2;
 }
 
 message CategoryPartialUpdateRequest {
-    int32 id = 1;
     repeated string _partial_update_fields = 2;
     string name = 3;
+    string uuid = 4;
 }
 
 message CategoryRequest {
-    int32 id = 1;
     string name = 2;
+    string uuid = 3;
 }
 
 message CategoryResponse {
-    int32 id = 1;
     string name = 2;
+    string uuid = 3;
 }
 
 message CategoryRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message CoffeeMachineDestroyRequest {
@@ -133,6 +135,7 @@ message CoffeeMachineListRequest {
 
 message CoffeeMachineListResponse {
     repeated CoffeeMachineResponse results = 1;
+    int32 count = 2;
 }
 
 message CoffeeMachinePartialUpdateRequest {
@@ -145,7 +148,7 @@ message CoffeeMachinePartialUpdateRequest {
     int32 coffee_level = 8;
     bool filter_position = 9;
     int32 mode_value = 10;
-    repeated int64 categories = 11;
+    repeated string categories = 11;
     string uuid = 12;
 }
 
@@ -158,7 +161,7 @@ message CoffeeMachineRequest {
     int32 coffee_level = 7;
     bool filter_position = 8;
     int32 mode_value = 9;
-    repeated int64 categories = 10;
+    repeated string categories = 10;
     string uuid = 11;
 }
 
@@ -172,7 +175,7 @@ message CoffeeMachineResponse {
     bool filter_position = 8;
     int32 mode_value = 9;
     optional int32 polymorphic_ctype = 10;
-    repeated int64 categories = 11;
+    repeated string categories = 11;
     string uuid = 12;
 }
 
@@ -181,7 +184,7 @@ message CoffeeMachineRetrieveRequest {
 }
 
 message LedModeDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message LedModeListRequest {
@@ -189,27 +192,28 @@ message LedModeListRequest {
 
 message LedModeListResponse {
     repeated LedModeResponse results = 1;
+    int32 count = 2;
 }
 
 message LedModePartialUpdateRequest {
-    int32 id = 1;
     repeated string _partial_update_fields = 2;
     string name = 3;
+    string uuid = 4;
 }
 
 message LedModeRequest {
-    int32 id = 1;
     string name = 2;
+    string uuid = 3;
 }
 
 message LedModeResponse {
-    int32 id = 1;
     string name = 2;
     optional int32 polymorphic_ctype = 3;
+    string uuid = 4;
 }
 
 message LedModeRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message LedPanelDestroyRequest {
@@ -221,6 +225,7 @@ message LedPanelListRequest {
 
 message LedPanelListResponse {
     repeated LedPanelResponse results = 1;
+    int32 count = 2;
 }
 
 message LedPanelPartialUpdateRequest {
@@ -228,8 +233,8 @@ message LedPanelPartialUpdateRequest {
     string name = 3;
     int32 status = 4;
     double brightness = 5;
-    optional int64 mode = 6;
-    repeated int64 categories = 7;
+    optional string mode = 6;
+    repeated string categories = 7;
     string uuid = 8;
 }
 
@@ -237,8 +242,8 @@ message LedPanelRequest {
     string name = 2;
     int32 status = 3;
     double brightness = 4;
-    optional int64 mode = 5;
-    repeated int64 categories = 6;
+    optional string mode = 5;
+    repeated string categories = 6;
     string uuid = 7;
 }
 
@@ -247,8 +252,8 @@ message LedPanelResponse {
     int32 status = 3;
     double brightness = 4;
     optional int32 polymorphic_ctype = 5;
-    optional int64 mode = 6;
-    repeated int64 categories = 7;
+    optional string mode = 6;
+    repeated string categories = 7;
     string uuid = 8;
 }
 
@@ -257,7 +262,7 @@ message LedPanelRetrieveRequest {
 }
 
 message ProjectDestroyRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 
 message ProjectListRequest {
@@ -265,34 +270,35 @@ message ProjectListRequest {
 
 message ProjectListResponse {
     repeated ProjectResponse results = 1;
+    int32 count = 2;
 }
 
 message ProjectPartialUpdateRequest {
-    int32 id = 1;
     repeated string products = 2;
     repeated string _partial_update_fields = 3;
     string pub_date = 4;
     string name = 5;
     int32 owner = 6;
+    string uuid = 7;
 }
 
 message ProjectRequest {
-    int32 id = 1;
     repeated string products = 2;
     string pub_date = 3;
     string name = 4;
     int32 owner = 5;
+    string uuid = 6;
 }
 
 message ProjectResponse {
-    int32 id = 1;
     repeated string products = 2;
     string pub_date = 3;
     string name = 4;
     int32 owner = 5;
+    string uuid = 6;
 }
 
 message ProjectRetrieveRequest {
-    int32 id = 1;
+    string uuid = 1;
 }
 

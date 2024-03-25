@@ -49,7 +49,7 @@ class TestCoffeeMachine(TransactionTestCase):
         category_grpc_stub = self.category_fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
         request = products_controller_pb2.CategoryRequest(name=name)
         category = await category_grpc_stub.Create(request)
-        return category.id
+        return category.uuid
 
     async def test_async_create_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -61,7 +61,7 @@ class TestCoffeeMachine(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Category & LedMode Object
-        category_id = await self.create_category()
+        category_uuid = await self.create_category()
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -73,7 +73,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=1,
-            categories=[category_id],
+            categories=[category_uuid],
         )
         create_res = await grpc_stub.Create(request)
 
@@ -85,7 +85,7 @@ class TestCoffeeMachine(TransactionTestCase):
             {
                 "results": [
                     {
-                        "categories": [str(category_id)],
+                        "categories": [str(category_uuid)],
                         "uuid": create_res.uuid,
                         "name": "cofeee",
                         "status": 1,
@@ -106,7 +106,7 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_id = await self.create_category()
+        category_uuid = await self.create_category()
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -118,7 +118,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_id],
+            categories=[category_uuid],
         )
         create_res = await grpc_stub.Create(request)
 
@@ -130,7 +130,7 @@ class TestCoffeeMachine(TransactionTestCase):
             {
                 "results": [
                     {
-                        "categories": [str(category_id)],
+                        "categories": [str(category_uuid)],
                         "uuid": create_res.uuid,
                         "name": "kill coffee",
                         "status": 1,
@@ -157,9 +157,9 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_id_1 = await self.create_category("1")
-        category_id_2 = await self.create_category("2")
-        category_id_3 = await self.create_category("3")
+        category_uuid_1 = await self.create_category("1")
+        category_uuid_2 = await self.create_category("2")
+        category_uuid_3 = await self.create_category("3")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -171,7 +171,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=3,
-            categories=[category_id_1],
+            categories=[category_uuid_1],
         )
         create_res_0 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -183,7 +183,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_id_2],
+            categories=[category_uuid_2],
         )
         create_res_1 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -195,7 +195,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=1,
-            categories=[category_id_3],
+            categories=[category_uuid_3],
         )
         create_res_2 = await grpc_stub.Create(request)
 
@@ -207,7 +207,7 @@ class TestCoffeeMachine(TransactionTestCase):
             {
                 "results": [
                     {
-                        "categories": [str(category_id_1)],
+                        "categories": [str(category_uuid_1)],
                         "uuid": create_res_0.uuid,
                         "name": "coffee kitchen",
                         "status": 1,
@@ -217,7 +217,7 @@ class TestCoffeeMachine(TransactionTestCase):
                         "modeValue": 3,
                     },
                     {
-                        "categories": [str(category_id_2)],
+                        "categories": [str(category_uuid_2)],
                         "uuid": create_res_1.uuid,
                         "name": "kill coffee why not",
                         "status": 2,
@@ -227,7 +227,7 @@ class TestCoffeeMachine(TransactionTestCase):
                         "filterPosition": True,
                     },
                     {
-                        "categories": [str(category_id_3)],
+                        "categories": [str(category_uuid_3)],
                         "uuid": create_res_2.uuid,
                         "name": "kill",
                         "status": 3,
@@ -251,7 +251,7 @@ class TestCoffeeMachine(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Category & LedMode Object
-        category_id = await self.create_category("nnnna")
+        category_uuid = await self.create_category("nnnna")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -263,7 +263,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_id],
+            categories=[category_uuid],
         )
         create_res = await grpc_stub.Create(request)
 
@@ -282,7 +282,7 @@ class TestCoffeeMachine(TransactionTestCase):
                         "waterLevel": 1,
                         "coffeeLevel": 1,
                         "filterPosition": True,
-                        "categories": [str(category_id)],
+                        "categories": [str(category_uuid)],
                     }
                 ]
             },
@@ -301,7 +301,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 "waterLevel": 1,
                 "coffeeLevel": 1,
                 "filterPosition": True,
-                "categories": [str(category_id)],
+                "categories": [str(category_uuid)],
             },
         )
 
@@ -327,7 +327,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 "waterLevel": 1,
                 "coffeeLevel": 1,
                 "filterPosition": True,
-                "categories": [str(category_id)],
+                "categories": [str(category_uuid)],
             },
         )
 
@@ -337,9 +337,9 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_id_1 = await self.create_category("11")
-        category_id_2 = await self.create_category("21")
-        category_id_3 = await self.create_category("13")
+        category_uuid_1 = await self.create_category("11")
+        category_uuid_2 = await self.create_category("21")
+        category_uuid_3 = await self.create_category("13")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -351,7 +351,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_id_1],
+            categories=[category_uuid_1],
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -363,7 +363,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_id_2],
+            categories=[category_uuid_2],
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -375,7 +375,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=0,
             filter_position=False,
             mode_value=0,
-            categories=[category_id_3],
+            categories=[category_uuid_3],
         )
         create_res = await grpc_stub.Create(request)
 
@@ -388,7 +388,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 "uuid": create_res.uuid,
                 "name": "no more coffee",
                 "status": 3,
-                "categories": [str(category_id_3)],
+                "categories": [str(category_uuid_3)],
             },
         )
 
@@ -398,7 +398,7 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_id = await self.create_category("222")
+        category_uuid = await self.create_category("222")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -410,7 +410,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=2,
             filter_position=True,
             mode_value=2,
-            categories=[category_id],
+            categories=[category_uuid],
         )
         create_res = await grpc_stub.Create(request)
 
@@ -429,7 +429,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 "coffeeLevel": 2,
                 "filterPosition": True,
                 "modeValue": 2,
-                "categories": [str(category_id)],
+                "categories": [str(category_uuid)],
             },
         )
 
@@ -445,7 +445,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 coffee_level=1,
                 filter_position=False,
                 mode_value=2,
-                categories=[category_id],
+                categories=[category_uuid],
             )
         )
 
@@ -463,6 +463,6 @@ class TestCoffeeMachine(TransactionTestCase):
                 "usedWaterLevel": 2,
                 "coffeeLevel": 1,
                 "modeValue": 2,
-                "categories": [str(category_id)],
+                "categories": [str(category_uuid)],
             },
         )

@@ -1,6 +1,7 @@
 import os
 
 import cv2
+import uuid
 from colorfield.fields import ColorField
 from django import forms
 from django.core.files.base import ContentFile
@@ -11,6 +12,7 @@ from polymorphic.models import PolymorphicModel
 
 
 class LedMode(PolymorphicModel):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
     # add a field for temporary mode that will be cleaned by celery
 

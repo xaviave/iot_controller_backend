@@ -105,7 +105,7 @@ class TestProject(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=1,
-            categories=[category.id],
+            categories=[category.uuid],
         )
         coffee_machine = await coffee_machine_grpc_stub.Create(request)
 
@@ -117,8 +117,8 @@ class TestProject(TransactionTestCase):
             name="".join(random.choice(string.ascii_lowercase) for _ in range(20)),
             status=3,
             brightness=0.05,
-            mode=led_mode.id,
-            categories=[category.id],
+            mode=led_mode.uuid,
+            categories=[category.uuid],
         )
         led_panel = await led_panel_grpc_stub.Create(request)
         return [coffee_machine.uuid, led_panel.uuid]
@@ -151,7 +151,7 @@ class TestProject(TransactionTestCase):
             {
                 "results": [
                     {
-                        "id": create_res.id,
+                        "uuid": create_res.uuid,
                         "name": "project smth",
                         "pubDate": project_date,
                         "owner": project_owner.id,
@@ -185,7 +185,7 @@ class TestProject(TransactionTestCase):
             {
                 "results": [
                     {
-                        "id": create_res.id,
+                        "uuid": create_res.uuid,
                         "name": "american dream",
                         "pubDate": project_date,
                         "owner": project_owner.id,
@@ -196,7 +196,7 @@ class TestProject(TransactionTestCase):
         )
 
         # Delete Project Object
-        request = products_controller_pb2.ProjectDestroyRequest(id=create_res.id)
+        request = products_controller_pb2.ProjectDestroyRequest(uuid=create_res.uuid)
         grpc_stub.Destroy(request)
 
         # Check empty dataset
@@ -249,21 +249,21 @@ class TestProject(TransactionTestCase):
             {
                 "results": [
                     {
-                        "id": create_res_0.id,
+                        "uuid": create_res_0.uuid,
                         "name": "project 1",
                         "pubDate": project_date_0,
                         "owner": project_owner_0.id,
                         "products": products_0,
                     },
                     {
-                        "id": create_res_1.id,
+                        "uuid": create_res_1.uuid,
                         "name": "project 2",
                         "pubDate": project_date_1,
                         "owner": project_owner_1.id,
                         "products": products_1,
                     },
                     {
-                        "id": create_res_2.id,
+                        "uuid": create_res_2.uuid,
                         "name": "project 3",
                         "pubDate": project_date_2,
                         "owner": project_owner_2.id,
@@ -294,12 +294,12 @@ class TestProject(TransactionTestCase):
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
+        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
-                "id": create_res.id,
+                "uuid": create_res.uuid,
                 "name": "untitled unmastered",
                 "pubDate": project_date,
                 "owner": project_owner.id,
@@ -311,7 +311,7 @@ class TestProject(TransactionTestCase):
         new_date = project_date + datetime.timedelta(days=30)
         partial_update_res = await grpc_stub.PartialUpdate(
             products_controller_pb2.ProjectPartialUpdateRequest(
-                id=create_res.id,
+                uuid=create_res.uuid,
                 _partial_update_fields=["name", "pub_date"],
                 name="classic",
                 pub_date=new_date.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -319,12 +319,12 @@ class TestProject(TransactionTestCase):
         )
 
         # Query one Project Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=partial_update_res.id))
+        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=partial_update_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
-                "id": create_res.id,
+                "uuid": create_res.uuid,
                 "name": "classic",
                 "pubDate": new_date,
                 "owner": project_owner.id,
@@ -371,12 +371,12 @@ class TestProject(TransactionTestCase):
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
+        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
-                "id": create_res.id,
+                "uuid": create_res.uuid,
                 "name": "3d but light",
                 "pubDate": project_date_2,
                 "owner": project_owner_2.id,
@@ -405,12 +405,12 @@ class TestProject(TransactionTestCase):
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
+        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
-                "id": create_res.id,
+                "uuid": create_res.uuid,
                 "name": "awesome album",
                 "pubDate": project_date,
                 "owner": project_owner.id,
@@ -422,7 +422,7 @@ class TestProject(TransactionTestCase):
         new_date = project_date + datetime.timedelta(days=3)
         update_res = await grpc_stub.Update(
             products_controller_pb2.ProjectRequest(
-                id=create_res.id,
+                uuid=create_res.uuid,
                 name="classic",
                 owner=project_owner.id,
                 pub_date=new_date.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -431,12 +431,12 @@ class TestProject(TransactionTestCase):
         )
 
         # Query one Project Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=update_res.id))
+        res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=update_res.uuid))
         json_res = self.clean_response(json_format.MessageToDict(res))
         self.assertDictEqual(
             json_res,
             {
-                "id": create_res.id,
+                "uuid": create_res.uuid,
                 "name": "classic",
                 "pubDate": new_date,
                 "owner": project_owner.id,
