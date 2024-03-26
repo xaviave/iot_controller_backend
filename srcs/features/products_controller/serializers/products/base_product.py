@@ -3,17 +3,12 @@ from features.products_controller.grpc.products_controller_pb2 import (
     BaseProductListResponse,
     BaseProductResponse,
 )
-from features.products_controller.models.category import Category
+from features.products_controller.serializers.category import CategorySerializer
 from features.products_controller.models.products.base_product import BaseProduct
-from rest_framework.serializers import PrimaryKeyRelatedField, UUIDField
 
 
 class BaseProductSerializer(proto_serializers.ModelProtoSerializer):
-    categories = PrimaryKeyRelatedField(
-        queryset=Category.objects.all(),
-        pk_field=UUIDField(format="hex_verbose"),
-        many=True,
-    )
+    categories = CategorySerializer(many=True)
 
     class Meta:
         model = BaseProduct

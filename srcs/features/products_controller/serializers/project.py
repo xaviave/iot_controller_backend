@@ -4,16 +4,12 @@ from features.products_controller.grpc.products_controller_pb2 import (
     ProjectResponse,
 )
 from features.products_controller.models.products.base_product import BaseProduct
+from features.products_controller.serializers.products.base_product import BaseProductSerializer
 from features.products_controller.models.project import Project
 from rest_framework.serializers import PrimaryKeyRelatedField, UUIDField
 
-# https://www.django-rest-framework.org/api-guide/relations/
 class ProjectSerializer(proto_serializers.ModelProtoSerializer):
-    products = PrimaryKeyRelatedField(
-        queryset=BaseProduct.objects.all(),
-        pk_field=UUIDField(format="hex_verbose"),
-        many=True,
-    )
+    products = BaseProductSerializer(many=True)
 
     class Meta:
         model = Project
