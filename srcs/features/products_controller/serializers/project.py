@@ -7,7 +7,7 @@ from features.products_controller.models.products.base_product import BaseProduc
 from features.products_controller.models.project import Project
 from rest_framework.serializers import PrimaryKeyRelatedField, UUIDField
 
-
+# https://www.django-rest-framework.org/api-guide/relations/
 class ProjectSerializer(proto_serializers.ModelProtoSerializer):
     products = PrimaryKeyRelatedField(
         queryset=BaseProduct.objects.all(),
