@@ -4,9 +4,12 @@ from features.products_controller.grpc.products_controller_pb2 import (
     CategoryResponse,
 )
 from features.products_controller.models.category import Category
+from rest_framework import serializers
 
 
 class CategorySerializer(proto_serializers.ModelProtoSerializer):
+    name = serializers.CharField(validators=[])
+
     class Meta:
         model = Category
         fields = "__all__"

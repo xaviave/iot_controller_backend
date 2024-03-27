@@ -8,7 +8,6 @@ from features.products_controller.views.category import CategoryService
 from features.products_controller.views.products.coffee_machine import (
     CoffeeMachineService,
 )
-from google.protobuf import json_format
 
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
@@ -18,18 +17,6 @@ class TestCoffeeMachine(TransactionTestCase):
     so the return message will not be serialized with the null values.
     If one value is 0 or False, it will not be in the Response.
     """
-
-    @property
-    def _ignored_key(self) -> list:
-        return ["polymorphicCtype"]
-
-    def _clean_dict_response(self, d: dict) -> dict:
-        return {k: v for k, v in d.items() if k not in self._ignored_key}
-
-    def clean_response(self, res: dict) -> dict:
-        if "results" in res.keys():
-            return {"results": [self._clean_dict_response(d) for d in res["results"]]}
-        return self._clean_dict_response(res)
 
     def setUp(self):
         self.category_fake_grpc = FakeFullAIOGRPC(
@@ -45,11 +32,12 @@ class TestCoffeeMachine(TransactionTestCase):
         self.category_fake_grpc.close()
         self.coffee_machine_fake_grpc.close()
 
-    async def create_category(self, name: str = "category") -> int:
-        category_grpc_stub = self.category_fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
+    async def create_category(
+        self, name: str = "category"
+    ) -> (products_controller_pb2.CategoryRequest, products_controller_pb2.CategoryResponse):
         request = products_controller_pb2.CategoryRequest(name=name)
-        category = await category_grpc_stub.Create(request)
-        return category.uuid
+        response = products_controller_pb2.CategoryResponse(name=name)
+        return request, response
 
     async def test_async_create_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -61,7 +49,7 @@ class TestCoffeeMachine(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Category & LedMode Object
-        category_uuid = await self.create_category()
+        category_request, category_response = await self.create_category()
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -73,32 +61,13 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=1,
-            categories=[category_uuid],
+            categories=[category_request],
         )
         create_res = await grpc_stub.Create(request)
 
         # Check one CoffeeMachine dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "categories": [str(category_uuid)],
-                        "uuid": create_res.uuid,
-                        "name": "cofeee",
-                        "status": 1,
-                        "heat": 110.01,
-                        "waterLevel": 1,
-                        "usedWaterLevel": 2,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                        "modeValue": 1,
-                    }
-                ]
-            },
-        )
+        self.assertEqual(res.results, [create_res])
 
     async def test_async_destroy_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -106,7 +75,7 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_uuid = await self.create_category()
+        category_request, category_response = await self.create_category()
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -118,33 +87,16 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_uuid],
+            categories=[category_request],
         )
         create_res = await grpc_stub.Create(request)
 
         # Check one CoffeeMachine Object in dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "categories": [str(category_uuid)],
-                        "uuid": create_res.uuid,
-                        "name": "kill coffee",
-                        "status": 1,
-                        "heat": 90.0,
-                        "waterLevel": 1,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                    }
-                ]
-            },
-        )
+        self.assertEqual(res.results, [create_res])
 
         # Delete CoffeeMachine Object
-        request = products_controller_pb2.CoffeeMachineDestroyRequest(uuid=json_res["results"][0]["uuid"])
+        request = products_controller_pb2.CoffeeMachineDestroyRequest(id=create_res.id)
         grpc_stub.Destroy(request)
 
         # Check empty dataset
@@ -157,9 +109,9 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_uuid_1 = await self.create_category("1")
-        category_uuid_2 = await self.create_category("2")
-        category_uuid_3 = await self.create_category("3")
+        category_1_request, category_1_response = await self.create_category("1")
+        category_2_request, category_2_response = await self.create_category("2")
+        category_3_request, category_3_response = await self.create_category("3")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -171,7 +123,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=3,
-            categories=[category_uuid_1],
+            categories=[category_1_request],
         )
         create_res_0 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -183,7 +135,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_uuid_2],
+            categories=[category_2_request],
         )
         create_res_1 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -195,51 +147,13 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=1,
-            categories=[category_uuid_3],
+            categories=[category_3_request],
         )
         create_res_2 = await grpc_stub.Create(request)
 
         # Query all CoffeeMachine
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "categories": [str(category_uuid_1)],
-                        "uuid": create_res_0.uuid,
-                        "name": "coffee kitchen",
-                        "status": 1,
-                        "heat": 91.0,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                        "modeValue": 3,
-                    },
-                    {
-                        "categories": [str(category_uuid_2)],
-                        "uuid": create_res_1.uuid,
-                        "name": "kill coffee why not",
-                        "status": 2,
-                        "heat": 190.0,
-                        "waterLevel": 1,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                    },
-                    {
-                        "categories": [str(category_uuid_3)],
-                        "uuid": create_res_2.uuid,
-                        "name": "kill",
-                        "status": 3,
-                        "heat": 80.1,
-                        "usedWaterLevel": 1,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                        "modeValue": 1,
-                    },
-                ]
-            },
-        )
+        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
 
     async def test_async_partial_update_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -251,7 +165,7 @@ class TestCoffeeMachine(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Category & LedMode Object
-        category_uuid = await self.create_category("nnnna")
+        category_request, category_response = await self.create_category("nnnna")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -263,73 +177,28 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_uuid],
+            categories=[category_request],
         )
         create_res = await grpc_stub.Create(request)
 
         # Check one coffee_machine in dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "uuid": create_res.uuid,
-                        "name": "love coffee",
-                        "status": 2,
-                        "heat": 40.16,
-                        "waterLevel": 1,
-                        "coffeeLevel": 1,
-                        "filterPosition": True,
-                        "categories": [str(category_uuid)],
-                    }
-                ]
-            },
-        )
+        self.assertEqual(res.results, [create_res])
 
         # Query one CoffeeMachine Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "love coffee",
-                "status": 2,
-                "heat": 40.16,
-                "waterLevel": 1,
-                "coffeeLevel": 1,
-                "filterPosition": True,
-                "categories": [str(category_uuid)],
-            },
-        )
+        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
+        self.assertEqual(res, create_res)
 
         # Partial Update CoffeeMachine Object in dataset
         partial_create_res = await grpc_stub.PartialUpdate(
             products_controller_pb2.CoffeeMachinePartialUpdateRequest(
-                uuid=create_res.uuid, _partial_update_fields=["name", "heat"], name="wow", heat=0.55
+                id=create_res.id, _partial_update_fields=["name", "heat"], name="wow", heat=0.55
             )
         )
 
         # Query one CoffeeMachine Object in dataset
-        res = await grpc_stub.Retrieve(
-            products_controller_pb2.CoffeeMachineRetrieveRequest(uuid=partial_create_res.uuid)
-        )
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "wow",
-                "status": 2,
-                "heat": 0.55,
-                "waterLevel": 1,
-                "coffeeLevel": 1,
-                "filterPosition": True,
-                "categories": [str(category_uuid)],
-            },
-        )
+        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=partial_create_res.id))
+        self.assertEqual(res, partial_create_res)
 
     async def test_async_retrieve_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -337,9 +206,9 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_uuid_1 = await self.create_category("11")
-        category_uuid_2 = await self.create_category("21")
-        category_uuid_3 = await self.create_category("13")
+        category_1_request, category_1_response = await self.create_category("11")
+        category_2_request, category_2_response = await self.create_category("21")
+        category_3_request, category_3_response = await self.create_category("13")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -351,7 +220,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_uuid_1],
+            categories=[category_1_request],
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -363,7 +232,7 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=1,
             filter_position=True,
             mode_value=0,
-            categories=[category_uuid_2],
+            categories=[category_2_request],
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -375,22 +244,13 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=0,
             filter_position=False,
             mode_value=0,
-            categories=[category_uuid_3],
+            categories=[category_3_request],
         )
         create_res = await grpc_stub.Create(request)
 
         # Query one CoffeeMachine Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "no more coffee",
-                "status": 3,
-                "categories": [str(category_uuid_3)],
-            },
-        )
+        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
+        self.assertEqual(res, create_res)
 
     async def test_async_update_coffee_machine(self):
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
@@ -398,7 +258,7 @@ class TestCoffeeMachine(TransactionTestCase):
         )
 
         # Create Category & LedMode Object
-        category_uuid = await self.create_category("222")
+        category_request, category_response = await self.create_category("222")
 
         # Create CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -410,34 +270,19 @@ class TestCoffeeMachine(TransactionTestCase):
             coffee_level=2,
             filter_position=True,
             mode_value=2,
-            categories=[category_uuid],
+            categories=[category_request],
         )
         create_res = await grpc_stub.Create(request)
 
         # Query one CoffeeMachine Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "killer of tha coffee",
-                "status": 3,
-                "heat": 60.3,
-                "waterLevel": 2,
-                "usedWaterLevel": 2,
-                "coffeeLevel": 2,
-                "filterPosition": True,
-                "modeValue": 2,
-                "categories": [str(category_uuid)],
-            },
-        )
+        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
+        self.assertEqual(res, create_res)
 
         # Query one Update Object in dataset
         update_res = await grpc_stub.Update(
             products_controller_pb2.CoffeeMachineRequest(
-                uuid=create_res.uuid,
-                name="killer of tha coffee",
+                id=create_res.id,
+                name="killer of tha coffo",
                 status=1,
                 heat=90.0,
                 water_level=2,
@@ -445,24 +290,10 @@ class TestCoffeeMachine(TransactionTestCase):
                 coffee_level=1,
                 filter_position=False,
                 mode_value=2,
-                categories=[category_uuid],
+                categories=[category_request],
             )
         )
 
         # Query one CoffeeMachine Object in dataset
-        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(uuid=update_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "killer of tha coffee",
-                "status": 1,
-                "heat": 90.0,
-                "waterLevel": 2,
-                "usedWaterLevel": 2,
-                "coffeeLevel": 1,
-                "modeValue": 2,
-                "categories": [str(category_uuid)],
-            },
-        )
+        res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=update_res.id))
+        self.assertEqual(res, update_res)

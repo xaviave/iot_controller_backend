@@ -6,7 +6,8 @@ from features.products_controller.grpc import (
     products_controller_pb2_grpc,
 )
 
-
+# query the oneof
+# data = getattr(config, config.WhichOneof('config')).value
 async def main():
     async with grpc.aio.insecure_channel("localhost:50051") as channel:
         stub = products_controller_pb2_grpc.CategoryControllerStub(channel)

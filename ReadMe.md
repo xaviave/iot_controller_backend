@@ -30,6 +30,11 @@ Different message's tags allow custom interaction and frontend display.
 - Allow user with rights (not just owner) to use a product/project.
 - Add auth over GRPC.
 
+## Linter
+
+    ruff format . && ruff check --select I --fix . && ruff check . --fix
+
+
 ## Install command
 
 ### Global settings

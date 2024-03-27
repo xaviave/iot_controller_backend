@@ -3,8 +3,8 @@ from features.products_controller.grpc.products_controller_pb2 import (
     BaseProductListResponse,
     BaseProductResponse,
 )
-from features.products_controller.serializers.category import CategorySerializer
 from features.products_controller.models.products.base_product import BaseProduct
+from features.products_controller.serializers.category import CategorySerializer
 
 
 class BaseProductSerializer(proto_serializers.ModelProtoSerializer):

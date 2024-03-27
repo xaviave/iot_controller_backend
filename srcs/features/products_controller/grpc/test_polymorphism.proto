@@ -1,17 +1,13 @@
+/*
+python3 -m grpc_tools.protoc  -I=. test_polymorphism.proto  --python_out=. --grpc_python_out=. --experimental_allow_proto3_optional
+*/
+
 syntax = "proto3";
 
 package base_app.products_controller;
 
 import "google/protobuf/empty.proto";
 
-service BaseProductController {
-    rpc Create(BaseProductRequest) returns (BaseProductResponse) {}
-    rpc Destroy(BaseProductDestroyRequest) returns (google.protobuf.Empty) {}
-    rpc List(BaseProductListRequest) returns (BaseProductListResponse) {}
-    rpc PartialUpdate(BaseProductPartialUpdateRequest) returns (BaseProductResponse) {}
-    rpc Retrieve(BaseProductRetrieveRequest) returns (BaseProductResponse) {}
-    rpc Update(BaseProductRequest) returns (BaseProductResponse) {}
-}
 
 service CategoryController {
     rpc Create(CategoryRequest) returns (CategoryResponse) {}
@@ -58,42 +54,6 @@ service ProjectController {
     rpc Update(ProjectRequest) returns (ProjectResponse) {}
 }
 
-message BaseProductDestroyRequest {
-    int32 id = 1;
-}
-
-message BaseProductListRequest {
-}
-
-message BaseProductListResponse {
-    repeated BaseProductResponse results = 1;
-    int32 count = 2;
-}
-
-message BaseProductPartialUpdateRequest {
-    repeated CategoryRequest categories = 2;
-    repeated string _partial_update_fields = 3;
-    string name = 4;
-    int32 id = 5;
-}
-
-message BaseProductRequest {
-    repeated CategoryRequest categories = 2;
-    string name = 3;
-    int32 id = 4;
-}
-
-message BaseProductResponse {
-    repeated CategoryResponse categories = 2;
-    string name = 3;
-    optional int32 polymorphic_ctype = 4;
-    int32 id = 5;
-}
-
-message BaseProductRetrieveRequest {
-    int32 id = 1;
-}
-
 message CategoryDestroyRequest {
     int32 id = 1;
 }
@@ -131,6 +91,24 @@ message CoffeeMachineDestroyRequest {
 }
 
 message CoffeeMachineListRequest {
+}
+
+// Polymorphism
+// Manual
+message BaseProductRequest {
+  string type = 1;
+  oneof product {
+    CoffeeMachineRequest coffee_machine = 2;
+    LedPanelRequest led_panel = 3;
+  }
+}
+
+message BaseProductResponse {
+  string type = 1;
+  oneof product {
+    CoffeeMachineResponse coffee_machine = 2;
+    LedPanelResponse led_panel = 3;
+  }
 }
 
 message CoffeeMachineListResponse {

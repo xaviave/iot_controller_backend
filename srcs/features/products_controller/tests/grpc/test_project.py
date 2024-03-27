@@ -18,7 +18,6 @@ from features.products_controller.views.products.led.led_mode import LedModeServ
 from features.products_controller.views.products.led.led_panel import LedPanelService
 from features.products_controller.views.project import ProjectService
 from freezegun import freeze_time
-from google.protobuf import json_format
 
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
@@ -28,25 +27,6 @@ class TestProject(TransactionTestCase):
     so the return message will not be serialized with the null values.
     If one value is 0 or False, it will not be in the Response.
     """
-
-    @property
-    def _ignored_key(self) -> list:
-        return ["polymorphicCtype"]
-
-    @freeze_time("2024-02-02 03:21:34")
-    def _clean_dict_response(self, d: dict) -> dict:
-        clean_dict = {}
-        for k, v in d.items():
-            if k == "pubDate":
-                clean_dict[k] = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%SZ")
-            elif k not in self._ignored_key:
-                clean_dict[k] = v
-        return clean_dict
-
-    def clean_response(self, res: dict) -> dict:
-        if "results" in res.keys():
-            return {"results": [self._clean_dict_response(d) for d in res["results"]]}
-        return self._clean_dict_response(res)
 
     def setUp(self):
         self.category_fake_grpc = FakeFullAIOGRPC(
@@ -77,51 +57,44 @@ class TestProject(TransactionTestCase):
         self.coffee_machine_fake_grpc.close()
         self.project_fake_grpc.close()
 
-    async def create_product(self) -> list[str]:
+    async def create_product(self):
         # Create Category Object
-        category_grpc_stub = self.category_fake_grpc.get_fake_stub(products_controller_pb2_grpc.CategoryControllerStub)
-        request = products_controller_pb2.CategoryRequest(
-            name="".join(random.choice(string.ascii_lowercase) for _ in range(20))
-        )
-        category = await category_grpc_stub.Create(request)
+        category_request = products_controller_pb2.CategoryRequest(name="cate")
+        category_response = products_controller_pb2.CategoryResponse(name="cate")
 
         # Create LedMode Object
-        led_mode_grpc_stub = self.led_mode_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedModeControllerStub)
-        request = products_controller_pb2.LedModeRequest(
-            name="".join(random.choice(string.ascii_lowercase) for _ in range(20))
-        )
-        led_mode = await led_mode_grpc_stub.Create(request)
+        led_mode_request = products_controller_pb2.LedModeRequest(name="mode smth")
+        led_mode_response = products_controller_pb2.LedModeResponse(name="mode smth")
 
         # Create CoffeeMachine Object
-        coffee_machine_grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
-            products_controller_pb2_grpc.CoffeeMachineControllerStub
-        )
-        request = products_controller_pb2.CoffeeMachineRequest(
-            name="".join(random.choice(string.ascii_lowercase) for _ in range(20)),
-            status=1,
-            heat=110.01,
-            water_level=1,
-            used_water_level=2,
-            coffee_level=1,
-            filter_position=True,
-            mode_value=1,
-            categories=[category.uuid],
-        )
-        coffee_machine = await coffee_machine_grpc_stub.Create(request)
+        coffee_machine_args = {
+            "name": "".join(random.choice(string.ascii_lowercase) for _ in range(20)),
+            "status": 1,
+            "heat": 110.01,
+            "water_level": 1,
+            "used_water_level": 2,
+            "coffee_level": 1,
+            "filter_position": True,
+            "mode_value": 1,
+            "categories": [category_request],
+        }
+        coffee_machine_request = products_controller_pb2.CoffeeMachineRequest(**coffee_machine_args)
+        coffee_machine_args["categories"] = [category_response]
+        coffee_machine_response = products_controller_pb2.CoffeeMachineResponse(**coffee_machine_args)
 
         # Create LedPanel Object
-        led_panel_grpc_stub = self.led_panel_fake_grpc.get_fake_stub(
-            products_controller_pb2_grpc.LedPanelControllerStub
-        )
-        request = products_controller_pb2.LedPanelRequest(
-            name="".join(random.choice(string.ascii_lowercase) for _ in range(20)),
-            status=3,
-            brightness=0.05,
-            mode=led_mode.uuid,
-            categories=[category.uuid],
-        )
-        led_panel = await led_panel_grpc_stub.Create(request)
-        return [coffee_machine.uuid, led_panel.uuid]
+        led_panel_args = {
+            "name": "".join(random.choice(string.ascii_lowercase) for _ in range(20)),
+            "status": 3,
+            "brightness": 0.05,
+            "mode": led_mode_request,
+            "categories": [category_request],
+        }
+        led_panel_request = products_controller_pb2.LedPanelRequest(**led_panel_args)
+        led_panel_args["mode"] = led_mode_response
+        led_panel_args["categories"] = [category_response]
+        led_panel_response = products_controller_pb2.LedPanelResponse(**led_panel_args)
+        return (coffee_machine_request, led_panel_request), (coffee_machine_response, led_panel_response)
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_create_project(self):
@@ -132,68 +105,40 @@ class TestProject(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Project Object
-        products = await self.create_product()
+        products_request, products_response = await self.create_product()
         project_date = datetime.datetime.now()
         project_owner = await sync_to_async(User.objects.create)(username="hannah montana", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="project smth",
             owner=project_owner.id,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products,
+            products=products_request,
         )
         create_res = await grpc_stub.Create(request)
 
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "uuid": create_res.uuid,
-                        "name": "project smth",
-                        "pubDate": project_date,
-                        "owner": project_owner.id,
-                        "products": products,
-                    }
-                ]
-            },
-        )
+        self.assertEqual(res, [create_res])
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_destroy_project(self):
         grpc_stub = self.project_fake_grpc.get_fake_stub(products_controller_pb2_grpc.ProjectControllerStub)
 
         # Create Project Object
-        products = await self.create_product()
+        products_request, products_response = await self.create_product()
         project_date = datetime.datetime.now()
         project_owner = await sync_to_async(User.objects.create)(username="21 savage", password="21")
         request = products_controller_pb2.ProjectRequest(
             name="american dream",
             owner=project_owner.id,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products,
+            products=products_request,
         )
         create_res = await grpc_stub.Create(request)
 
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "uuid": create_res.uuid,
-                        "name": "american dream",
-                        "pubDate": project_date,
-                        "owner": project_owner.id,
-                        "products": products,
-                    }
-                ]
-            },
-        )
+        self.assertEqual(res, [create_res])
 
         # Delete Project Object
         request = products_controller_pb2.ProjectDestroyRequest(uuid=create_res.uuid)
@@ -208,70 +153,42 @@ class TestProject(TransactionTestCase):
         grpc_stub = self.project_fake_grpc.get_fake_stub(products_controller_pb2_grpc.ProjectControllerStub)
 
         # Create Project Object
-        products_0 = await self.create_product()
+        products_0_request, products_0_response = await self.create_product()
         project_date_0 = datetime.datetime.now()
         project_owner_0 = await sync_to_async(User.objects.create)(username="wow", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="project 1",
             owner=project_owner_0.id,
             pub_date=project_date_0.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_0,
+            products=products_0_request,
         )
         create_res_0 = await grpc_stub.Create(request)
 
-        products_1 = await self.create_product()
+        products_1_request, products_1_response = await self.create_product()
         project_date_1 = datetime.datetime.now()
         project_owner_1 = await sync_to_async(User.objects.create)(username="test test", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="project 2",
             owner=project_owner_1.id,
             pub_date=project_date_1.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_1,
+            products=products_1_request,
         )
         create_res_1 = await grpc_stub.Create(request)
 
-        products_2 = await self.create_product()
+        products_2_request, products_2_response = await self.create_product()
         project_date_2 = datetime.datetime.now()
         project_owner_2 = await sync_to_async(User.objects.create)(username="sih", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="project 3",
             owner=project_owner_2.id,
             pub_date=project_date_2.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_2,
+            products=products_2_request,
         )
         create_res_2 = await grpc_stub.Create(request)
 
         # Query all Project
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "results": [
-                    {
-                        "uuid": create_res_0.uuid,
-                        "name": "project 1",
-                        "pubDate": project_date_0,
-                        "owner": project_owner_0.id,
-                        "products": products_0,
-                    },
-                    {
-                        "uuid": create_res_1.uuid,
-                        "name": "project 2",
-                        "pubDate": project_date_1,
-                        "owner": project_owner_1.id,
-                        "products": products_1,
-                    },
-                    {
-                        "uuid": create_res_2.uuid,
-                        "name": "project 3",
-                        "pubDate": project_date_2,
-                        "owner": project_owner_2.id,
-                        "products": products_2,
-                    },
-                ]
-            },
-        )
+        self.assertEqual(res, [create_res_0, create_res_1, create_res_2])
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_partial_update_project(self):
@@ -282,30 +199,20 @@ class TestProject(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Project Object
-        products = await self.create_product()
+        products_request, products_2_response = await self.create_product()
         project_date = datetime.datetime.now()
         project_owner = await sync_to_async(User.objects.create)(username="k-dot", password="21")
         request = products_controller_pb2.ProjectRequest(
             name="untitled unmastered",
             owner=project_owner.id,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products,
+            products=products_request,
         )
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "untitled unmastered",
-                "pubDate": project_date,
-                "owner": project_owner.id,
-                "products": products,
-            },
-        )
+        self.assertEqual(res, create_res)
 
         # Partial Update Project Object in dataset
         new_date = project_date + datetime.timedelta(days=30)
@@ -320,69 +227,48 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=partial_update_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "classic",
-                "pubDate": new_date,
-                "owner": project_owner.id,
-                "products": products,
-            },
-        )
+        self.assertEqual(res, partial_update_res)
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_retrieve_project(self):
         grpc_stub = self.project_fake_grpc.get_fake_stub(products_controller_pb2_grpc.ProjectControllerStub)
 
         # Create Project Object
-        products_0 = await self.create_product()
+        products_0_request, products_0_response = await self.create_product()
         project_date_0 = datetime.datetime.now()
         project_owner_0 = await sync_to_async(User.objects.create)(username="thermal", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="temp",
             owner=project_owner_0.id,
             pub_date=project_date_0.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_0,
+            products=products_0_request,
         )
         await grpc_stub.Create(request)
 
-        products_1 = await self.create_product()
+        products_1_request, products_1_response = await self.create_product()
         project_date_1 = datetime.datetime.now()
         project_owner_1 = await sync_to_async(User.objects.create)(username="radar", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="3d",
             owner=project_owner_1.id,
             pub_date=project_date_1.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_1,
+            products=products_1_request,
         )
         await grpc_stub.Create(request)
 
-        products_2 = await self.create_product()
         project_date_2 = datetime.datetime.now()
         project_owner_2 = await sync_to_async(User.objects.create)(username="lidar", password="12345")
         request = products_controller_pb2.ProjectRequest(
             name="3d but light",
             owner=project_owner_2.id,
             pub_date=project_date_2.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_2,
+            products=products_1_request,
         )
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "3d but light",
-                "pubDate": project_date_2,
-                "owner": project_owner_2.id,
-                "products": products_2,
-            },
-        )
+        self.assertEqual(res, create_res)
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_update_project(self):
@@ -393,30 +279,20 @@ class TestProject(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Project Object
-        products = await self.create_product()
+        products_request, products_2_response = await self.create_product()
         project_date = datetime.datetime.now()
         project_owner = await sync_to_async(User.objects.create)(username="jpegmafia X danny brown", password="21")
         request = products_controller_pb2.ProjectRequest(
             name="awesome album",
             owner=project_owner.id,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products,
+            products=products_request,
         )
         create_res = await grpc_stub.Create(request)
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=create_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "awesome album",
-                "pubDate": project_date,
-                "owner": project_owner.id,
-                "products": products,
-            },
-        )
+        self.assertEqual(res, create_res)
 
         # Partial Update Project Object in dataset
         new_date = project_date + datetime.timedelta(days=3)
@@ -426,20 +302,10 @@ class TestProject(TransactionTestCase):
                 name="classic",
                 owner=project_owner.id,
                 pub_date=new_date.strftime("%Y-%m-%dT%H:%M:%S"),
-                products=products,
+                products=products_request,
             )
         )
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(uuid=update_res.uuid))
-        json_res = self.clean_response(json_format.MessageToDict(res))
-        self.assertDictEqual(
-            json_res,
-            {
-                "uuid": create_res.uuid,
-                "name": "classic",
-                "pubDate": new_date,
-                "owner": project_owner.id,
-                "products": products,
-            },
-        )
+        self.assertEqual(res, update_res)

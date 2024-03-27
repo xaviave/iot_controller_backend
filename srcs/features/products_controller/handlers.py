@@ -11,9 +11,8 @@ from features.products_controller.views.project import ProjectService
 
 def grpc_handlers(server):
     app_registry = AppHandlerRegistry("products_controller", server)
-    app_registry.register(ProjectService)
     app_registry.register(CategoryService)
-    app_registry.register(BaseProductService)
-    app_registry.register(CoffeeMachineService)
     app_registry.register(LedModeService)
+    app_registry.register(CoffeeMachineService)
     app_registry.register(LedPanelService)
+    app_registry.register(ProjectService)

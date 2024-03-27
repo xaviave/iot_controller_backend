@@ -10,9 +10,12 @@ from features.products_controller.models.products.led.led_mode import (
     PatternMode,
     VideoMode,
 )
+from rest_framework import serializers
 
 
 class LedModeSerializer(proto_serializers.ModelProtoSerializer):
+    name = serializers.CharField(validators=[])
+
     class Meta:
         model = LedMode
         fields = "__all__"
