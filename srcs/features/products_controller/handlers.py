@@ -1,6 +1,5 @@
 from django_socio_grpc.services.app_handler_registry import AppHandlerRegistry
 from features.products_controller.views.category import CategoryService
-from features.products_controller.views.products.base_product import BaseProductService
 from features.products_controller.views.products.coffee_machine import (
     CoffeeMachineService,
 )

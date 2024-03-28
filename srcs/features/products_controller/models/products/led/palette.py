@@ -1,7 +1,5 @@
 from enum import Enum
 
-from PIL import ImageColor
-
 
 class DefinedColor(Enum):
     AliceBlue = "#F0F8FF"
