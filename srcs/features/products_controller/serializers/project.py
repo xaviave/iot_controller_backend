@@ -13,6 +13,7 @@ from features.products_controller.serializers.products.base_product import (
 class ProjectSerializer(proto_serializers.ModelProtoSerializer):
     products = BaseProductSerializer(many=True)
 
+    # https://www.geeksforgeeks.org/prefetch_related-and-select_related-functions-in-django/
     class Meta:
         model = Project
         fields = "__all__"

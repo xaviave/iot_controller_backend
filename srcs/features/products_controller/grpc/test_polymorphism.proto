@@ -1,5 +1,6 @@
 /*
-python3 -m grpc_tools.protoc  -I=. test_polymorphism.proto  --python_out=. --grpc_python_out=. --experimental_allow_proto3_optional
+from srcs
+python3 -m grpc_tools.protoc  -I=.  features/products_controller/grpc/test_polymorphism.proto  --python_out=. --grpc_python_out=. --experimental_allow_proto3_optional
 */
 
 syntax = "proto3";
@@ -96,7 +97,6 @@ message CoffeeMachineListRequest {
 // Polymorphism
 // Manual
 message BaseProductRequest {
-  string type = 1;
   oneof product {
     CoffeeMachineRequest coffee_machine = 2;
     LedPanelRequest led_panel = 3;
@@ -104,7 +104,6 @@ message BaseProductRequest {
 }
 
 message BaseProductResponse {
-  string type = 1;
   oneof product {
     CoffeeMachineResponse coffee_machine = 2;
     LedPanelResponse led_panel = 3;

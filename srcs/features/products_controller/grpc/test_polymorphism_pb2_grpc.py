@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from features.products_controller.grpc import test_polymorphism_pb2 as features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-import test_polymorphism_pb2 as test__polymorphism__pb2
 
 
 class CategoryControllerStub(object):
@@ -17,33 +17,33 @@ class CategoryControllerStub(object):
         """
         self.Create = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/Create',
-                request_serializer=test__polymorphism__pb2.CategoryRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CategoryResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
                 )
         self.Destroy = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/Destroy',
-                request_serializer=test__polymorphism__pb2.CategoryDestroyRequest.SerializeToString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryDestroyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.List = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/List',
-                request_serializer=test__polymorphism__pb2.CategoryListRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CategoryListResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListResponse.FromString,
                 )
         self.PartialUpdate = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/PartialUpdate',
-                request_serializer=test__polymorphism__pb2.CategoryPartialUpdateRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CategoryResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryPartialUpdateRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
                 )
         self.Retrieve = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/Retrieve',
-                request_serializer=test__polymorphism__pb2.CategoryRetrieveRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CategoryResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRetrieveRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/base_app.products_controller.CategoryController/Update',
-                request_serializer=test__polymorphism__pb2.CategoryRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CategoryResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
                 )
 
 
@@ -91,33 +91,33 @@ def add_CategoryControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=test__polymorphism__pb2.CategoryRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CategoryResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=test__polymorphism__pb2.CategoryDestroyRequest.FromString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryDestroyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'List': grpc.unary_unary_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=test__polymorphism__pb2.CategoryListRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CategoryListResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListResponse.SerializeToString,
             ),
             'PartialUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.PartialUpdate,
-                    request_deserializer=test__polymorphism__pb2.CategoryPartialUpdateRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CategoryResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryPartialUpdateRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=test__polymorphism__pb2.CategoryRetrieveRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CategoryResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRetrieveRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=test__polymorphism__pb2.CategoryRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CategoryResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -141,8 +141,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/Create',
-            test__polymorphism__pb2.CategoryRequest.SerializeToString,
-            test__polymorphism__pb2.CategoryResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -158,7 +158,7 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/Destroy',
-            test__polymorphism__pb2.CategoryDestroyRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -175,8 +175,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/List',
-            test__polymorphism__pb2.CategoryListRequest.SerializeToString,
-            test__polymorphism__pb2.CategoryListResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -192,8 +192,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/PartialUpdate',
-            test__polymorphism__pb2.CategoryPartialUpdateRequest.SerializeToString,
-            test__polymorphism__pb2.CategoryResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryPartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -209,8 +209,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/Retrieve',
-            test__polymorphism__pb2.CategoryRetrieveRequest.SerializeToString,
-            test__polymorphism__pb2.CategoryResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -226,8 +226,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CategoryController/Update',
-            test__polymorphism__pb2.CategoryRequest.SerializeToString,
-            test__polymorphism__pb2.CategoryResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CategoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -243,33 +243,33 @@ class CoffeeMachineControllerStub(object):
         """
         self.Create = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/Create',
-                request_serializer=test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
                 )
         self.Destroy = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/Destroy',
-                request_serializer=test__polymorphism__pb2.CoffeeMachineDestroyRequest.SerializeToString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineDestroyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.List = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/List',
-                request_serializer=test__polymorphism__pb2.CoffeeMachineListRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CoffeeMachineListResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListResponse.FromString,
                 )
         self.PartialUpdate = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/PartialUpdate',
-                request_serializer=test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
                 )
         self.Retrieve = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/Retrieve',
-                request_serializer=test__polymorphism__pb2.CoffeeMachineRetrieveRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRetrieveRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/base_app.products_controller.CoffeeMachineController/Update',
-                request_serializer=test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
                 )
 
 
@@ -317,33 +317,33 @@ def add_CoffeeMachineControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachineRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachineDestroyRequest.FromString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineDestroyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'List': grpc.unary_unary_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachineListRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CoffeeMachineListResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListResponse.SerializeToString,
             ),
             'PartialUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.PartialUpdate,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachineRetrieveRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRetrieveRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=test__polymorphism__pb2.CoffeeMachineRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -367,8 +367,8 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/Create',
-            test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
-            test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -384,7 +384,7 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/Destroy',
-            test__polymorphism__pb2.CoffeeMachineDestroyRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -401,8 +401,8 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/List',
-            test__polymorphism__pb2.CoffeeMachineListRequest.SerializeToString,
-            test__polymorphism__pb2.CoffeeMachineListResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -418,8 +418,8 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/PartialUpdate',
-            test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.SerializeToString,
-            test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachinePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -435,8 +435,8 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/Retrieve',
-            test__polymorphism__pb2.CoffeeMachineRetrieveRequest.SerializeToString,
-            test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -452,8 +452,8 @@ class CoffeeMachineController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.CoffeeMachineController/Update',
-            test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
-            test__polymorphism__pb2.CoffeeMachineResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.CoffeeMachineResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -469,33 +469,33 @@ class LedModeControllerStub(object):
         """
         self.Create = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/Create',
-                request_serializer=test__polymorphism__pb2.LedModeRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedModeResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
                 )
         self.Destroy = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/Destroy',
-                request_serializer=test__polymorphism__pb2.LedModeDestroyRequest.SerializeToString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeDestroyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.List = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/List',
-                request_serializer=test__polymorphism__pb2.LedModeListRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedModeListResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListResponse.FromString,
                 )
         self.PartialUpdate = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/PartialUpdate',
-                request_serializer=test__polymorphism__pb2.LedModePartialUpdateRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedModeResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModePartialUpdateRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
                 )
         self.Retrieve = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/Retrieve',
-                request_serializer=test__polymorphism__pb2.LedModeRetrieveRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedModeResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRetrieveRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/base_app.products_controller.LedModeController/Update',
-                request_serializer=test__polymorphism__pb2.LedModeRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedModeResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
                 )
 
 
@@ -543,33 +543,33 @@ def add_LedModeControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=test__polymorphism__pb2.LedModeRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedModeResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=test__polymorphism__pb2.LedModeDestroyRequest.FromString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeDestroyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'List': grpc.unary_unary_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=test__polymorphism__pb2.LedModeListRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedModeListResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListResponse.SerializeToString,
             ),
             'PartialUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.PartialUpdate,
-                    request_deserializer=test__polymorphism__pb2.LedModePartialUpdateRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedModeResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModePartialUpdateRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=test__polymorphism__pb2.LedModeRetrieveRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedModeResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRetrieveRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=test__polymorphism__pb2.LedModeRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedModeResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -593,8 +593,8 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/Create',
-            test__polymorphism__pb2.LedModeRequest.SerializeToString,
-            test__polymorphism__pb2.LedModeResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -610,7 +610,7 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/Destroy',
-            test__polymorphism__pb2.LedModeDestroyRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -627,8 +627,8 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/List',
-            test__polymorphism__pb2.LedModeListRequest.SerializeToString,
-            test__polymorphism__pb2.LedModeListResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -644,8 +644,8 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/PartialUpdate',
-            test__polymorphism__pb2.LedModePartialUpdateRequest.SerializeToString,
-            test__polymorphism__pb2.LedModeResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -661,8 +661,8 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/Retrieve',
-            test__polymorphism__pb2.LedModeRetrieveRequest.SerializeToString,
-            test__polymorphism__pb2.LedModeResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -678,8 +678,8 @@ class LedModeController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedModeController/Update',
-            test__polymorphism__pb2.LedModeRequest.SerializeToString,
-            test__polymorphism__pb2.LedModeResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedModeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -695,33 +695,33 @@ class LedPanelControllerStub(object):
         """
         self.Create = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/Create',
-                request_serializer=test__polymorphism__pb2.LedPanelRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedPanelResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
                 )
         self.Destroy = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/Destroy',
-                request_serializer=test__polymorphism__pb2.LedPanelDestroyRequest.SerializeToString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelDestroyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.List = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/List',
-                request_serializer=test__polymorphism__pb2.LedPanelListRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedPanelListResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListResponse.FromString,
                 )
         self.PartialUpdate = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/PartialUpdate',
-                request_serializer=test__polymorphism__pb2.LedPanelPartialUpdateRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedPanelResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelPartialUpdateRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
                 )
         self.Retrieve = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/Retrieve',
-                request_serializer=test__polymorphism__pb2.LedPanelRetrieveRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedPanelResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRetrieveRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/base_app.products_controller.LedPanelController/Update',
-                request_serializer=test__polymorphism__pb2.LedPanelRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.LedPanelResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
                 )
 
 
@@ -769,33 +769,33 @@ def add_LedPanelControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=test__polymorphism__pb2.LedPanelRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedPanelResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=test__polymorphism__pb2.LedPanelDestroyRequest.FromString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelDestroyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'List': grpc.unary_unary_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=test__polymorphism__pb2.LedPanelListRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedPanelListResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListResponse.SerializeToString,
             ),
             'PartialUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.PartialUpdate,
-                    request_deserializer=test__polymorphism__pb2.LedPanelPartialUpdateRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedPanelResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelPartialUpdateRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=test__polymorphism__pb2.LedPanelRetrieveRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedPanelResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRetrieveRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=test__polymorphism__pb2.LedPanelRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.LedPanelResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -819,8 +819,8 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/Create',
-            test__polymorphism__pb2.LedPanelRequest.SerializeToString,
-            test__polymorphism__pb2.LedPanelResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -836,7 +836,7 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/Destroy',
-            test__polymorphism__pb2.LedPanelDestroyRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -853,8 +853,8 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/List',
-            test__polymorphism__pb2.LedPanelListRequest.SerializeToString,
-            test__polymorphism__pb2.LedPanelListResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -870,8 +870,8 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/PartialUpdate',
-            test__polymorphism__pb2.LedPanelPartialUpdateRequest.SerializeToString,
-            test__polymorphism__pb2.LedPanelResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelPartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -887,8 +887,8 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/Retrieve',
-            test__polymorphism__pb2.LedPanelRetrieveRequest.SerializeToString,
-            test__polymorphism__pb2.LedPanelResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -904,8 +904,8 @@ class LedPanelController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.LedPanelController/Update',
-            test__polymorphism__pb2.LedPanelRequest.SerializeToString,
-            test__polymorphism__pb2.LedPanelResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.LedPanelResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -921,33 +921,33 @@ class ProjectControllerStub(object):
         """
         self.Create = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/Create',
-                request_serializer=test__polymorphism__pb2.ProjectRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.ProjectResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
                 )
         self.Destroy = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/Destroy',
-                request_serializer=test__polymorphism__pb2.ProjectDestroyRequest.SerializeToString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectDestroyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.List = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/List',
-                request_serializer=test__polymorphism__pb2.ProjectListRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.ProjectListResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListResponse.FromString,
                 )
         self.PartialUpdate = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/PartialUpdate',
-                request_serializer=test__polymorphism__pb2.ProjectPartialUpdateRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.ProjectResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectPartialUpdateRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
                 )
         self.Retrieve = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/Retrieve',
-                request_serializer=test__polymorphism__pb2.ProjectRetrieveRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.ProjectResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRetrieveRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
                 )
         self.Update = channel.unary_unary(
                 '/base_app.products_controller.ProjectController/Update',
-                request_serializer=test__polymorphism__pb2.ProjectRequest.SerializeToString,
-                response_deserializer=test__polymorphism__pb2.ProjectResponse.FromString,
+                request_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.SerializeToString,
+                response_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
                 )
 
 
@@ -995,33 +995,33 @@ def add_ProjectControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=test__polymorphism__pb2.ProjectRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.ProjectResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=test__polymorphism__pb2.ProjectDestroyRequest.FromString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectDestroyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'List': grpc.unary_unary_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=test__polymorphism__pb2.ProjectListRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.ProjectListResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListResponse.SerializeToString,
             ),
             'PartialUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.PartialUpdate,
-                    request_deserializer=test__polymorphism__pb2.ProjectPartialUpdateRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.ProjectResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectPartialUpdateRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=test__polymorphism__pb2.ProjectRetrieveRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.ProjectResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRetrieveRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=test__polymorphism__pb2.ProjectRequest.FromString,
-                    response_serializer=test__polymorphism__pb2.ProjectResponse.SerializeToString,
+                    request_deserializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.FromString,
+                    response_serializer=features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1045,8 +1045,8 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/Create',
-            test__polymorphism__pb2.ProjectRequest.SerializeToString,
-            test__polymorphism__pb2.ProjectResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1062,7 +1062,7 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/Destroy',
-            test__polymorphism__pb2.ProjectDestroyRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1079,8 +1079,8 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/List',
-            test__polymorphism__pb2.ProjectListRequest.SerializeToString,
-            test__polymorphism__pb2.ProjectListResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1096,8 +1096,8 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/PartialUpdate',
-            test__polymorphism__pb2.ProjectPartialUpdateRequest.SerializeToString,
-            test__polymorphism__pb2.ProjectResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectPartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1113,8 +1113,8 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/Retrieve',
-            test__polymorphism__pb2.ProjectRetrieveRequest.SerializeToString,
-            test__polymorphism__pb2.ProjectResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1130,7 +1130,7 @@ class ProjectController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/base_app.products_controller.ProjectController/Update',
-            test__polymorphism__pb2.ProjectRequest.SerializeToString,
-            test__polymorphism__pb2.ProjectResponse.FromString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_test__polymorphism__pb2.ProjectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
