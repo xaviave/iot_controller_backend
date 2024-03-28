@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.views import View
 from features.products_controller.models.products.base_product import BaseProduct
-from grpc_iot import grpc_utils
+from grpcio_iot import grpc_utils
 
 
 class GrpcView(View):

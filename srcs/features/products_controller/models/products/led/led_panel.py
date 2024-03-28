@@ -1,21 +1,17 @@
 from functools import cached_property
 
 from django.db import models
+from features.products_controller.grpc import products_controller_pb2 as proto_lib
+from features.products_controller.grpc import products_controller_pb2_grpc
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.status import Status
-from grpc_iot.protos import led_communication_pb2 as proto_lib
-from grpc_iot.protos import led_communication_pb2_grpc
 
 
 class LedPanel(BaseProduct):
     status = models.IntegerField(choices=Status.choices())
     brightness = models.DecimalField(default=0.5, max_digits=3, decimal_places=2)
     mode = models.ForeignKey("LedMode", on_delete=models.SET_NULL, null=True)
-
-    @cached_property
-    def html(self):
-        return "products_controller/products/led_panel.html"
 
     @cached_property
     def get_proto_lib(self):
@@ -31,7 +27,7 @@ class LedPanel(BaseProduct):
 
     @staticmethod
     def get_stub(channel):
-        return led_communication_pb2_grpc.LedCommunicationStub(channel)
+        return products_controller_pb2_grpc.LedPanelControllerStub(channel)
 
     def __str__(self):
         return self.name

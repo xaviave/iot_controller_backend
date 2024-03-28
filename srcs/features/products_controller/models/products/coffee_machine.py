@@ -2,10 +2,10 @@ from enum import IntEnum
 from functools import cached_property
 
 from django.db import models
+from features.products_controller.grpc import products_controller_pb2 as proto_lib
+from features.products_controller.grpc import products_controller_pb2_grpc
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.status import Status
-from grpc_iot.protos import coffee_machine_communication_pb2 as proto_lib
-from grpc_iot.protos import coffee_machine_communication_pb2_grpc
 
 
 class ContainerStatus(IntEnum):
@@ -28,16 +28,12 @@ class CoffeeMachine(BaseProduct):
     mode_value = models.IntegerField(default=0)
 
     @cached_property
-    def html(self):
-        return "products_controller/products/coffee_machine.html"
-
-    @cached_property
     def get_proto_lib(self):
         return proto_lib
 
     @staticmethod
     def get_stub(channel):
-        return coffee_machine_communication_pb2_grpc.CoffeeMachineCommunicationStub(channel)
+        return products_controller_pb2_grpc.CoffeeMachineControllerStub(channel)
 
     def __str__(self):
         return self.name
