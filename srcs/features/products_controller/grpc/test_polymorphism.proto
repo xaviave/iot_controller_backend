@@ -24,3 +24,8 @@ message BaseProductResponse {
     LedPanelResponse led_panel = 3;
   }
 }
+
+message BaseProductListResponse {
+    repeated BaseProductResponse results = 1;
+    int32 count = 2;
+}

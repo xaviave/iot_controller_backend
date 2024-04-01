@@ -126,9 +126,10 @@ class TestProject(TransactionTestCase):
             products=products_request,
         )
         create_res = await grpc_stub.Create(request)
-
+        print(f"{type(create_res)=} | {create_res.products}")
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
+        print(f"{res=}")
         self.assertEqual(res, [create_res])
 
     @freeze_time("2024-02-02 03:21:34")

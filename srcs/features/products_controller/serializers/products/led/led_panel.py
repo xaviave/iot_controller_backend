@@ -22,6 +22,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         proto_class_list = LedPanelListResponse
 
     def create(self, validated_data):
+        print("LedPanelSerializer.create")
         new_categories = [
             Category.objects.get_or_create(name=c.get("name"))[0] for c in validated_data.pop("categories", [])
         ]

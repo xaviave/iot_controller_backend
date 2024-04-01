@@ -49,8 +49,6 @@ service ProjectController {
     rpc Update(ProjectRequest) returns (ProjectResponse) {}
 }
 
-// Polymorphism
-// Manual
 message BaseProductRequest {
   oneof product {
     CoffeeMachineRequest coffee_machine = 2;
@@ -63,6 +61,11 @@ message BaseProductResponse {
     CoffeeMachineResponse coffee_machine = 2;
     LedPanelResponse led_panel = 3;
   }
+}
+
+message BaseProductListResponse {
+    repeated BaseProductResponse results = 1;
+    int32 count = 2;
 }
 
 message CategoryDestroyRequest {

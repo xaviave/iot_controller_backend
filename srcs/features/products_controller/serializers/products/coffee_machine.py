@@ -19,6 +19,7 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         proto_class_list = CoffeeMachineListResponse
 
     def create(self, validated_data):
+        print("CoffeeMachine Serializer.create")
         new_categories = [
             Category.objects.get_or_create(name=c.get("name"))[0] for c in validated_data.pop("categories", [])
         ]
