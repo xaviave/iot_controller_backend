@@ -606,7 +606,7 @@ class CoffeeMachineController(object):
         )
 
 
-class LedModeControllerStub(object):
+class ColorModeControllerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -616,38 +616,38 @@ class LedModeControllerStub(object):
             channel: A grpc.Channel.
         """
         self.Create = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/Create",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.SerializeToString,
-            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Create",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
         )
         self.Destroy = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/Destroy",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeDestroyRequest.SerializeToString,
+            "/base_app.products_controller.ColorModeController/Destroy",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeDestroyRequest.SerializeToString,
             response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
         )
         self.List = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/List",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListRequest.SerializeToString,
-            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListResponse.FromString,
+            "/base_app.products_controller.ColorModeController/List",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListResponse.FromString,
         )
         self.PartialUpdate = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/PartialUpdate",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModePartialUpdateRequest.SerializeToString,
-            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/PartialUpdate",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModePartialUpdateRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
         )
         self.Retrieve = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/Retrieve",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRetrieveRequest.SerializeToString,
-            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Retrieve",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRetrieveRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
         )
         self.Update = channel.unary_unary(
-            "/base_app.products_controller.LedModeController/Update",
-            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.SerializeToString,
-            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Update",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
         )
 
 
-class LedModeControllerServicer(object):
+class ColorModeControllerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Create(self, request, context):
@@ -687,47 +687,47 @@ class LedModeControllerServicer(object):
         raise NotImplementedError("Method not implemented!")
 
 
-def add_LedModeControllerServicer_to_server(servicer, server):
+def add_ColorModeControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
         "Create": grpc.unary_unary_rpc_method_handler(
             servicer.Create,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.FromString,
-            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.SerializeToString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.SerializeToString,
         ),
         "Destroy": grpc.unary_unary_rpc_method_handler(
             servicer.Destroy,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeDestroyRequest.FromString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeDestroyRequest.FromString,
             response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
         "List": grpc.unary_unary_rpc_method_handler(
             servicer.List,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListRequest.FromString,
-            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListResponse.SerializeToString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListResponse.SerializeToString,
         ),
         "PartialUpdate": grpc.unary_unary_rpc_method_handler(
             servicer.PartialUpdate,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModePartialUpdateRequest.FromString,
-            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.SerializeToString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModePartialUpdateRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.SerializeToString,
         ),
         "Retrieve": grpc.unary_unary_rpc_method_handler(
             servicer.Retrieve,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRetrieveRequest.FromString,
-            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.SerializeToString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRetrieveRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.SerializeToString,
         ),
         "Update": grpc.unary_unary_rpc_method_handler(
             servicer.Update,
-            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.FromString,
-            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.SerializeToString,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "base_app.products_controller.LedModeController", rpc_method_handlers
+        "base_app.products_controller.ColorModeController", rpc_method_handlers
     )
     server.add_generic_rpc_handlers((generic_handler,))
 
 
 # This class is part of an EXPERIMENTAL API.
-class LedModeController(object):
+class ColorModeController(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -746,9 +746,9 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/Create",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.SerializeToString,
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Create",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -775,8 +775,8 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/Destroy",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeDestroyRequest.SerializeToString,
+            "/base_app.products_controller.ColorModeController/Destroy",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeDestroyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
@@ -804,9 +804,9 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/List",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListRequest.SerializeToString,
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeListResponse.FromString,
+            "/base_app.products_controller.ColorModeController/List",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeListResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -833,9 +833,9 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/PartialUpdate",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModePartialUpdateRequest.SerializeToString,
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/PartialUpdate",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -862,9 +862,9 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/Retrieve",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRetrieveRequest.SerializeToString,
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Retrieve",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -891,9 +891,308 @@ class LedModeController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/base_app.products_controller.LedModeController/Update",
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeRequest.SerializeToString,
-            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.LedModeResponse.FromString,
+            "/base_app.products_controller.ColorModeController/Update",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ColorModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+
+class ImageModeControllerStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Create = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/Create",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+        )
+        self.Destroy = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/Destroy",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeDestroyRequest.SerializeToString,
+            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        )
+        self.List = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/List",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListResponse.FromString,
+        )
+        self.PartialUpdate = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/PartialUpdate",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModePartialUpdateRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+        )
+        self.Retrieve = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/Retrieve",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRetrieveRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+        )
+        self.Update = channel.unary_unary(
+            "/base_app.products_controller.ImageModeController/Update",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+        )
+
+
+class ImageModeControllerServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Create(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Destroy(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def List(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def PartialUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Retrieve(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+
+def add_ImageModeControllerServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        "Create": grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.SerializeToString,
+        ),
+        "Destroy": grpc.unary_unary_rpc_method_handler(
+            servicer.Destroy,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeDestroyRequest.FromString,
+            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        ),
+        "List": grpc.unary_unary_rpc_method_handler(
+            servicer.List,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListResponse.SerializeToString,
+        ),
+        "PartialUpdate": grpc.unary_unary_rpc_method_handler(
+            servicer.PartialUpdate,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModePartialUpdateRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.SerializeToString,
+        ),
+        "Retrieve": grpc.unary_unary_rpc_method_handler(
+            servicer.Retrieve,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRetrieveRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.SerializeToString,
+        ),
+        "Update": grpc.unary_unary_rpc_method_handler(
+            servicer.Update,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        "base_app.products_controller.ImageModeController", rpc_method_handlers
+    )
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+# This class is part of an EXPERIMENTAL API.
+class ImageModeController(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Create(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/Create",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Destroy(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/Destroy",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeDestroyRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def List(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/List",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def PartialUpdate(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/PartialUpdate",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Retrieve(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/Retrieve",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Update(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.ImageModeController/Update",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ImageModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -1204,6 +1503,305 @@ class LedPanelController(object):
         )
 
 
+class PatternModeControllerStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Create = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/Create",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+        )
+        self.Destroy = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/Destroy",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeDestroyRequest.SerializeToString,
+            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        )
+        self.List = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/List",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListResponse.FromString,
+        )
+        self.PartialUpdate = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/PartialUpdate",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModePartialUpdateRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+        )
+        self.Retrieve = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/Retrieve",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRetrieveRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+        )
+        self.Update = channel.unary_unary(
+            "/base_app.products_controller.PatternModeController/Update",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+        )
+
+
+class PatternModeControllerServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Create(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Destroy(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def List(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def PartialUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Retrieve(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+
+def add_PatternModeControllerServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        "Create": grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.SerializeToString,
+        ),
+        "Destroy": grpc.unary_unary_rpc_method_handler(
+            servicer.Destroy,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeDestroyRequest.FromString,
+            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        ),
+        "List": grpc.unary_unary_rpc_method_handler(
+            servicer.List,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListResponse.SerializeToString,
+        ),
+        "PartialUpdate": grpc.unary_unary_rpc_method_handler(
+            servicer.PartialUpdate,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModePartialUpdateRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.SerializeToString,
+        ),
+        "Retrieve": grpc.unary_unary_rpc_method_handler(
+            servicer.Retrieve,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRetrieveRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.SerializeToString,
+        ),
+        "Update": grpc.unary_unary_rpc_method_handler(
+            servicer.Update,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        "base_app.products_controller.PatternModeController", rpc_method_handlers
+    )
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+# This class is part of an EXPERIMENTAL API.
+class PatternModeController(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Create(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/Create",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Destroy(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/Destroy",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeDestroyRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def List(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/List",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def PartialUpdate(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/PartialUpdate",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Retrieve(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/Retrieve",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Update(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.PatternModeController/Update",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.PatternModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+
 class ProjectControllerStub(object):
     """Missing associated documentation comment in .proto file."""
 
@@ -1492,6 +2090,305 @@ class ProjectController(object):
             "/base_app.products_controller.ProjectController/Update",
             features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ProjectRequest.SerializeToString,
             features_dot_products__controller_dot_grpc_dot_products__controller__pb2.ProjectResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+
+class VideoModeControllerStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Create = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/Create",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+        )
+        self.Destroy = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/Destroy",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeDestroyRequest.SerializeToString,
+            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        )
+        self.List = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/List",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListResponse.FromString,
+        )
+        self.PartialUpdate = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/PartialUpdate",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModePartialUpdateRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+        )
+        self.Retrieve = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/Retrieve",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRetrieveRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+        )
+        self.Update = channel.unary_unary(
+            "/base_app.products_controller.VideoModeController/Update",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+        )
+
+
+class VideoModeControllerServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Create(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Destroy(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def List(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def PartialUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Retrieve(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+
+def add_VideoModeControllerServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        "Create": grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.SerializeToString,
+        ),
+        "Destroy": grpc.unary_unary_rpc_method_handler(
+            servicer.Destroy,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeDestroyRequest.FromString,
+            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        ),
+        "List": grpc.unary_unary_rpc_method_handler(
+            servicer.List,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListResponse.SerializeToString,
+        ),
+        "PartialUpdate": grpc.unary_unary_rpc_method_handler(
+            servicer.PartialUpdate,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModePartialUpdateRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.SerializeToString,
+        ),
+        "Retrieve": grpc.unary_unary_rpc_method_handler(
+            servicer.Retrieve,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRetrieveRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.SerializeToString,
+        ),
+        "Update": grpc.unary_unary_rpc_method_handler(
+            servicer.Update,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        "base_app.products_controller.VideoModeController", rpc_method_handlers
+    )
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+# This class is part of an EXPERIMENTAL API.
+class VideoModeController(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Create(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/Create",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Destroy(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/Destroy",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeDestroyRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def List(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/List",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def PartialUpdate(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/PartialUpdate",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModePartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Retrieve(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/Retrieve",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Update(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.VideoModeController/Update",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.VideoModeResponse.FromString,
             options,
             channel_credentials,
             insecure,

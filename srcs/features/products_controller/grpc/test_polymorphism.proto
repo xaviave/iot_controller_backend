@@ -25,3 +25,21 @@ message BaseProductResponse {
     LedPanelResponse LedPanel = 3;
   }
 }
+
+message LedModeRequest {
+  oneof mode {
+    ImageModeRequest ImageMode = 2;
+    VideoModeRequest VideoMode = 3;
+    ColorModeRequest ColorMode = 4;
+    PatternModeRequest PatternMode = 5;
+  }
+}
+
+message LedModeResponse {
+  oneof mode {
+    ImageModeResponse ImageMode = 2;
+    VideoModeResponse VideoMode = 3;
+    ColorModeResponse ColorMode = 4;
+    PatternModeResponse PatternMode = 5;
+  }
+}
