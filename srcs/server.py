@@ -81,8 +81,8 @@ response = products_controller_pb2.ProjectResponse(
 
 
 class ProjectServicer(products_controller_pb2_grpc.ProjectControllerServicer):
-    async def Create(self, request):
-        print(request)
+    async def Create(self, *args, **kwargs):
+        print(args, kwargs)
         return response
 
     async def List(self, *args, **kwargs):

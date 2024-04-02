@@ -51,21 +51,16 @@ service ProjectController {
 
 message BaseProductRequest {
   oneof product {
-    CoffeeMachineRequest coffee_machine = 2;
-    LedPanelRequest led_panel = 3;
+    CoffeeMachineRequest CoffeeMachine = 2;
+    LedPanelRequest LedPanel = 3;
   }
 }
 
 message BaseProductResponse {
   oneof product {
-    CoffeeMachineResponse coffee_machine = 2;
-    LedPanelResponse led_panel = 3;
+    CoffeeMachineResponse CoffeeMachine = 2;
+    LedPanelResponse LedPanel = 3;
   }
-}
-
-message BaseProductListResponse {
-    repeated BaseProductResponse results = 1;
-    int32 count = 2;
 }
 
 message CategoryDestroyRequest {

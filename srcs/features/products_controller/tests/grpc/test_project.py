@@ -57,7 +57,8 @@ class TestProject(TransactionTestCase):
         self.coffee_machine_fake_grpc.close()
         self.project_fake_grpc.close()
 
-    async def create_product(self):
+    @staticmethod
+    async def create_product():
         # Create Category Object
         category_request = products_controller_pb2.CategoryRequest(name="cate")
         category_response = products_controller_pb2.CategoryResponse(name="cate")
@@ -97,14 +98,14 @@ class TestProject(TransactionTestCase):
         led_panel_response = products_controller_pb2.LedPanelResponse(**led_panel_args)
 
         base_product_1_request = products_controller_pb2.BaseProductRequest()
-        base_product_1_request.coffee_machine.CopyFrom(coffee_machine_request)
+        base_product_1_request.CoffeeMachine.CopyFrom(coffee_machine_request)
         base_product_1_response = products_controller_pb2.BaseProductResponse()
-        base_product_1_response.coffee_machine.CopyFrom(coffee_machine_response)
+        base_product_1_response.CoffeeMachine.CopyFrom(coffee_machine_response)
 
         base_product_2_request = products_controller_pb2.BaseProductRequest()
-        base_product_2_request.led_panel.CopyFrom(led_panel_request)
+        base_product_2_request.LedPanel.CopyFrom(led_panel_request)
         base_product_2_response = products_controller_pb2.BaseProductResponse()
-        base_product_2_response.led_panel.CopyFrom(led_panel_response)
+        base_product_2_response.LedPanel.CopyFrom(led_panel_response)
         return (base_product_1_request, base_product_2_request), (base_product_1_response, base_product_2_response)
 
     @freeze_time("2024-02-02 03:21:34")
@@ -126,11 +127,10 @@ class TestProject(TransactionTestCase):
             products=products_request,
         )
         create_res = await grpc_stub.Create(request)
-        print(f"{type(create_res)=} | {create_res.products}")
+
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        print(f"{res=}")
-        self.assertEqual(res, [create_res])
+        self.assertEqual(res.results, [create_res])
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_destroy_project(self):
@@ -150,7 +150,7 @@ class TestProject(TransactionTestCase):
 
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        self.assertEqual(res, [create_res])
+        self.assertEqual(res.results, [create_res])
 
         # Delete Project Object
         request = products_controller_pb2.ProjectDestroyRequest(id=create_res.id)
@@ -211,14 +211,14 @@ class TestProject(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
         # Create Project Object
-        products_request, products_2_response = await self.create_product()
+        products_1_request, products_1_response = await self.create_product()
         project_date = datetime.datetime.now()
         project_owner = await sync_to_async(User.objects.create)(username="k-dot", password="21")
         request = products_controller_pb2.ProjectRequest(
             name="untitled unmastered",
             owner=project_owner.id,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-            products=products_request,
+            products=products_1_request,
         )
         create_res = await grpc_stub.Create(request)
 

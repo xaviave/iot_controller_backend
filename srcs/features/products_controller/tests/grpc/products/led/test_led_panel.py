@@ -60,6 +60,7 @@ class TestLedPanel(TransactionTestCase):
             name="home", status=1, brightness=0.02, mode=led_mode_request, categories=[category_request]
         )
         create_res = await grpc_stub.Create(request)
+
         # Check led_panel in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
         self.assertEqual(res.results, [create_res])

@@ -8,24 +8,20 @@ Steps:
 2. generate the pb2 file with this change from iot_controller_backend/srcs:
     python3 -m grpc_tools.protoc  -I=.  features/products_controller/grpc/products_controller.proto  --python_out=. --grpc_python_out=. --experimental_allow_proto3_optional
 */
+syntax = "proto3";
 
 // Polymorphism
 // Manual
 message BaseProductRequest {
   oneof product {
-    CoffeeMachineRequest coffee_machine = 2;
-    LedPanelRequest led_panel = 3;
+    CoffeeMachineRequest CoffeeMachine = 2;
+    LedPanelRequest LedPanel = 3;
   }
 }
 
 message BaseProductResponse {
   oneof product {
-    CoffeeMachineResponse coffee_machine = 2;
-    LedPanelResponse led_panel = 3;
+    CoffeeMachineResponse CoffeeMachine = 2;
+    LedPanelResponse LedPanel = 3;
   }
-}
-
-message BaseProductListResponse {
-    repeated BaseProductResponse results = 1;
-    int32 count = 2;
 }
