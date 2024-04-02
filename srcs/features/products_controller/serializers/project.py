@@ -57,9 +57,8 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
 
     def create(self, validated_data):
         new_products = [
-            BaseProduct.objects.get_or_create(name=c.get("name"))[0] for c in validated_data.pop("products", [])
+            BaseProduct.objects.get_or_create(name=p.get("name"))[0] for p in validated_data.pop("products", [])
         ]
-
         instance = Project.objects.create(**validated_data)
         instance.products.set(new_products)
         return instance
@@ -71,14 +70,13 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         instance.save()
 
         new_products = []
-        products = validated_data.pop("products", instance.categories.all())
-        for product in products:
+        for product in validated_data.pop("products", instance.products.all()):
             if isinstance(product, BaseProduct):
                 name = product.name
             else:
                 name = product.get("name")
             new_products.append(BaseProduct.objects.get_or_create(name=name)[0])
-        instance.categories.set(new_products)
+        instance.products.set(new_products)
         return instance
 
     @property
@@ -97,6 +95,9 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
 
     @property
     async def amessage(self):
+        """
+        Surchage amessage to use raw_adata instead of adata
+        """
         if not hasattr(self, "_message"):
             self._message = self.data_to_message(await self.raw_adata)
         return self._message

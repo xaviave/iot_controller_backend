@@ -200,7 +200,7 @@ class TestProject(TransactionTestCase):
 
         # Query all Project
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        self.assertEqual(res, [create_res_0, create_res_1, create_res_2])
+        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_partial_update_project(self):

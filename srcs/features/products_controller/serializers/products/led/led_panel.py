@@ -7,12 +7,16 @@ from features.products_controller.models.category import Category
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.category import CategorySerializer
-from features.products_controller.serializers.products.led.led_mode import LedModeSerializer
+from features.products_controller.serializers.products.led.led_mode import (
+    LedModeSerializer,
+)
+from rest_framework import serializers
 
 
 class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
-    categories = CategorySerializer(many=True)
     mode = LedModeSerializer(many=False)
+    name = serializers.CharField(validators=[])
+    categories = CategorySerializer(many=True)
 
     class Meta:
         model = LedPanel

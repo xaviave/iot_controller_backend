@@ -6,9 +6,11 @@ from features.products_controller.grpc.products_controller_pb2 import (
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.coffee_machine import CoffeeMachine
 from features.products_controller.serializers.category import CategorySerializer
+from rest_framework import serializers
 
 
 class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
+    name = serializers.CharField(validators=[])
     categories = CategorySerializer(many=True)
 
     class Meta:
