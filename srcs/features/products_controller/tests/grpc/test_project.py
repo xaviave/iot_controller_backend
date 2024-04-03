@@ -14,7 +14,7 @@ from features.products_controller.views.category import CategoryService
 from features.products_controller.views.products.coffee_machine import (
     CoffeeMachineService,
 )
-from features.products_controller.views.products.led.led_mode import LedModeService
+from features.products_controller.views.products.led.led_mode import ColorModeService
 from features.products_controller.views.products.led.led_panel import LedPanelService
 from features.products_controller.views.project import ProjectService
 from freezegun import freeze_time
@@ -22,20 +22,14 @@ from freezegun import freeze_time
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestProject(TransactionTestCase):
-    """
-    gRPC use proto3 that doesn't distinguish 0 and null
-    so the return message will not be serialized with the null values.
-    If one value is 0 or False, it will not be in the Response.
-    """
-
     def setUp(self):
         self.category_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,
             CategoryService.as_servicer(),
         )
-        self.led_mode_fake_grpc = FakeFullAIOGRPC(
-            products_controller_pb2_grpc.add_LedModeControllerServicer_to_server,
-            LedModeService.as_servicer(),
+        self.color_mode_fake_grpc = FakeFullAIOGRPC(
+            products_controller_pb2_grpc.add_ColorModeControllerServicer_to_server,
+            ColorModeService.as_servicer(),
         )
         self.led_panel_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_LedPanelControllerServicer_to_server,
@@ -52,7 +46,7 @@ class TestProject(TransactionTestCase):
 
     def tearDown(self):
         self.category_fake_grpc.close()
-        self.led_mode_fake_grpc.close()
+        self.color_mode_fake_grpc.close()
         self.led_panel_fake_grpc.close()
         self.coffee_machine_fake_grpc.close()
         self.project_fake_grpc.close()
@@ -80,8 +74,13 @@ class TestProject(TransactionTestCase):
         coffee_machine_response = products_controller_pb2.CoffeeMachineResponse(**coffee_machine_args)
 
         # Create LedMode Object
-        led_mode_request = products_controller_pb2.LedModeRequest(name="mode smth")
-        led_mode_response = products_controller_pb2.LedModeResponse(name="mode smth")
+        color_mode_request = products_controller_pb2.ColorModeRequest(name="color_mode", color="#1234df")
+        color_mode_response = products_controller_pb2.ColorModeResponse(name="color_mode", color="#1234df")
+
+        led_mode_request = products_controller_pb2.LedModeRequest()
+        led_mode_request.ColorMode.CopyFrom(color_mode_request)
+        led_mode_response = products_controller_pb2.LedModeResponse()
+        led_mode_response.ColorMode.CopyFrom(color_mode_response)
 
         # Create LedPanel Object
         led_panel_args = {

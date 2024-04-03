@@ -12,12 +12,6 @@ from features.products_controller.views.products.coffee_machine import (
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestCoffeeMachine(TransactionTestCase):
-    """
-    gRPC use proto3 that doesn't distinguish 0 and null
-    so the return message will not be serialized with the null values.
-    If one value is 0 or False, it will not be in the Response.
-    """
-
     def setUp(self):
         self.category_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,

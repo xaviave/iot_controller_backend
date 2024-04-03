@@ -1,11 +1,9 @@
 from django_socio_grpc import generics
-from features.products_controller.models.products.led.led_mode import (
-    ColorMode,
-    ImageMode,
-    LedMode,
-    PatternMode,
-    VideoMode,
-)
+from features.products_controller.models.products.led.color_mode import ColorMode
+from features.products_controller.models.products.led.image_mode import ImageMode
+from features.products_controller.models.products.led.led_mode import LedMode
+from features.products_controller.models.products.led.pattern_mode import PatternMode
+from features.products_controller.models.products.led.video_mode import VideoMode
 from features.products_controller.serializers.products.led.led_mode import (
     ColorModeSerializer,
     ImageModeSerializer,

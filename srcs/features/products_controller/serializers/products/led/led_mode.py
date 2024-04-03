@@ -10,14 +10,13 @@ from features.products_controller.grpc.products_controller_pb2 import (
     VideoModeListResponse,
     VideoModeResponse,
 )
-from features.products_controller.models.products.led.led_mode import (
-    ColorMode,
-    ImageMode,
-    LedMode,
-    PatternMode,
-    VideoMode,
-)
+from features.products_controller.models.products.led.color_mode import ColorMode
+from features.products_controller.models.products.led.image_mode import ImageMode
+from features.products_controller.models.products.led.led_mode import LedMode
+from features.products_controller.models.products.led.pattern_mode import PatternMode
+from features.products_controller.models.products.led.video_mode import VideoMode
 from rest_framework import serializers
+from rest_framework.fields import empty
 from rest_polymorphic.serializers import PolymorphicSerializer
 
 
@@ -83,3 +82,15 @@ class LedModePolymorphicSerializer(PolymorphicSerializer):
         ColorMode: ColorModeSerializer,
         PatternMode: PatternModeSerializer,
     }
+
+    def run_validation(self, data=empty):
+        # MR https://github.com/denisorehovsky/django-rest-polymorphic/pull/31/files
+        (is_empty_value, data) = self.validate_empty_values(data)
+        if is_empty_value:
+            return data
+
+        resource_type = self._get_resource_type_from_mapping(data)
+        serializer = self._get_serializer_from_resource_type(resource_type)
+        validated_data = serializer.run_validation(data)
+        validated_data[self.resource_type_field_name] = resource_type
+        return validated_data

@@ -28,8 +28,7 @@ class LedPanelListSerializer(ListProtoSerializer):
         if data:
             for i, mode in enumerate(data):
                 m = mode.get("mode")
-                data[i]["mode"] = {
-                    m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
+                data[i]["mode"] = {m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
         return super().data_to_message(data)
 
 
@@ -50,7 +49,6 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         Serialize the products to allow Oneof fields to be serialized into
         Polymorphic data types
         """
-        print(data)
         if data.get("mode") is not None:
             m = data.get("mode")
             data["mode"] = {**m[next(iter(m))], "resourcetype": next(iter(m))}

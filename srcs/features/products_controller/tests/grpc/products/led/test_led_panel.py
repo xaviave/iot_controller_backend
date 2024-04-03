@@ -152,7 +152,10 @@ class TestLedPanel(TransactionTestCase):
         # Partial Update LedPanel Object in dataset
         partial_update_res = await grpc_stub.PartialUpdate(
             products_controller_pb2.LedPanelPartialUpdateRequest(
-                id=create_res.id, _partial_update_fields=["name", "brightness"], name="wow", brightness=0.55
+                id=create_res.id,
+                _partial_update_fields=["name", "brightness"],
+                name="wow",
+                brightness=0.55,
             )
         )
 

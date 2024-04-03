@@ -3,14 +3,12 @@ from django.utils.safestring import mark_safe
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.products.coffee_machine import CoffeeMachine
-from features.products_controller.models.products.led.led_mode import (
-    ColorMode,
-    ImageMode,
-    LedMode,
-    PatternMode,
-    VideoMode,
-)
+from features.products_controller.models.products.led.color_mode import ColorMode
+from features.products_controller.models.products.led.image_mode import ImageMode
+from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.products.led.led_panel import LedPanel
+from features.products_controller.models.products.led.pattern_mode import PatternMode
+from features.products_controller.models.products.led.video_mode import VideoMode
 from features.products_controller.models.project import Project
 from polymorphic.admin import (
     PolymorphicChildModelAdmin,
