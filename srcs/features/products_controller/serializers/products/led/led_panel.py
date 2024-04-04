@@ -1,4 +1,5 @@
 from asgiref.sync import sync_to_async
+from django.apps import apps
 from django_socio_grpc import proto_serializers
 from django_socio_grpc.proto_serializers import ListProtoSerializer
 from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
@@ -60,7 +61,10 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         ]
 
         led_mode_data = validated_data.pop("mode")
-        led_mode, _ = LedMode.objects.get_or_create(name=led_mode_data.get("name"))
+        model_class = apps.get_model(
+            app_label="products_controller", model_name=led_mode_data.pop("resourcetype")
+        )
+        led_mode, _ = model_class.objects.get_or_create(name=led_mode_data.get("name"))
         instance = LedPanel.objects.create(mode=led_mode, **validated_data)
         instance.categories.set(new_categories)
         return instance
