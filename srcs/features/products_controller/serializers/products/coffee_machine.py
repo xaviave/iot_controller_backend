@@ -21,9 +21,15 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         proto_class_list = CoffeeMachineListResponse
 
     def create(self, validated_data):
-        new_categories = [
-            Category.objects.get_or_create(name=c.get("name"))[0] for c in validated_data.pop("categories", [])
-        ]
+        new_categories = []
+        for c in validated_data.pop("categories", []):
+            try:
+                c = Category.objects.get(name=c.get("name"))
+            except Category.DoesNotExist:
+                serializer = CategorySerializer(data=c)
+                serializer.is_valid(raise_exception=True)
+                c = serializer.save()
+            new_categories.append(c)
 
         instance = CoffeeMachine.objects.create(**validated_data)
         instance.categories.set(new_categories)
@@ -43,10 +49,13 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         new_categories = []
         categories = validated_data.pop("categories", instance.categories.all())
         for category in categories:
-            if isinstance(category, Category):
-                name = category.name
-            else:
-                name = category.get("name")
-            new_categories.append(Category.objects.get_or_create(name=name)[0])
+            try:
+                c = Category.objects.get(
+                    name=category.get("name") if isinstance(category, dict) else category.name)
+            except Category.DoesNotExist:
+                serializer = CategorySerializer(data=category)
+                serializer.is_valid(raise_exception=True)
+                c = serializer.save()
+            new_categories.append(c)
         instance.categories.set(new_categories)
         return instance

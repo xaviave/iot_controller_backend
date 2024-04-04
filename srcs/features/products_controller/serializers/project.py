@@ -56,9 +56,16 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         return super().to_internal_value(data)
 
     def create(self, validated_data):
-        new_products = [
-            BaseProduct.objects.get_or_create(name=p.get("name"))[0] for p in validated_data.pop("products", [])
-        ]
+        new_products = []
+        for product in validated_data.pop("products", []):
+            try:
+                p = BaseProduct.objects.get(name=product.get("name"))
+            except BaseProduct.DoesNotExist:
+                serializer = BaseProductPolymorphicSerializer(data=product)
+                serializer.is_valid(raise_exception=True)
+                p = serializer.save()
+            new_products.append(p)
+
         instance = Project.objects.create(**validated_data)
         instance.products.set(new_products)
         return instance
@@ -71,11 +78,13 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
 
         new_products = []
         for product in validated_data.pop("products", instance.products.all()):
-            if isinstance(product, BaseProduct):
-                name = product.name
-            else:
-                name = product.get("name")
-            new_products.append(BaseProduct.objects.get_or_create(name=name)[0])
+            try:
+                p = BaseProduct.objects.get(name=product.get("name") if isinstance(product, dict) else product.name)
+            except BaseProduct.DoesNotExist:
+                serializer = BaseProductPolymorphicSerializer(data=product)
+                serializer.is_valid(raise_exception=True)
+                p = serializer.save()
+            new_products.append(p)
         instance.products.set(new_products)
         return instance
 
