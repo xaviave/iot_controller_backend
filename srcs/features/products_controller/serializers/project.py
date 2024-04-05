@@ -16,6 +16,30 @@ from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
 
 
+def proto_dict_to_rest_dict(products: list[dict]) -> list[dict]:
+    new_products = []
+    for p in products:
+        if p.get("resourcetype") is None:
+            resourcetype = next(iter(p))
+            p = {**p[resourcetype], "resourcetype": resourcetype}
+        new_products.append(p)
+    return new_products
+
+
+def rest_dict_to_proto_dict(products: list[dict]) -> list[dict]:
+    """
+    rest polymorphic dict are {**data_dict, "resourcetype": resourcetype_class_name}
+    proto dict are {"resourcetype_class_name": data_dict}
+    """
+    new_products = []
+    for p in products:
+        if p.get("resourcetype") == "LedPanel":
+            m = p["mode"]
+            p["mode"] = {m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
+        new_products.append({p["resourcetype"]: {k: p[k] for k in set(list(p.keys())) - set(["resourcetype"])}})
+    return new_products
+
+
 class ProjectListSerializer(ListProtoSerializer):
     def data_to_message(self, data):
         """
@@ -24,11 +48,7 @@ class ProjectListSerializer(ListProtoSerializer):
         """
         if data:
             for i, project in enumerate(data):
-                new_products = [
-                    {p["resourcetype"]: {k: p[k] for k in set(list(p.keys())) - set(["resourcetype"])}}
-                    for p in project.get("products")
-                ]
-                data[i]["products"] = new_products
+                data[i]["products"] = rest_dict_to_proto_dict(project["products"])
         return super().data_to_message(data)
 
 
@@ -52,7 +72,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         Polymorphic data types
         """
         if data.get("products") is not None:
-            data["products"] = [{**p[next(iter(p))], "resourcetype": next(iter(p))} for p in data.get("products")]
+            data["products"] = proto_dict_to_rest_dict(data["products"])
         return super().to_internal_value(data)
 
     def create(self, validated_data):
@@ -96,10 +116,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         """
         adata = await sync_to_async(getattr)(self, "data")
         if adata.get("products") is not None:
-            adata["products"] = [
-                {p["resourcetype"]: {k: p[k] for k in set(list(p.keys())) - set(["resourcetype"])}}
-                for p in adata.get("products")
-            ]
+            adata["products"] = rest_dict_to_proto_dict(adata["products"])
         return adata
 
     @property
