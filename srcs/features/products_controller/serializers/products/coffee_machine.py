@@ -51,6 +51,7 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         for category in categories:
             try:
                 c = Category.objects.get(name=category.get("name") if isinstance(category, dict) else category.name)
+                CategorySerializer().update(c, category)
             except Category.DoesNotExist:
                 serializer = CategorySerializer(data=category)
                 serializer.is_valid(raise_exception=True)

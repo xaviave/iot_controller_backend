@@ -100,6 +100,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         for product in validated_data.pop("products", instance.products.all()):
             try:
                 p = BaseProduct.objects.get(name=product.get("name") if isinstance(product, dict) else product.name)
+                BaseProductPolymorphicSerializer().update(p, product)
             except BaseProduct.DoesNotExist:
                 serializer = BaseProductPolymorphicSerializer(data=product)
                 serializer.is_valid(raise_exception=True)
