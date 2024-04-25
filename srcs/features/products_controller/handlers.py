@@ -1,16 +1,16 @@
 from django_socio_grpc.services.app_handler_registry import AppHandlerRegistry
-from features.products_controller.views.category import CategoryService
-from features.products_controller.views.products.coffee_machine import (
+from features.products_controller.services.category import CategoryService
+from features.products_controller.services.products.coffee_machine import (
     CoffeeMachineService,
 )
-from features.products_controller.views.products.led.led_mode import (
+from features.products_controller.services.products.led.led_mode import (
     ColorModeService,
     ImageModeService,
     PatternModeService,
     VideoModeService,
 )
-from features.products_controller.views.products.led.led_panel import LedPanelService
-from features.products_controller.views.project import ProjectService
+from features.products_controller.services.products.led.led_panel import LedPanelService
+from features.products_controller.services.project import ProjectService
 
 
 def grpc_handlers(server):

@@ -27,10 +27,6 @@ class CoffeeMachine(BaseProduct):
     filter_position = models.BooleanField(default=True)
     mode_value = models.IntegerField(default=0)
 
-    @cached_property
-    def get_proto_lib(self):
-        return proto_lib
-
     @staticmethod
     def get_stub(channel):
         return products_controller_pb2_grpc.CoffeeMachineControllerStub(channel)
@@ -49,6 +45,3 @@ class CoffeeMachine(BaseProduct):
 
     def get_status(self):
         return Status(self.status).name.title()
-
-    def get_mode_value(self):
-        return self.mode_value

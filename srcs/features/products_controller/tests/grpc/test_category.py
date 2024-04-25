@@ -4,7 +4,7 @@ from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,
 )
-from features.products_controller.views.category import CategoryService
+from features.products_controller.services.category import CategoryService
 
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})

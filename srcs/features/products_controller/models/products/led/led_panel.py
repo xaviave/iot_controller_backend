@@ -1,8 +1,8 @@
 from functools import cached_property
 
 from django.db import models
+from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 from features.products_controller.grpc import products_controller_pb2 as proto_lib
-from features.products_controller.grpc import products_controller_pb2_grpc
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.status import Status
@@ -27,7 +27,21 @@ class LedPanel(BaseProduct):
 
     @staticmethod
     def get_stub(channel):
-        return products_controller_pb2_grpc.LedPanelControllerStub(channel)
+        return products_controller_pb2_grpc.LedPanelControllerStub
+
+    def get_grpc_request(self) -> products_controller_pb2.LedPanelRequest:
+        print(self.mode)
+        print(self.mode.get_grpc_request())
+        return products_controller_pb2.LedPanelRequest(
+            status=self.status,
+            brightness=self.brightness,
+            mode=self.mode.get_grpc_request(),
+            categories=[],
+            # FW doesn't need any metadata RN
+            # id=self.id,
+            # name=self.name,
+            # categories=[c.get_grpc_request() for c in self.categories],
+        )
 
     def __str__(self):
         return self.name

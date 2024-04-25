@@ -25,12 +25,3 @@ class ImageMode(LedMode):
                 save=False,
             )
             super().save(*args, **kwargs)
-
-    def get_grpc_cmd(self) -> dict:
-        return {
-            "fn_name": "SetImage",
-            "class_name": "Image",
-            "w": self.image_low_pixel.width_field,
-            "h": self.image_low_pixel.height_field,
-            "bytes": ["ff"],
-        }

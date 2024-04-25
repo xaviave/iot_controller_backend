@@ -1,4 +1,3 @@
-from django_socio_grpc import generics
 from features.products_controller.models.products.led.color_mode import ColorMode
 from features.products_controller.models.products.led.image_mode import ImageMode
 from features.products_controller.models.products.led.led_mode import LedMode
@@ -11,28 +10,29 @@ from features.products_controller.serializers.products.led.led_mode import (
     PatternModeSerializer,
     VideoModeSerializer,
 )
+from features.products_controller.services.iot_mixin import IotMixin
 
 
-class LedModeService(generics.AsyncModelService):
+class LedModeService(IotMixin):
     queryset = LedMode.objects.all()
     serializer_class = LedModeSerializer
 
 
-class ImageModeService(generics.AsyncModelService):
+class ImageModeService(IotMixin):
     queryset = ImageMode.objects.all()
     serializer_class = ImageModeSerializer
 
 
-class VideoModeService(generics.AsyncModelService):
+class VideoModeService(IotMixin):
     queryset = VideoMode.objects.all()
     serializer_class = VideoModeSerializer
 
 
-class ColorModeService(generics.AsyncModelService):
+class ColorModeService(IotMixin):
     queryset = ColorMode.objects.all()
     serializer_class = ColorModeSerializer
 
 
-class PatternModeService(generics.AsyncModelService):
+class PatternModeService(IotMixin):
     queryset = PatternMode.objects.all()
     serializer_class = PatternModeSerializer

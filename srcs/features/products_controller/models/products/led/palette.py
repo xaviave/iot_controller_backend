@@ -266,30 +266,3 @@ class Palette(Enum):
     @classmethod
     def choices(cls):
         return [(key.value, key.name) for key in cls]
-
-    @staticmethod
-    def get_grpc_color(color):
-        ...
-        # r, g, b = ImageColor.getcolor(color.value if isinstance(color, DefinedColor) else color, "RGB")
-        # return led_communication_pb2.Color(r=r, g=g, b=b)
-
-    def grpc_data(self) -> dict:
-        ...
-        # return led_communication_pb2.Palette(
-        #     c1=self.get_grpc_color(self.value[0]),
-        #     c2=self.get_grpc_color(self.value[1]),
-        #     c3=self.get_grpc_color(self.value[2]),
-        #     c4=self.get_grpc_color(self.value[3]),
-        #     c5=self.get_grpc_color(self.value[4]),
-        #     c6=self.get_grpc_color(self.value[5]),
-        #     c7=self.get_grpc_color(self.value[6]),
-        #     c8=self.get_grpc_color(self.value[7]),
-        #     c9=self.get_grpc_color(self.value[8]),
-        #     c10=self.get_grpc_color(self.value[9]),
-        #     c11=self.get_grpc_color(self.value[10]),
-        #     c12=self.get_grpc_color(self.value[11]),
-        #     c13=self.get_grpc_color(self.value[12]),
-        #     c14=self.get_grpc_color(self.value[13]),
-        #     c15=self.get_grpc_color(self.value[14]),
-        #     c16=self.get_grpc_color(self.value[15]),
-        # )

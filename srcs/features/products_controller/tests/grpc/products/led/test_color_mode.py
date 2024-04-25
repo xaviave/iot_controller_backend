@@ -4,7 +4,7 @@ from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,
 )
-from features.products_controller.views.products.led.led_mode import ColorModeService
+from features.products_controller.services.products.led.led_mode import ColorModeService
 
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
