@@ -14,5 +14,6 @@ class LedPanelService(IotMixin):
         message = await super().Update(request, context)
         led = await self.aget_object()
         led_request = await sync_to_async(led.get_grpc_request)()
-        await self.grpc_request(await sync_to_async(led.get_stub)(), led_request)
+        stub = await sync_to_async(led.get_stub)()
+        self.grpc_request(stub, led_request)
         return message

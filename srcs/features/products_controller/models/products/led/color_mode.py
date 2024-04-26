@@ -9,7 +9,6 @@ class ColorMode(LedMode):
 
     def get_grpc_request(self) -> products_controller_pb2.LedModeRequest:
         grpc_request = products_controller_pb2.LedModeRequest()
-        # print(self.color)
         grpc_request.ColorMode.CopyFrom(
             products_controller_pb2.ColorModeRequest(
                 # FW doesn't need any metadata rn

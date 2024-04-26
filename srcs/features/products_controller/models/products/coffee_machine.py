@@ -28,8 +28,8 @@ class CoffeeMachine(BaseProduct):
     mode_value = models.IntegerField(default=0)
 
     @staticmethod
-    def get_stub(channel):
-        return products_controller_pb2_grpc.CoffeeMachineControllerStub(channel)
+    def get_stub():
+        return products_controller_pb2_grpc.CoffeeMachineControllerStub
 
     def __str__(self):
         return self.name

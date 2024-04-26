@@ -26,12 +26,10 @@ class LedPanel(BaseProduct):
         return LedMode.__subclasses__()
 
     @staticmethod
-    def get_stub(channel):
+    def get_stub():
         return products_controller_pb2_grpc.LedPanelControllerStub
 
     def get_grpc_request(self) -> products_controller_pb2.LedPanelRequest:
-        print(self.mode)
-        print(self.mode.get_grpc_request())
         return products_controller_pb2.LedPanelRequest(
             status=self.status,
             brightness=self.brightness,
