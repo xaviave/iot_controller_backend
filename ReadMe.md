@@ -68,7 +68,7 @@ Let's install all the python requirements
 
 Generate the gRPC files from srcs:
 
-     python3 manage.py generateproto --directory features/products_controller/gen_grpc
+     python3 manage.py generateproto --directory features/products_controller/grpc
 
 Export the env variables for the project
 

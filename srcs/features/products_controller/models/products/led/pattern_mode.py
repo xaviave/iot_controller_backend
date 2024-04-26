@@ -1,14 +1,14 @@
+from colorfield.fields import ColorField
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
-
 from features.products_controller.grpc import products_controller_pb2
 from features.products_controller.models.products.led.led_mode import LedMode
-from features.products_controller.models.products.led.palette import Palette
 
 
 class PatternMode(LedMode):
     fps = models.DecimalField(max_digits=5, decimal_places=2)
     blink = models.DecimalField(max_digits=4, decimal_places=2)
-    palette = models.CharField(choices=[(choice.name, choice.name) for choice in Palette])
+    palette = ArrayField(ColorField())
 
     def get_grpc_request(self) -> products_controller_pb2.LedModeRequest:
         grpc_request = products_controller_pb2.LedModeRequest()
@@ -19,7 +19,7 @@ class PatternMode(LedMode):
                 # name=self.name,
                 fps=self.fps,
                 blink=self.blink,
-                palette=self.palette.name
+                palette=[c for c in self.palette],
             )
         )
         return grpc_request

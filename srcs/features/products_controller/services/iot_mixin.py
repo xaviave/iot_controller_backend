@@ -2,7 +2,6 @@ import logging
 
 import grpc
 from django_socio_grpc import generics
-from grpcio_iot import grpc_utils
 
 
 class IotMixin(generics.AsyncModelService):
