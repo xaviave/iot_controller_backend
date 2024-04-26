@@ -1,0 +1,45 @@
+/*
+main diff is the handling of the base_product
+We replace the BaseProductRequest and BaseProductResponse to use the Oneof
+instead of the mother class of the inheritance.
+
+Steps:
+1. replace the BaseProductRequest and BaseProductResponse from the main file by the one above
+2. generate the pb2 file with this change from iot_controller_backend/srcs:
+    python3 -m grpc_tools.protoc  -I=.  features/products_controller/grpc/products_controller.proto  --python_out=. --grpc_python_out=. --experimental_allow_proto3_optional
+*/
+syntax = "proto3";
+
+// Polymorphism
+// Manual
+message BaseProductRequest {
+  oneof product {
+    CoffeeMachineRequest CoffeeMachine = 2;
+    LedPanelRequest LedPanel = 3;
+  }
+}
+
+message BaseProductResponse {
+  oneof product {
+    CoffeeMachineResponse CoffeeMachine = 2;
+    LedPanelResponse LedPanel = 3;
+  }
+}
+
+message LedModeRequest {
+  oneof mode {
+    ImageModeRequest ImageMode = 2;
+    VideoModeRequest VideoMode = 3;
+    ColorModeRequest ColorMode = 4;
+    PatternModeRequest PatternMode = 5;
+  }
+}
+
+message LedModeResponse {
+  oneof mode {
+    ImageModeResponse ImageMode = 2;
+    VideoModeResponse VideoMode = 3;
+    ColorModeResponse ColorMode = 4;
+    PatternModeResponse PatternMode = 5;
+  }
+}

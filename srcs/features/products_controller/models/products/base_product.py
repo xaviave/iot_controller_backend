@@ -11,5 +11,5 @@ class BaseProduct(PolymorphicModel):
         return self.name
 
     @staticmethod
-    def get_stub(channel):
+    def get_stub():
         raise NotImplementedError
