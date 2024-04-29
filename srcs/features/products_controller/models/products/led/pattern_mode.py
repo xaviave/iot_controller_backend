@@ -1,5 +1,4 @@
 from django.db import models
-
 from features.products_controller.grpc import products_controller_pb2
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.products.led.palette import Palette
@@ -19,7 +18,7 @@ class PatternMode(LedMode):
                 # name=self.name,
                 fps=self.fps,
                 blink=self.blink,
-                palette=self.palette.name
+                palette=self.palette.name,
             )
         )
         return grpc_request

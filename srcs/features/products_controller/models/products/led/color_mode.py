@@ -1,7 +1,6 @@
 from colorfield.fields import ColorField
 from features.products_controller.grpc import products_controller_pb2
 from features.products_controller.models.products.led.led_mode import LedMode
-from PIL import ImageColor
 
 
 class ColorMode(LedMode):
