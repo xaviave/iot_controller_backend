@@ -1,4 +1,1 @@
-Pillow
 opencv-python
-scikit-image
-ffmpy
