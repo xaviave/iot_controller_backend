@@ -9,7 +9,7 @@ class IotMixin(generics.AsyncModelService):
     @staticmethod
     def _grpc_request(stub_class, request):
         # ip should be specific to the product
-        with grpc.insecure_channel("10.6.6.6:50051") as channel:
+        with grpc.insecure_channel("0.0.0.0:50051") as channel:
             stub = stub_class(channel)
             try:
                 # We only want to update the IOT product
