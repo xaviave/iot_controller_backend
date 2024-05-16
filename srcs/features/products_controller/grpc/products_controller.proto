@@ -123,19 +123,19 @@ message CategoryListResponse {
 }
 
 message CategoryPartialUpdateRequest {
-    repeated string _partial_update_fields = 2;
-    string name = 3;
-    int32 id = 4;
+    int32 id = 1;
+    string name = 2;
+    repeated string _partial_update_fields = 3;
 }
 
 message CategoryRequest {
+    int32 id = 1;
     string name = 2;
-    int32 id = 3;
 }
 
 message CategoryResponse {
+    int32 id = 1;
     string name = 2;
-    int32 id = 3;
 }
 
 message CategoryRetrieveRequest {
@@ -155,8 +155,23 @@ message CoffeeMachineListResponse {
 }
 
 message CoffeeMachinePartialUpdateRequest {
-    repeated string _partial_update_fields = 2;
-    string name = 3;
+    int32 id = 1;
+    string name = 2;
+    repeated CategoryRequest categories = 3;
+    repeated string _partial_update_fields = 4;
+    int32 status = 5;
+    float heat = 6;
+    int32 water_level = 7;
+    int32 used_water_level = 8;
+    int32 coffee_level = 9;
+    bool filter_position = 10;
+    int32 mode_value = 11;
+}
+
+message CoffeeMachineRequest {
+    int32 id = 1;
+    string name = 2;
+    repeated CategoryRequest categories = 3;
     int32 status = 4;
     float heat = 5;
     int32 water_level = 6;
@@ -164,35 +179,20 @@ message CoffeeMachinePartialUpdateRequest {
     int32 coffee_level = 8;
     bool filter_position = 9;
     int32 mode_value = 10;
-    repeated CategoryRequest categories = 11;
-    int32 id = 12;
-}
-
-message CoffeeMachineRequest {
-    string name = 2;
-    int32 status = 3;
-    float heat = 4;
-    int32 water_level = 5;
-    int32 used_water_level = 6;
-    int32 coffee_level = 7;
-    bool filter_position = 8;
-    int32 mode_value = 9;
-    repeated CategoryRequest categories = 10;
-    int32 id = 11;
 }
 
 message CoffeeMachineResponse {
+    int32 id = 1;
     string name = 2;
-    int32 status = 3;
-    float heat = 4;
-    int32 water_level = 5;
-    int32 used_water_level = 6;
-    int32 coffee_level = 7;
-    bool filter_position = 8;
-    int32 mode_value = 9;
-    optional int32 polymorphic_ctype = 10;
-    repeated CategoryResponse categories = 11;
-    int32 id = 12;
+    repeated CategoryResponse categories = 3;
+    int32 status = 4;
+    float heat = 5;
+    int32 water_level = 6;
+    int32 used_water_level = 7;
+    int32 coffee_level = 8;
+    bool filter_position = 9;
+    int32 mode_value = 10;
+    optional int32 polymorphic_ctype = 11;
 }
 
 message CoffeeMachineRetrieveRequest {
@@ -337,7 +337,7 @@ message PatternModePartialUpdateRequest {
     repeated string _partial_update_fields = 3;
     double fps = 4;
     double blink = 5;
-    string palette = 6;
+    repeated string palette = 6;
 }
 
 message PatternModeRequest {
@@ -345,7 +345,7 @@ message PatternModeRequest {
     string name = 2;
     double fps = 3;
     double blink = 4;
-    string palette = 5;
+    repeated string palette = 5;
 }
 
 message PatternModeResponse {
@@ -353,7 +353,7 @@ message PatternModeResponse {
     string name = 2;
     double fps = 3;
     double blink = 4;
-    string palette = 5;
+    repeated string palette = 5;
     optional int32 polymorphic_ctype = 6;
 }
 
@@ -374,28 +374,28 @@ message ProjectListResponse {
 }
 
 message ProjectPartialUpdateRequest {
+    int32 id = 1;
     repeated BaseProductRequest products = 2;
     repeated string _partial_update_fields = 3;
     string pub_date = 4;
     string name = 5;
     int32 owner = 6;
-    int32 id = 7;
 }
 
 message ProjectRequest {
+    int32 id = 1;
     repeated BaseProductRequest products = 2;
     string pub_date = 3;
     string name = 4;
     int32 owner = 5;
-    int32 id = 6;
 }
 
 message ProjectResponse {
+    int32 id = 1;
     repeated BaseProductResponse products = 2;
     string pub_date = 3;
     string name = 4;
     int32 owner = 5;
-    int32 id = 6;
 }
 
 message ProjectRetrieveRequest {

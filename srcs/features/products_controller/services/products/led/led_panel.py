@@ -11,6 +11,10 @@ class LedPanelService(IotMixin):
     serializer_class = LedPanelSerializer
 
     async def Update(self, request, context):
+        """
+        Update django server DB
+        Send request to the client as a new Update Request from the updated object
+        """
         message = await super().Update(request, context)
         led = await self.aget_object()
         led_request = await sync_to_async(led.get_grpc_request)()

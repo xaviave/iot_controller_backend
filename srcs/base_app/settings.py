@@ -17,7 +17,7 @@ SECRET_KEY = "django-insecure-w+!_w=mqch_pw8(6^78q+pklcg@f-(xwy5of8s9ceq9rlqt)am
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "iot_controller.gmx", "192.168.1.148"]
+ALLOWED_HOSTS = ["127.0.0.1", "iot_controller.gmx", "192.168.1.148", "*"]
 
 # Application definition
 
@@ -34,7 +34,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "polymorphic",
     "colorfield",
-    "bootstrap5",
     "django_socio_grpc",
 ]
 
@@ -135,10 +134,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "features/products_controller/static"),
-]
 STATIC_ROOT = STATIC_URL + "external_static/"
 
 MEDIA_URL = "/media/"
