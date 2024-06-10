@@ -22,14 +22,13 @@ Different message's tags allow custom interaction and frontend display.
 
 ## To-Do
 
-- Develop flexible pattern as a list.
 - Add per product IP and port.
-- Add gRPC message protocol for errors or warning
-- Use always open stub for channel while on product page (stop after 5min of no usage)
-- Add [color modes](https://fastled.io/docs/group___color_utils.html)
 - Allow user with rights (not just owner) to use a product/project.
 - Add auth over gRPC.
-- Add stream communication between django server and IOT following a app request.
+- Add gRPC message protocol for errors or warning from the IOT product.
+- Use always open stub for channel while on product page (stop after 5min of no usage)
+- Add [color modes function](https://fastled.io/docs/group___color_utils.html)
+- Add stream communication between django server and IOT following a app request (video or sound stream).
 
 ## Linter
 
