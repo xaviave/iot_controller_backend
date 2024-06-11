@@ -11,6 +11,7 @@ from features.products_controller.models.project import Project
 from features.products_controller.serializers.products.base_product import (
     BaseProductPolymorphicSerializer,
 )
+from features.products_controller.serializers.user import UserSerializer
 from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
@@ -53,6 +54,7 @@ class ProjectListSerializer(ListProtoSerializer):
 
 
 class ProjectSerializer(proto_serializers.ModelProtoSerializer):
+    owner = UserSerializer()
     products = BaseProductPolymorphicSerializer(many=True)
 
     # https://www.geeksforgeeks.org/prefetch_related-and-select_related-functions-in-django/

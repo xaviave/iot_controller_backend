@@ -4,6 +4,7 @@ from features.products_controller.models.products.base_product import BaseProduc
 
 
 class Project(models.Model):
+    # could add Profile instead to send the profile picture through gRPC
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField("date published")
     name = models.CharField(max_length=200, unique=True)

@@ -23,10 +23,6 @@ Different message's tags allow custom interaction and frontend display.
 
 - use always open stub for channel while on product page (stop after 5min of no usage)
 - Add [color modes](https://fastled.io/docs/group___color_utils.html)
-- Add ajax
-- Make sure login page is unavailable when connected
-- Add script and commands to allow Django over a local Wi-Fi.
-- Add the product form in the user interface.
 - Allow user with rights (not just owner) to use a product/project.
 - Add auth over GRPC.
 

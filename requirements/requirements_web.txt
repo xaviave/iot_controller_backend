@@ -5,3 +5,4 @@ django-colorfield
 django-socio-grpc
 djangorestframework
 django-rest-polymorphic
+django-cors-headers
