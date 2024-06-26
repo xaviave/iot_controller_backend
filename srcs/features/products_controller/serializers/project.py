@@ -1,4 +1,5 @@
 from asgiref.sync import sync_to_async
+from django.contrib.auth.models import User
 from django_socio_grpc import proto_serializers
 from django_socio_grpc.proto_serializers import ListProtoSerializer
 from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
@@ -78,6 +79,12 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         return super().to_internal_value(data)
 
     def create(self, validated_data):
+        try:
+            owner = User.objects.get(username=validated_data.get("owner").get("username"))
+        except User.DoesNotExist:
+            serializer = UserSerializer(data=validated_data.get("owner"))
+            serializer.is_valid(raise_exception=True)
+            owner = serializer.save()
         new_products = []
         for product in validated_data.pop("products", []):
             try:
@@ -88,6 +95,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
                 p = serializer.save()
             new_products.append(p)
 
+        validated_data["owner"] = owner
         instance = Project.objects.create(**validated_data)
         instance.products.set(new_products)
         return instance
