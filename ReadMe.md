@@ -22,12 +22,11 @@ Different message's tags allow custom interaction and frontend display.
 
 ## To-Do
 
-- Add per product IP and port.
+- use always open stub for channel while on product page (stop after 5min of no usage)
+- Add [color modes](https://fastled.io/docs/group___color_utils.html)
 - Allow user with rights (not just owner) to use a product/project.
 - Add auth over gRPC.
 - Add gRPC message protocol for errors or warning from the IOT product.
-- Use always open stub for channel while on product page (stop after 5min of no usage)
-- Add [color modes function](https://fastled.io/docs/group___color_utils.html)
 - Add stream communication between django server and IOT following a app request (video or sound stream).
 
 ## Linter
@@ -158,33 +157,19 @@ Then:
 
    Run the following command to reload the systemd daemon and load the new service file:
 
-<<<<<<< Updated upstream
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl start django_server
     sudo systemctl status django_server
     ```
-=======
-   ```sh
-   sudo systemctl daemon-reload
-   sudo systemctl start django
-   sudo systemctl status django
-   ```
->>>>>>> Stashed changes
 
 4. **Enable the Django service:**
 
    If you want the service to start automatically when the system boots up, use the following command:
 
-<<<<<<< Updated upstream
     ```sh
     sudo systemctl enable django_server
     ```
-=======
-   ```sh
-   sudo systemctl enable django
-   ```
->>>>>>> Stashed changes
 
 ## Celery Service Setup
 

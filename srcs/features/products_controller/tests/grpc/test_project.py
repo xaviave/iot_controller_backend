@@ -17,6 +17,7 @@ from features.products_controller.services.products.coffee_machine import (
 from features.products_controller.services.products.led.led_mode import ColorModeService
 from features.products_controller.services.products.led.led_panel import LedPanelService
 from features.products_controller.services.project import ProjectService
+from features.products_controller.services.user import UserService
 from freezegun import freeze_time
 
 
@@ -39,6 +40,10 @@ class TestProject(TransactionTestCase):
             products_controller_pb2_grpc.add_CoffeeMachineControllerServicer_to_server,
             CoffeeMachineService.as_servicer(),
         )
+        self.user_fake_grpc = FakeFullAIOGRPC(
+            products_controller_pb2_grpc.add_UserControllerServicer_to_server,
+            UserService.as_servicer(),
+        )
         self.project_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_ProjectControllerServicer_to_server,
             ProjectService.as_servicer(),
@@ -49,6 +54,7 @@ class TestProject(TransactionTestCase):
         self.color_mode_fake_grpc.close()
         self.led_panel_fake_grpc.close()
         self.coffee_machine_fake_grpc.close()
+        self.user_fake_grpc.close()
         self.project_fake_grpc.close()
 
     @staticmethod
@@ -68,6 +74,7 @@ class TestProject(TransactionTestCase):
             "filter_position": True,
             "mode_value": 1,
             "categories": [category_request],
+            "ip_address": "0.0.0.0",
         }
         coffee_machine_request = products_controller_pb2.CoffeeMachineRequest(**coffee_machine_args)
         coffee_machine_args["categories"] = [category_response]
@@ -89,6 +96,7 @@ class TestProject(TransactionTestCase):
             "brightness": 0.05,
             "mode": led_mode_request,
             "categories": [category_request],
+            "ip_address": "0.0.0.0",
         }
 
         led_panel_request = products_controller_pb2.LedPanelRequest(**led_panel_args)
@@ -109,6 +117,10 @@ class TestProject(TransactionTestCase):
 
     @freeze_time("2024-02-02 03:21:34")
     async def test_async_create_project(self):
+        user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
+        owner_request = products_controller_pb2.UserRequest(username="hannah_montana")
+        create_owner_res = await user_grpc_stub.Create(owner_request)
+
         grpc_stub = self.project_fake_grpc.get_fake_stub(products_controller_pb2_grpc.ProjectControllerStub)
 
         # Check empty dataset
@@ -118,10 +130,10 @@ class TestProject(TransactionTestCase):
         # Create Project Object
         products_request, products_response = await self.create_product()
         project_date = datetime.datetime.now()
-        project_owner = await sync_to_async(User.objects.create)(username="hannah montana", password="12345")
+
         request = products_controller_pb2.ProjectRequest(
             name="project smth",
-            owner=project_owner.id,
+            owner=owner_request,
             pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
             products=products_request,
         )

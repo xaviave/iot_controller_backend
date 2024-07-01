@@ -2101,6 +2101,305 @@ class ProjectController(object):
         )
 
 
+class UserControllerStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Create = channel.unary_unary(
+            "/base_app.products_controller.UserController/Create",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+        )
+        self.Destroy = channel.unary_unary(
+            "/base_app.products_controller.UserController/Destroy",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserDestroyRequest.SerializeToString,
+            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        )
+        self.List = channel.unary_unary(
+            "/base_app.products_controller.UserController/List",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListResponse.FromString,
+        )
+        self.PartialUpdate = channel.unary_unary(
+            "/base_app.products_controller.UserController/PartialUpdate",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserPartialUpdateRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+        )
+        self.Retrieve = channel.unary_unary(
+            "/base_app.products_controller.UserController/Retrieve",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRetrieveRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+        )
+        self.Update = channel.unary_unary(
+            "/base_app.products_controller.UserController/Update",
+            request_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.SerializeToString,
+            response_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+        )
+
+
+class UserControllerServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Create(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Destroy(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def List(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def PartialUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Retrieve(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
+
+def add_UserControllerServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        "Create": grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.SerializeToString,
+        ),
+        "Destroy": grpc.unary_unary_rpc_method_handler(
+            servicer.Destroy,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserDestroyRequest.FromString,
+            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        ),
+        "List": grpc.unary_unary_rpc_method_handler(
+            servicer.List,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListResponse.SerializeToString,
+        ),
+        "PartialUpdate": grpc.unary_unary_rpc_method_handler(
+            servicer.PartialUpdate,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserPartialUpdateRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.SerializeToString,
+        ),
+        "Retrieve": grpc.unary_unary_rpc_method_handler(
+            servicer.Retrieve,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRetrieveRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.SerializeToString,
+        ),
+        "Update": grpc.unary_unary_rpc_method_handler(
+            servicer.Update,
+            request_deserializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.FromString,
+            response_serializer=features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        "base_app.products_controller.UserController", rpc_method_handlers
+    )
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+# This class is part of an EXPERIMENTAL API.
+class UserController(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Create(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/Create",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Destroy(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/Destroy",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserDestroyRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def List(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/List",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def PartialUpdate(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/PartialUpdate",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserPartialUpdateRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Retrieve(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/Retrieve",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRetrieveRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def Update(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/base_app.products_controller.UserController/Update",
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserRequest.SerializeToString,
+            features_dot_products__controller_dot_grpc_dot_products__controller__pb2.UserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+
 class VideoModeControllerStub(object):
     """Missing associated documentation comment in .proto file."""
 

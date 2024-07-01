@@ -11,10 +11,12 @@ from features.products_controller.services.products.led.led_mode import (
 )
 from features.products_controller.services.products.led.led_panel import LedPanelService
 from features.products_controller.services.project import ProjectService
+from features.products_controller.services.user import UserService
 
 
 def grpc_handlers(server):
     app_registry = AppHandlerRegistry("products_controller", server)
+    app_registry.register(UserService)
     app_registry.register(ProjectService)
     app_registry.register(CategoryService)
     app_registry.register(CoffeeMachineService)
