@@ -1,11 +1,11 @@
 # IOT controller
 
-Control and manage IOT products from a Django server (Raspberry PI).
+Control and manage IOT products from a Django server (Raspberry PI) thanks to a gRPC (REST like) API.
 
 Each product are store in DB with different models and functionality over a polymorphic DB allowing a lot of
 abstraction.
 
-Products are control over a GRPC protocol allowing a free ecosystem of FW on edge.
+Products are control over a gRPC protocol allowing a free ecosystem of FW on edge.
 
 ## Products
 
@@ -14,6 +14,7 @@ Products are control over a GRPC protocol allowing a free ecosystem of FW on edg
 
 ## Error handling through messages
 
+/!\ Not implemented anymore, need to implement in a protobuf model.
 Message will be shown to users from the Django's message middleware.
 Different message's tags allow custom interaction and frontend display.
 
@@ -24,7 +25,9 @@ Different message's tags allow custom interaction and frontend display.
 - use always open stub for channel while on product page (stop after 5min of no usage)
 - Add [color modes](https://fastled.io/docs/group___color_utils.html)
 - Allow user with rights (not just owner) to use a product/project.
-- Add auth over GRPC.
+- Add auth over gRPC.
+- Add gRPC message protocol for errors or warning from the IOT product.
+- Add stream communication between django server and IOT following a app request (video or sound stream).
 
 ## Linter
 
@@ -80,7 +83,10 @@ Then simply launch these commands once and the site is initialised
 
 Then launch the server
 
-    python3 srcsmanage.py runserver
+    # Admin without gRPC API
+    python3 srcs manage.py runserver
+    # Server with gRPC API
+    python3 srcs manage.py grpcrunaioserver
 
 ---
 
@@ -90,7 +96,7 @@ if you want a custom namespace, add to `ALLOWED_HOSTS` the name of this namespac
 To allow the server on local network, add your IP address to `ALLOWED_HOST`
 in `srcs/base_app/settings.py` like:
 
-    ALLOWED_HOSTS = ['mywebsite.local', 'YOU_IP']
+    ALLOWED_HOSTS = ['mywebsite.local', 'YOUR_IP']
 
 Launch this command:
 
@@ -151,33 +157,19 @@ Then:
 
    Run the following command to reload the systemd daemon and load the new service file:
 
-<<<<<<< Updated upstream
     ```sh
     sudo systemctl daemon-reload
     sudo systemctl start django_server
     sudo systemctl status django_server
     ```
-=======
-   ```sh
-   sudo systemctl daemon-reload
-   sudo systemctl start django
-   sudo systemctl status django
-   ```
->>>>>>> Stashed changes
 
 4. **Enable the Django service:**
 
    If you want the service to start automatically when the system boots up, use the following command:
 
-<<<<<<< Updated upstream
     ```sh
     sudo systemctl enable django_server
     ```
-=======
-   ```sh
-   sudo systemctl enable django
-   ```
->>>>>>> Stashed changes
 
 ## Celery Service Setup
 
@@ -214,9 +206,3 @@ Then:
    sudo systemctl status celery
    sudo systemctl enable celery
    ```
-
-## Code formatting
-
-From Black and isort to ruff, i mainly use ruff:
-
-    ruff format . && ruff check --select I --fix . && ruff .
