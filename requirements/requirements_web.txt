@@ -6,3 +6,5 @@ django-socio-grpc
 djangorestframework
 django-rest-polymorphic
 django-cors-headers
+celery
+django-celery-beat
