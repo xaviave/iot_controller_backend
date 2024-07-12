@@ -84,19 +84,19 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         instance.status = validated_data.get("status", instance.status)
         instance.brightness = validated_data.get("brightness", instance.brightness)
 
-        try:
-            instance.mode = LedMode.objects.get(
-                name=validated_data.get("mode").get("name")
-                if isinstance(validated_data.get("mode"), dict)
-                else instance.mode.name
-            )
-            LedModePolymorphicSerializer().update(instance.mode, validated_data.get("mode"))
-        except LedMode.DoesNotExist:
-            serializer = LedModePolymorphicSerializer(data=validated_data.get("mode"))
-            serializer.is_valid(raise_exception=True)
-            instance.mode = serializer.save()
+        if "mode" in validated_data.keys():
+            try:
+                instance.mode = LedMode.objects.get(name=validated_data.get("mode").get("name"))
+                LedModePolymorphicSerializer().update(instance.mode, validated_data.get("mode"))
+            except LedMode.DoesNotExist:
+                serializer = LedModePolymorphicSerializer(data=validated_data.get("mode"))
+                serializer.is_valid(raise_exception=True)
+                instance.mode = serializer.save()
         instance.save()
 
+        if "mode" not in validated_data.keys():
+            return instance
+        
         new_categories = []
         categories = validated_data.pop("categories", instance.categories.all())
         for category in categories:

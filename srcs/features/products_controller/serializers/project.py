@@ -106,6 +106,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         instance.pub_date = validated_data.get("pub_date", instance.pub_date)
         instance.save()
 
+        print(f"update projects {validated_data}")
         new_products = []
         for product in validated_data.pop("products", instance.products.all()):
             try:
