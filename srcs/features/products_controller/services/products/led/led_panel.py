@@ -16,7 +16,15 @@ class LedPanelService(IotMixin):
         Send request to the client as a new Update Request from the updated object
         """
         message = await super().Update(request, context)
-        # print(f"{message=}")
+        # need to add a filter of the vars that have to update the task
+        led = await self.aget_object()
+        led_request = await sync_to_async(led.get_grpc_request)()
+        stub = await sync_to_async(led.get_stub)()
+        self.grpc_request(stub, led_request)
+        return message
+
+    async def PartialUpdate(self, request, context):
+        message = await super().PartialUpdate(request, context)
         # need to add a filter of the vars that have to update the task
         led = await self.aget_object()
         led_request = await sync_to_async(led.get_grpc_request)()
