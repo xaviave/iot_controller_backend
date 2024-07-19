@@ -94,7 +94,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
                 instance.mode = serializer.save()
         instance.save()
 
-        if "mode" not in validated_data.keys():
+        if "categories" not in validated_data.keys():
             return instance
         
         new_categories = []
