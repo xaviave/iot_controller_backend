@@ -1,5 +1,10 @@
 from django_socio_grpc.services.app_handler_registry import AppHandlerRegistry
 from features.products_controller.services.category import CategoryService
+from features.products_controller.services.celery_tasks.clocked_schedule import ClockedScheduleService
+from features.products_controller.services.celery_tasks.crontab_schedule import CrontabScheduleService
+from features.products_controller.services.celery_tasks.interval_schedule import IntervalScheduleService
+from features.products_controller.services.celery_tasks.periodic_task import PeriodicTaskService
+from features.products_controller.services.celery_tasks.solar_schedule import SolarScheduleService
 from features.products_controller.services.products.coffee_machine import (
     CoffeeMachineService,
 )
@@ -25,3 +30,9 @@ def grpc_handlers(server):
     app_registry.register(VideoModeService)
     app_registry.register(ColorModeService)
     app_registry.register(PatternModeService)
+
+    app_registry.register(PeriodicTaskService)
+    app_registry.register(ClockedScheduleService)
+    app_registry.register(CrontabScheduleService)
+    app_registry.register(IntervalScheduleService)
+    app_registry.register(SolarScheduleService)

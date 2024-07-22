@@ -13,6 +13,15 @@ service CategoryController {
     rpc Update(CategoryRequest) returns (CategoryResponse) {}
 }
 
+service ClockedScheduleController {
+    rpc Create(ClockedScheduleRequest) returns (ClockedScheduleResponse) {}
+    rpc Destroy(ClockedScheduleDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(ClockedScheduleListRequest) returns (ClockedScheduleListResponse) {}
+    rpc PartialUpdate(ClockedSchedulePartialUpdateRequest) returns (ClockedScheduleResponse) {}
+    rpc Retrieve(ClockedScheduleRetrieveRequest) returns (ClockedScheduleResponse) {}
+    rpc Update(ClockedScheduleRequest) returns (ClockedScheduleResponse) {}
+}
+
 service CoffeeMachineController {
     rpc Create(CoffeeMachineRequest) returns (CoffeeMachineResponse) {}
     rpc Destroy(CoffeeMachineDestroyRequest) returns (google.protobuf.Empty) {}
@@ -31,6 +40,15 @@ service ColorModeController {
     rpc Update(ColorModeRequest) returns (ColorModeResponse) {}
 }
 
+service CrontabScheduleController {
+    rpc Create(CrontabScheduleRequest) returns (CrontabScheduleResponse) {}
+    rpc Destroy(CrontabScheduleDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(CrontabScheduleListRequest) returns (CrontabScheduleListResponse) {}
+    rpc PartialUpdate(CrontabSchedulePartialUpdateRequest) returns (CrontabScheduleResponse) {}
+    rpc Retrieve(CrontabScheduleRetrieveRequest) returns (CrontabScheduleResponse) {}
+    rpc Update(CrontabScheduleRequest) returns (CrontabScheduleResponse) {}
+}
+
 service ImageModeController {
     rpc Create(ImageModeRequest) returns (ImageModeResponse) {}
     rpc Destroy(ImageModeDestroyRequest) returns (google.protobuf.Empty) {}
@@ -38,6 +56,15 @@ service ImageModeController {
     rpc PartialUpdate(ImageModePartialUpdateRequest) returns (ImageModeResponse) {}
     rpc Retrieve(ImageModeRetrieveRequest) returns (ImageModeResponse) {}
     rpc Update(ImageModeRequest) returns (ImageModeResponse) {}
+}
+
+service IntervalScheduleController {
+    rpc Create(IntervalScheduleRequest) returns (IntervalScheduleResponse) {}
+    rpc Destroy(IntervalScheduleDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(IntervalScheduleListRequest) returns (IntervalScheduleListResponse) {}
+    rpc PartialUpdate(IntervalSchedulePartialUpdateRequest) returns (IntervalScheduleResponse) {}
+    rpc Retrieve(IntervalScheduleRetrieveRequest) returns (IntervalScheduleResponse) {}
+    rpc Update(IntervalScheduleRequest) returns (IntervalScheduleResponse) {}
 }
 
 service LedPanelController {
@@ -58,6 +85,15 @@ service PatternModeController {
     rpc Update(PatternModeRequest) returns (PatternModeResponse) {}
 }
 
+service PeriodicTaskController {
+    rpc Create(PeriodicTaskRequest) returns (PeriodicTaskResponse) {}
+    rpc Destroy(PeriodicTaskDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(PeriodicTaskListRequest) returns (PeriodicTaskListResponse) {}
+    rpc PartialUpdate(PeriodicTaskPartialUpdateRequest) returns (PeriodicTaskResponse) {}
+    rpc Retrieve(PeriodicTaskRetrieveRequest) returns (PeriodicTaskResponse) {}
+    rpc Update(PeriodicTaskRequest) returns (PeriodicTaskResponse) {}
+}
+
 service ProjectController {
     rpc Create(ProjectRequest) returns (ProjectResponse) {}
     rpc Destroy(ProjectDestroyRequest) returns (google.protobuf.Empty) {}
@@ -65,6 +101,15 @@ service ProjectController {
     rpc PartialUpdate(ProjectPartialUpdateRequest) returns (ProjectResponse) {}
     rpc Retrieve(ProjectRetrieveRequest) returns (ProjectResponse) {}
     rpc Update(ProjectRequest) returns (ProjectResponse) {}
+}
+
+service SolarScheduleController {
+    rpc Create(SolarScheduleRequest) returns (SolarScheduleResponse) {}
+    rpc Destroy(SolarScheduleDestroyRequest) returns (google.protobuf.Empty) {}
+    rpc List(SolarScheduleListRequest) returns (SolarScheduleListResponse) {}
+    rpc PartialUpdate(SolarSchedulePartialUpdateRequest) returns (SolarScheduleResponse) {}
+    rpc Retrieve(SolarScheduleRetrieveRequest) returns (SolarScheduleResponse) {}
+    rpc Update(SolarScheduleRequest) returns (SolarScheduleResponse) {}
 }
 
 service UserController {
@@ -148,6 +193,38 @@ message CategoryResponse {
 }
 
 message CategoryRetrieveRequest {
+    int32 id = 1;
+}
+
+message ClockedScheduleDestroyRequest {
+    int32 id = 1;
+}
+
+message ClockedScheduleListRequest {
+}
+
+message ClockedScheduleListResponse {
+    repeated ClockedScheduleResponse results = 1;
+    int32 count = 2;
+}
+
+message ClockedSchedulePartialUpdateRequest {
+    optional int32 id = 1;
+    repeated string _partial_update_fields = 4;
+    string clocked_time = 5;
+}
+
+message ClockedScheduleRequest {
+    optional int32 id = 1;
+    string clocked_time = 4;
+}
+
+message ClockedScheduleResponse {
+    optional int32 id = 1;
+    string clocked_time = 4;
+}
+
+message ClockedScheduleRetrieveRequest {
     int32 id = 1;
 }
 
@@ -250,6 +327,53 @@ message ColorModeRetrieveRequest {
     int32 id = 1;
 }
 
+message CrontabScheduleDestroyRequest {
+    int32 id = 1;
+}
+
+message CrontabScheduleListRequest {
+}
+
+message CrontabScheduleListResponse {
+    repeated CrontabScheduleResponse results = 1;
+    int32 count = 2;
+}
+
+message CrontabSchedulePartialUpdateRequest {
+    optional int32 id = 1;
+    repeated string _partial_update_fields = 4;
+    optional string minute = 5;
+    optional string hour = 6;
+    optional string day_of_month = 7;
+    optional string month_of_year = 8;
+    optional string day_of_week = 9;
+    optional string timezone = 10;
+}
+
+message CrontabScheduleRequest {
+    optional int32 id = 1;
+    optional string minute = 4;
+    optional string hour = 5;
+    optional string day_of_month = 6;
+    optional string month_of_year = 7;
+    optional string day_of_week = 8;
+    optional string timezone = 9;
+}
+
+message CrontabScheduleResponse {
+    optional int32 id = 1;
+    optional string minute = 4;
+    optional string hour = 5;
+    optional string day_of_month = 6;
+    optional string month_of_year = 7;
+    optional string day_of_week = 8;
+    optional string timezone = 9;
+}
+
+message CrontabScheduleRetrieveRequest {
+    int32 id = 1;
+}
+
 message ImageModeDestroyRequest {
     int32 id = 1;
 }
@@ -286,6 +410,41 @@ message ImageModeResponse {
 }
 
 message ImageModeRetrieveRequest {
+    int32 id = 1;
+}
+
+message IntervalScheduleDestroyRequest {
+    int32 id = 1;
+}
+
+message IntervalScheduleListRequest {
+}
+
+message IntervalScheduleListResponse {
+    repeated IntervalScheduleResponse results = 1;
+    int32 count = 2;
+}
+
+message IntervalSchedulePartialUpdateRequest {
+    optional int32 id = 1;
+    repeated string _partial_update_fields = 4;
+    int32 every = 5;
+    string period = 6;
+}
+
+message IntervalScheduleRequest {
+    optional int32 id = 1;
+    int32 every = 4;
+    string period = 5;
+}
+
+message IntervalScheduleResponse {
+    optional int32 id = 1;
+    int32 every = 4;
+    string period = 5;
+}
+
+message IntervalScheduleRetrieveRequest {
     int32 id = 1;
 }
 
@@ -382,6 +541,50 @@ message PatternModeRetrieveRequest {
     int32 id = 1;
 }
 
+message PeriodicTaskDestroyRequest {
+    string name = 1;
+}
+
+message PeriodicTaskListRequest {
+}
+
+message PeriodicTaskListResponse {
+    repeated PeriodicTaskResponse results = 1;
+    int32 count = 2;
+}
+
+message PeriodicTaskPartialUpdateRequest {
+    string name = 1;
+    string task = 2;
+    optional int32 interval = 3;
+    optional int32 crontab = 4;
+    optional int32 solar = 5;
+    optional int32 clocked = 6;
+    repeated string _partial_update_fields = 7;
+}
+
+message PeriodicTaskRequest {
+    string name = 1;
+    string task = 2;
+    optional int32 interval = 3;
+    optional int32 crontab = 4;
+    optional int32 solar = 5;
+    optional int32 clocked = 6;
+}
+
+message PeriodicTaskResponse {
+    string name = 1;
+    string task = 2;
+    optional int32 interval = 3;
+    optional int32 crontab = 4;
+    optional int32 solar = 5;
+    optional int32 clocked = 6;
+}
+
+message PeriodicTaskRetrieveRequest {
+    string name = 1;
+}
+
 message ProjectDestroyRequest {
     int32 id = 1;
 }
@@ -420,6 +623,44 @@ message ProjectResponse {
 }
 
 message ProjectRetrieveRequest {
+    int32 id = 1;
+}
+
+message SolarScheduleDestroyRequest {
+    int32 id = 1;
+}
+
+message SolarScheduleListRequest {
+}
+
+message SolarScheduleListResponse {
+    repeated SolarScheduleResponse results = 1;
+    int32 count = 2;
+}
+
+message SolarSchedulePartialUpdateRequest {
+    optional int32 id = 1;
+    repeated string _partial_update_fields = 4;
+    string event = 5;
+    double latitude = 6;
+    double longitude = 7;
+}
+
+message SolarScheduleRequest {
+    optional int32 id = 1;
+    string event = 4;
+    double latitude = 5;
+    double longitude = 6;
+}
+
+message SolarScheduleResponse {
+    optional int32 id = 1;
+    string event = 4;
+    double latitude = 5;
+    double longitude = 6;
+}
+
+message SolarScheduleRetrieveRequest {
     int32 id = 1;
 }
 

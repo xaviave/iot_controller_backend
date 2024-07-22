@@ -8,3 +8,4 @@ django-rest-polymorphic
 django-cors-headers
 celery
 django-celery-beat
+django-celery-results

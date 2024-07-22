@@ -36,6 +36,8 @@ THIRD_PARTY_APPS = [
     "colorfield",
     "django_socio_grpc",
     "corsheaders",
+    "celery",
+    "django_celery_beat",
 ]
 
 LOCAL_APPS = [

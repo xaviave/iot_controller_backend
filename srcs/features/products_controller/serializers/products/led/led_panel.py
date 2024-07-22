@@ -69,8 +69,10 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
 
         led_mode_data = validated_data.pop("mode")
         try:
+            print(led_mode_data)
             led_mode = LedMode.objects.get(name=led_mode_data.get("name"))
         except LedMode.DoesNotExist:
+            print("here")
             serializer = LedModePolymorphicSerializer(data=led_mode_data)
             serializer.is_valid(raise_exception=True)
             led_mode = serializer.save()
@@ -96,7 +98,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
 
         if "categories" not in validated_data.keys():
             return instance
-        
+
         new_categories = []
         categories = validated_data.pop("categories", instance.categories.all())
         for category in categories:

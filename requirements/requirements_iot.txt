@@ -1,6 +1,7 @@
 # fix waiting django_socio_grpc update message_to_dict
 # then update to latest possible without the deprecated value
-grpcio==1.62.2
+grpcio
+# ==1.62.2
 grpcio-tools
 # git@github.com:xaviave/grpcio_iot.git
 ../grpcio_iot/dist/grpcio_iot-0.0.1.tar.gz
