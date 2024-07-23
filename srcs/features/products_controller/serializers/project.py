@@ -66,9 +66,6 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         proto_class = ProjectResponse
         proto_class_list = ProjectListResponse
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def to_internal_value(self, data):
         """
         Serialize the products to allow Oneof fields to be serialized into

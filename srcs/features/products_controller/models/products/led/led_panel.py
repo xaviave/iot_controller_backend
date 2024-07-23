@@ -50,4 +50,5 @@ class LedPanel(BaseProduct):
     def get_mode(self) -> str:
         return f"{self.grpc_mode_value} {self.mode.name}"
 
-    def get(self, *args, **kwargs): ...
+    def get(self, *args, **kwargs):
+        ...
