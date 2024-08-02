@@ -1,5 +1,6 @@
 from zoneinfo import ZoneInfo
 
+from base_app import settings
 from django_celery_beat.models import CrontabSchedule
 from django_socio_grpc import proto_serializers
 from features.products_controller.grpc.products_controller_pb2 import (
@@ -19,10 +20,12 @@ class CrontabScheduleSerializer(proto_serializers.ModelProtoSerializer):
     def to_representation(self, instance):
         d = super().to_representation(instance)
         # IANA time zone database as String
+
         d["timezone"] = instance.timezone.key
         return d
 
     def to_internal_value(self, data):
         # IANA time zone database as String
-        data["timezone"] = ZoneInfo(key=data["timezone"])
+        # Flutter can;t provide a robust timezone depending on the platform rn
+        data["timezone"] = ZoneInfo(key=settings.TIME_ZONE)
         return super().to_internal_value(data)

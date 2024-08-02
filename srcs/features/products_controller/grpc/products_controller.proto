@@ -556,10 +556,10 @@ message PeriodicTaskListResponse {
 message PeriodicTaskPartialUpdateRequest {
     string name = 1;
     string task = 2;
-    IntervalScheduleRequest interval = 3;
-    CrontabScheduleRequest crontab = 4;
-    SolarScheduleRequest solar = 5;
-    ClockedScheduleRequest clocked = 6;
+    optional IntervalScheduleRequest interval = 3;
+    optional CrontabScheduleRequest crontab = 4;
+    optional SolarScheduleRequest solar = 5;
+    optional ClockedScheduleRequest clocked = 6;
     repeated string _partial_update_fields = 7;
     optional string kwargs = 8;
 }
@@ -567,20 +567,20 @@ message PeriodicTaskPartialUpdateRequest {
 message PeriodicTaskRequest {
     string name = 1;
     string task = 2;
-    IntervalScheduleRequest interval = 3;
-    CrontabScheduleRequest crontab = 4;
-    SolarScheduleRequest solar = 5;
-    ClockedScheduleRequest clocked = 6;
+    optional IntervalScheduleRequest interval = 3;
+    optional CrontabScheduleRequest crontab = 4;
+    optional SolarScheduleRequest solar = 5;
+    optional ClockedScheduleRequest clocked = 6;
     optional string kwargs = 7;
 }
 
 message PeriodicTaskResponse {
     string name = 1;
     string task = 2;
-    IntervalScheduleResponse interval = 3;
-    CrontabScheduleResponse crontab = 4;
-    SolarScheduleResponse solar = 5;
-    ClockedScheduleResponse clocked = 6;
+    optional IntervalScheduleResponse interval = 3;
+    optional CrontabScheduleResponse crontab = 4;
+    optional SolarScheduleResponse solar = 5;
+    optional ClockedScheduleResponse clocked = 6;
     optional string kwargs = 7;
 }
 
