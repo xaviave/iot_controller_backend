@@ -26,8 +26,6 @@ from base_app import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path("accounts/", include("features.accounts.urls")),
-    path("", lambda x: redirect("products_controller/")),
     path("products_controller/", include("features.products_controller.urls")),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
