@@ -94,11 +94,11 @@ WSGI_APPLICATION = "base_app.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_NAME"].strip(),
-        "USER": os.environ["POSTGRES_USER"].strip(),
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"].strip(),
-        "HOST": os.environ["POSTGRES_HOST"].strip(),
-        "PORT": os.environ["POSTGRES_PORT"].strip(),
+        "NAME": "led_controller_db",
+        "USER": "gmx",
+        "PASSWORD": "1234",
+        "HOST": "db",
+        "PORT": 5432,
     },
 }
 
@@ -168,6 +168,13 @@ LOGGING = {
 }
 
 # Celery Configuration Options
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
 CELERY_TIMEZONE = "Europe/Paris"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60

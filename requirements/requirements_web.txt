@@ -9,3 +9,4 @@ django-cors-headers
 celery
 django-celery-beat
 django-celery-results
+redis==4.0.0
