@@ -6,6 +6,7 @@ from celery import Celery
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "base_app.settings")
 
 app = Celery("base_app")
+app.conf.broker_connection_retry_on_startup = True
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
