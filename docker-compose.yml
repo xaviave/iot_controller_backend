@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: led_controller_db
       POSTGRES_USER: gmx
       POSTGRES_PASSWORD: 1234
+    networks:
+      - app-network
 
   web:
     build: .
@@ -25,6 +27,8 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379
       - CELERY_RESULT_BACKEND=redis://redis:6379
+    networks:
+      - app-network
 
   celery:
     build: .
@@ -61,3 +65,8 @@ services:
 volumes:
   postgres_data:
  
+
+networks:
+  app-network:
+    driver: bridge
+
