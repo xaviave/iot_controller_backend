@@ -1,0 +1,77 @@
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - env/.env
+    environment:
+      POSTGRES_DB: led_controller_db
+      POSTGRES_USER: gmx
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5433"
+    networks:
+      - app-network
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - ./srcs:/srcs
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - env/.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6378
+      - CELERY_RESULT_BACKEND=redis://redis:6378
+    networks:
+      - app-network
+
+  celery:
+    build: .
+    command: celery -A base_app worker --loglevel=info -E
+    volumes:
+      - ./srcs:/srcs
+    depends_on:
+      - db
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6378
+      - CELERY_RESULT_BACKEND=redis://redis:6378
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6378:6378"
+    networks:
+      - app-network
+
+  grpc_server:
+    build: .
+    command: python manage.py grpcrunaioserver 0.0.0.0:50053 --dev
+    volumes:
+      - ./srcs:/srcs
+    ports:
+      - "50053:50053"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6378
+      - CELERY_RESULT_BACKEND=redis://redis:6378
+    networks:
+      - app-network
+
+
+volumes:
+  postgres_data:
+ 
+
+networks:
+  app-network:
+    driver: bridge

@@ -35,6 +35,8 @@ class LedPanel(BaseProduct):
             brightness=self.brightness,
             mode=self.mode.get_grpc_request(),
             categories=[],
+            ip_address=self.ip_address,
+            ip_port=self.ip_port,
             # FW doesn't need any metadata RN
             # id=self.id,
             # name=self.name,

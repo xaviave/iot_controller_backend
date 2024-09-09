@@ -1,3 +1,5 @@
+import logging
+
 from asgiref.sync import sync_to_async
 from django_socio_grpc import proto_serializers
 from django_socio_grpc.proto_serializers import ListProtoSerializer
@@ -36,6 +38,8 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
     mode = LedModePolymorphicSerializer(many=False)
     name = serializers.CharField(validators=[])
     categories = CategorySerializer(many=True)
+    ip_address = serializers.CharField(validators=[])
+    ip_port = serializers.IntegerField()
 
     class Meta:
         model = LedPanel
@@ -69,10 +73,8 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
 
         led_mode_data = validated_data.pop("mode")
         try:
-            print(led_mode_data)
             led_mode = LedMode.objects.get(name=led_mode_data.get("name"))
         except LedMode.DoesNotExist:
-            print("here")
             serializer = LedModePolymorphicSerializer(data=led_mode_data)
             serializer.is_valid(raise_exception=True)
             led_mode = serializer.save()
@@ -82,9 +84,13 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         return instance
 
     def update(self, instance, validated_data):
+        logging.warning(f"\n\n{validated_data=}\n\n\n")
+
         instance.name = validated_data.get("name", instance.name)
         instance.status = validated_data.get("status", instance.status)
         instance.brightness = validated_data.get("brightness", instance.brightness)
+        instance.ip_address = validated_data.get("ip_address", instance.ip_address)
+        instance.ip_port = validated_data.get("ip_port", instance.ip_port)
 
         if "mode" in validated_data.keys():
             try:

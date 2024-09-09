@@ -253,7 +253,7 @@ message CoffeeMachinePartialUpdateRequest {
     optional bool filter_position = 10;
     optional int32 mode_value = 11;
     string ip_address = 12;
-    optional int32 ip_port = 13;
+    int32 ip_port = 13;
 }
 
 message CoffeeMachineRequest {
@@ -268,7 +268,7 @@ message CoffeeMachineRequest {
     optional bool filter_position = 9;
     optional int32 mode_value = 10;
     string ip_address = 11;
-    optional int32 ip_port = 12;
+    int32 ip_port = 12;
 }
 
 message CoffeeMachineResponse {
@@ -284,7 +284,7 @@ message CoffeeMachineResponse {
     optional int32 mode_value = 10;
     optional int32 polymorphic_ctype = 11;
     string ip_address = 12;
-    optional int32 ip_port = 13;
+    int32 ip_port = 13;
 }
 
 message CoffeeMachineRetrieveRequest {
@@ -469,7 +469,7 @@ message LedPanelPartialUpdateRequest {
     int32 status = 6;
     optional double brightness = 7;
     string ip_address = 8;
-    optional int32 ip_port = 9;
+    int32 ip_port = 9;
 }
 
 message LedPanelRequest {
@@ -480,7 +480,7 @@ message LedPanelRequest {
     int32 status = 5;
     optional double brightness = 6;
     string ip_address = 7;
-    optional int32 ip_port = 8;
+    int32 ip_port = 8;
 }
 
 message LedPanelResponse {
@@ -492,7 +492,7 @@ message LedPanelResponse {
     optional double brightness = 6;
     optional int32 polymorphic_ctype = 7;
     string ip_address = 8;
-    optional int32 ip_port = 9;
+    int32 ip_port = 9;
 }
 
 message LedPanelRetrieveRequest {

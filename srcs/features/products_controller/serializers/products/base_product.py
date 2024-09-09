@@ -19,6 +19,8 @@ from rest_polymorphic.serializers import PolymorphicSerializer
 class BaseProductSerializer(proto_serializers.ModelProtoSerializer):
     name = serializers.CharField(validators=[])
     categories = CategorySerializer(many=True)
+    ip_address = serializers.CharField(validators=[])
+    ip_port = serializers.IntegerField()
 
     class Meta:
         model = BaseProduct
