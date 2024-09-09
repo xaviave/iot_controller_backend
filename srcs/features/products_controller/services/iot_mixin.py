@@ -7,7 +7,8 @@ from django_socio_grpc import generics
 
 def execute_grpc_request(stub_class, request):
     # ip should be specific to the product
-    with grpc.insecure_channel("0.0.0.0:50051") as channel:
+    logging.warning(f"{request=}")
+    with grpc.insecure_channel(f"{request.ip_address}:{request.ip_port or 50051}") as channel:
         stub = stub_class(channel)
         try:
             # We only want to update the IOT product

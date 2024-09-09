@@ -12,6 +12,8 @@ from rest_framework import serializers
 class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
     name = serializers.CharField(validators=[])
     categories = CategorySerializer(many=True)
+    ip_address = serializers.CharField(validators=[])
+    ip_port = serializers.IntegerField()
 
     class Meta:
         model = CoffeeMachine
@@ -44,7 +46,12 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         instance.coffee_level = validated_data.get("coffee_level", instance.coffee_level)
         instance.filter_position = validated_data.get("filter_position", instance.filter_position)
         instance.mode_value = validated_data.get("mode_value", instance.mode_value)
+        instance.ip_address = validated_data.get("ip_address", instance.ip_address)
+        instance.ip_port = validated_data.get("ip_port", instance.ip_port)
         instance.save()
+
+        if "categories" not in validated_data.keys():
+            return instance
 
         new_categories = []
         categories = validated_data.pop("categories", instance.categories.all())
