@@ -90,7 +90,7 @@ request = products_controller_pb2.ProjectRequest(
 
 
 async def main():
-    async with grpc.aio.insecure_channel("172.18.0.3:50052") as channel:
+    async with grpc.aio.insecure_channel("localhost:50052") as channel:
         stub = products_controller_pb2_grpc.ProjectControllerStub(channel)
         response_stub = stub.Create(request)
         print(await response_stub)
