@@ -354,3 +354,21 @@ Wait the tasks to be executed and Stop Celery:\
     ```sh
     sudo systemctl enable django_celery
     ```
+
+### Docker commandes
+
+docker-compose up -d --build
+
+docker-compose exec <docker-container>
+   - ex: docker-compose exec web python manage.py createsuperuser
+
+docker-compose logs <docker-container>
+   - ex: docker-compose logs grpc_serve
+
+docker-compose down
+
+docker container list
+
+docker network list
+
+docker network inspect
