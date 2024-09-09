@@ -70,26 +70,27 @@ base_product_2_request.LedPanel.CopyFrom(led_panel_request)
 base_product_2_response = products_controller_pb2.BaseProductResponse()
 base_product_2_response.LedPanel.CopyFrom(led_panel_response)
 
+owner_request = products_controller_pb2.UserRequest(username="admin")
 project_date = datetime.now()
+
 request = products_controller_pb2.ProjectRequest(
-    id=1,
     name="project smth",
-    owner=1,
+    owner=owner_request,
     pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
     products=[base_product_1_request, base_product_2_request],
 )
 
-response = products_controller_pb2.ProjectResponse(
-    id=1,
-    name="project smth",
-    owner=1,
-    pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
-    products=[base_product_1_response, base_product_2_response],
-)
+# response = products_controller_pb2.ProjectResponse(
+#     id=1,
+#     name="project smth",
+#     owner=owner_request,
+#     pub_date=project_date.strftime("%Y-%m-%dT%H:%M:%S"),
+#     products=[base_product_1_response, base_product_2_response],
+# )
 
 
 async def main():
-    async with grpc.aio.insecure_channel("localhost:50051") as channel:
+    async with grpc.aio.insecure_channel("172.18.0.3:50052") as channel:
         stub = products_controller_pb2_grpc.ProjectControllerStub(channel)
         response_stub = stub.Create(request)
         print(await response_stub)

@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: led_controller_db
       POSTGRES_USER: gmx
       POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
     networks:
       - app-network
 
@@ -69,4 +71,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
