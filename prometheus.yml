@@ -3,10 +3,10 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
 scrape_configs:
-  - job_name: "prometheus"
+  - job_name: 'grpc_server'
     static_configs:
-      - targets: ["web:8001"]
+      - targets: ['grpc_server:55003']  # gRPC server Prometheus endpoint
 
-  # - job_name: "web"
-  #   static_configs:
-  #     - targets: ["web:8001"]  # Update the target to match your web service
+  - job_name: "web"
+    static_configs:
+      - targets: ["web:8001"]  # Update the target to match your web service

@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:13
+    image: arm64v8/postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
@@ -15,6 +15,7 @@ services:
       - app-network
 
   web:
+    read_only: true
     build: .
     command: python manage.py runserver 0.0.0.0:8001
     volumes:
@@ -31,6 +32,11 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6378
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "512M"
 
   celery:
     build: .
@@ -45,7 +51,7 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6378
 
   redis:
-    image: redis:latest
+    image: arm64v8/redis:latest
     ports:
       - "6378:6378"
     networks:
