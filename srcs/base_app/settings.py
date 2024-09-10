@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "celery",
     "django_celery_beat",
+    "django_prometheus",
 ]
 
 LOCAL_APPS = [
@@ -57,6 +58,7 @@ GRPC_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "base_app.urls"

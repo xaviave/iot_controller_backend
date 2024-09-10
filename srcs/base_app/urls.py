@@ -27,6 +27,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("products_controller/", include("features.products_controller.urls")),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    path('', include('django_prometheus.urls')),
 ]
 
 
