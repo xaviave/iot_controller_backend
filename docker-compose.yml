@@ -53,7 +53,7 @@ services:
 
   grpc_server:
     build: .
-    command: python manage.py grpcrunaioserver 0.0.0.0:50053
+    command: python manage.py grpcrunaioserver 0.0.0.0:50053 --dev
     volumes:
       - ./srcs:/srcs
     ports:
