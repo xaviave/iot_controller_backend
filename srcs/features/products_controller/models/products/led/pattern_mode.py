@@ -1,6 +1,7 @@
 from colorfield.fields import ColorField
 from django.contrib.postgres.fields.array import ArrayField
 from django.db import models
+
 from features.products_controller.grpc import products_controller_pb2
 from features.products_controller.models.products.led.led_mode import LedMode
 

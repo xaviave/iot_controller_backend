@@ -1,5 +1,6 @@
 from django_celery_beat.models import SolarSchedule
 from django_socio_grpc import proto_serializers
+
 from features.products_controller.grpc.products_controller_pb2 import SolarScheduleListResponse, SolarScheduleResponse
 
 

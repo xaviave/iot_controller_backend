@@ -3,6 +3,7 @@ import os
 import cv2
 from django.core.files.base import ContentFile
 from django.db import models
+
 from features.products_controller.models.products.led.led_mode import LedMode
 
 

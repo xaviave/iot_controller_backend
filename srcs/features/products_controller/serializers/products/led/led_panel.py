@@ -4,6 +4,9 @@ from asgiref.sync import sync_to_async
 from django_socio_grpc import proto_serializers
 from django_socio_grpc.proto_serializers import ListProtoSerializer
 from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
+from rest_framework import serializers
+from rest_framework.serializers import LIST_SERIALIZER_KWARGS
+
 from features.products_controller.grpc.products_controller_pb2 import (
     LedPanelListResponse,
     LedPanelResponse,
@@ -15,8 +18,6 @@ from features.products_controller.serializers.category import CategorySerializer
 from features.products_controller.serializers.products.led.led_mode import (
     LedModePolymorphicSerializer,
 )
-from rest_framework import serializers
-from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
 
@@ -92,7 +93,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
         instance.ip_address = validated_data.get("ip_address", instance.ip_address)
         instance.ip_port = validated_data.get("ip_port", instance.ip_port)
 
-        if "mode" in validated_data.keys():
+        if "mode" in validated_data:
             try:
                 instance.mode = LedMode.objects.get(name=validated_data.get("mode").get("name"))
                 LedModePolymorphicSerializer().update(instance.mode, validated_data.get("mode"))
@@ -102,7 +103,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
                 instance.mode = serializer.save()
         instance.save()
 
-        if "categories" not in validated_data.keys():
+        if "categories" not in validated_data:
             return instance
 
         new_categories = []

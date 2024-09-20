@@ -1,5 +1,6 @@
 from django_celery_beat.models import ClockedSchedule, CrontabSchedule, IntervalSchedule, PeriodicTask, SolarSchedule
 from django_socio_grpc import proto_serializers
+
 from features.products_controller.grpc.products_controller_pb2 import PeriodicTaskListResponse, PeriodicTaskResponse
 from features.products_controller.serializers.celery_tasks.clocked_schedule import ClockedScheduleSerializer
 from features.products_controller.serializers.celery_tasks.crontab_schedule import CrontabScheduleSerializer
@@ -26,7 +27,7 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
         validated_data["task"] = f"srcs.features.products_controller.tasks.{validated_data['task']}"
         schedule_types = {
             "clocked": (ClockedSchedule, ClockedScheduleSerializer, ["clocked_time"]),
-            "crontab": (CrontabSchedule, CrontabScheduleSerializer, 
+            "crontab": (CrontabSchedule, CrontabScheduleSerializer,
                         ["minute", "hour", "day_of_month", "month_of_year", "day_of_week", "timezone"]),
             "interval": (IntervalSchedule, IntervalScheduleSerializer, ["every", "period"]),
             "solar": (SolarSchedule, SolarScheduleSerializer, ["event", "latitude", "longitude"])

@@ -1,7 +1,26 @@
+[project]
+name = "GMX_iot_controller"
+version = "0.1.0"
+description = "Server side of the overall IOT controller project"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = [
+    "pre-commit>=3.8.0",
+    "pyright>=1.1.381",
+    "ruff>=0.6.5",
+    "typos>=1.24.6",
+]
+
 [tool.ruff]
+src = ["srcs"]
 target-version = "py311"
 line-length = 120
 indent-width = 4
+show-fixes = true
+unsafe-fixes = true
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -26,24 +45,37 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
+#    GRPC related
     "protos",
-    "*pb2.py",
+    "*_pb2.py",
+    "*_pb2_grpc.py",
+#    Django related
+    "migrations"
 ]
 
 [tool.ruff.lint]
 select = ["F", "E4", "E7", "E9", "W", "S", "I", "B","SIM"]
 fixable = ["ALL"]
 
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
+docstring-code-format = true
 skip-magic-trailing-comma = false
 
+[tool.pyright]
+include = ["srcs"]
+exclude = ["**/.venv", "**/__pycache__"]
+
 [tool.pytest.ini_options]
-pythonpath = [
-  "srcs",
-]
-testpaths = [
-    "tests",
-]
+DJANGO_SETTINGS_MODULE = "base_app.settings"
+#pythonpath = [
+#  "srcs",
+#]
+#testpaths = [
+#    "tests",
+#]

@@ -1,5 +1,8 @@
+# ruff: noqa: S104
+
 from django.test import TransactionTestCase, override_settings
 from django_socio_grpc.tests.grpc_test_utils.fake_grpc import FakeFullAIOGRPC
+
 from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,
@@ -62,7 +65,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="home", status=1, brightness=0.02, mode=led_mode_request, categories=[category_request]
+            name="home", status=1, brightness=0.02, mode=led_mode_request, categories=[category_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res = await grpc_stub.Create(request)
 
@@ -80,7 +85,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="kill me", status=1, brightness=1.22, mode=led_mode_request, categories=[category_request]
+            name="kill me", status=1, brightness=1.22, mode=led_mode_request, categories=[category_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res = await grpc_stub.Create(request)
 
@@ -108,15 +115,21 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="mamacita", status=1, brightness=1.08, mode=led_mode_1_request, categories=[category_1_request]
+            name="mamacita", status=1, brightness=1.08, mode=led_mode_1_request, categories=[category_1_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res_0 = await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
-            name="killed me", status=3, brightness=1.3, mode=led_mode_1_request, categories=[category_2_request]
+            name="killed me", status=3, brightness=1.3, mode=led_mode_1_request, categories=[category_2_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res_1 = await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
-            name="please past", status=2, brightness=4.69, mode=led_mode_2_request, categories=[category_3_request]
+            name="please past", status=2, brightness=4.69, mode=led_mode_2_request, categories=[category_3_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res_2 = await grpc_stub.Create(request)
 
@@ -137,7 +150,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="home, ie", status=2, brightness=0.99, mode=led_mode_request, categories=[category_request]
+            name="home, ie", status=2, brightness=0.99, mode=led_mode_request, categories=[category_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res = await grpc_stub.Create(request)
 
@@ -175,15 +190,21 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="mamacita, travis", status=1, brightness=1.08, mode=led_mode_1_request, categories=[category_1_request]
+            name="mamacita, travis", status=1, brightness=1.08, mode=led_mode_1_request, categories=[category_1_request],
+            ip_address= "0.0.0.0",
+
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
-            name="killed me, again", status=3, brightness=1.3, mode=led_mode_2_request, categories=[category_2_request]
+            name="killed me, again", status=3, brightness=1.3, mode=led_mode_2_request, categories=[category_2_request],
+            ip_address= "0.0.0.0",
+
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.LedPanelRequest(
-            name="please past oh", status=2, brightness=4.69, mode=led_mode_2_request, categories=[category_3_request]
+            name="please past oh", status=2, brightness=4.69, mode=led_mode_2_request, categories=[category_3_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res = await grpc_stub.Create(request)
 
@@ -200,7 +221,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Create LedPanel Object
         request = products_controller_pb2.LedPanelRequest(
-            name="no home", status=3, brightness=0.05, mode=led_mode_request, categories=[category_request]
+            name="no home", status=3, brightness=0.05, mode=led_mode_request, categories=[category_request],
+            ip_address= "0.0.0.0",
+
         )
         create_res = await grpc_stub.Create(request)
 
@@ -210,6 +233,8 @@ class TestLedPanel(TransactionTestCase):
 
         request = products_controller_pb2.LedPanelRequest(
             id=create_res.id,
+            ip_address= "0.0.0.0",
+
             name="no hhhome",
             status=2,
             brightness=0.15,

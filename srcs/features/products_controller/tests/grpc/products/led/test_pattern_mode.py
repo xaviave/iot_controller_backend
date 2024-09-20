@@ -1,5 +1,6 @@
 from django.test import TransactionTestCase, override_settings
 from django_socio_grpc.tests.grpc_test_utils.fake_grpc import FakeFullAIOGRPC
+
 from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,
@@ -28,7 +29,7 @@ class TestPatternMode(TransactionTestCase):
         self.assertEqual(list(res.results), [])
 
         # Create PatternMode Object
-        request = products_controller_pb2.PatternModeRequest(name="tom", fps=12.1, blink=0, palette="Party")
+        request = products_controller_pb2.PatternModeRequest(name="tom", fps=12.1, blink=0, palette=["#000000"])
         create_res = await grpc_stub.Create(request)
 
         # Check one color_mode in dataset
@@ -39,7 +40,7 @@ class TestPatternMode(TransactionTestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.PatternModeControllerStub)
 
         # Create PatternMode Object
-        request = products_controller_pb2.PatternModeRequest(name="kill me", fps=2, blink=0.9, palette="Heat")
+        request = products_controller_pb2.PatternModeRequest(name="kill me", fps=2, blink=0.9, palette=["#000000"])
         create_res = await grpc_stub.Create(request)
 
         # Check one PatternMode Object in dataset
@@ -58,11 +59,11 @@ class TestPatternMode(TransactionTestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.PatternModeControllerStub)
 
         # Create PatternMode Objects
-        request = products_controller_pb2.PatternModeRequest(name="person_1", fps=12, blink=2, palette="Lava")
+        request = products_controller_pb2.PatternModeRequest(name="person_1", fps=12, blink=2, palette=["#000000"])
         create_res_0 = await grpc_stub.Create(request)
-        request = products_controller_pb2.PatternModeRequest(name="person_2", fps=12, blink=2, palette="Ocean")
+        request = products_controller_pb2.PatternModeRequest(name="person_2", fps=12, blink=2, palette=["#000000"])
         create_res_1 = await grpc_stub.Create(request)
-        request = products_controller_pb2.PatternModeRequest(name="person_3", fps=12, blink=2, palette="Heat")
+        request = products_controller_pb2.PatternModeRequest(name="person_3", fps=12, blink=2, palette=["#000000"])
         create_res_2 = await grpc_stub.Create(request)
 
         # Check three PatternMode Objects in dataset
@@ -73,7 +74,7 @@ class TestPatternMode(TransactionTestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.PatternModeControllerStub)
 
         # Create PatternMode Objects
-        request = products_controller_pb2.PatternModeRequest(name="person_6", fps=12, blink=2, palette="Lava")
+        request = products_controller_pb2.PatternModeRequest(name="person_6", fps=12, blink=2, palette=["#000000"])
         create_res = await grpc_stub.Create(request)
 
         # Query one PatternMode Object in dataset
@@ -95,9 +96,9 @@ class TestPatternMode(TransactionTestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.PatternModeControllerStub)
 
         # Create two PatternMode Object
-        request = products_controller_pb2.PatternModeRequest(name="don't pick me", fps=12, blink=2, palette="Party")
+        request = products_controller_pb2.PatternModeRequest(name="don't pick me", fps=12, blink=2, palette=["#000000"])
         await grpc_stub.Create(request)
-        request = products_controller_pb2.PatternModeRequest(name="pick me", fps=12, blink=21, palette="Ocean")
+        request = products_controller_pb2.PatternModeRequest(name="pick me", fps=12, blink=21, palette=["#000000"])
         create_res = await grpc_stub.Create(request)
 
         # Query one PatternMode Object in dataset
@@ -108,7 +109,7 @@ class TestPatternMode(TransactionTestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.PatternModeControllerStub)
 
         # Create PatternMode Objects
-        request = products_controller_pb2.PatternModeRequest(name="sisi", fps=1, blink=22, palette="Rainbow")
+        request = products_controller_pb2.PatternModeRequest(name="sisi", fps=1, blink=22, palette=["#000000"])
         create_res = await grpc_stub.Create(request)
 
         # Query one PatternMode Object in dataset
@@ -117,7 +118,7 @@ class TestPatternMode(TransactionTestCase):
 
         # Query one Update Object in dataset
         update_res = await grpc_stub.Update(
-            products_controller_pb2.PatternModeRequest(id=create_res.id, name="up", fps=120, blink=20, palette="Cloud")
+            products_controller_pb2.PatternModeRequest(id=create_res.id, name="up", fps=120, blink=20, palette=["#000000"])
         )
 
         # Query one PatternMode Object in dataset

@@ -1,4 +1,7 @@
 from django_socio_grpc import proto_serializers
+from rest_framework import serializers
+from rest_polymorphic.serializers import PolymorphicSerializer
+
 from features.products_controller.grpc.products_controller_pb2 import (
     BaseProductResponse,
 )
@@ -12,8 +15,6 @@ from features.products_controller.serializers.products.coffee_machine import (
 from features.products_controller.serializers.products.led.led_panel import (
     LedPanelSerializer,
 )
-from rest_framework import serializers
-from rest_polymorphic.serializers import PolymorphicSerializer
 
 
 class BaseProductSerializer(proto_serializers.ModelProtoSerializer):

@@ -147,22 +147,33 @@ DATABASE_URL=psql://<user>:<password>@<ip>:<port>/<database_name>
 DATABASE_URL=psql://gmx:1234@127.0.0.1:5432/led_controller_db
 ```
 
+You can now access without admin user to the database:
+```sh
+# psql -U <user> <db>
+psql -U gmx led_controller_db
+```
 ---
 <!-- TOC --><a name="python-libraries"></a>
 
 #### Python libraries
 
-Let's install all the python requirements
+Let's install all the python requirements, see [uv](https://github.com/astral-sh/uv)
 
 ```sh
-python3 -m pip install --upgrade pip
-pip3 install -r requirements/requirements_base.txt
+uv python install 3.12
+uv venv --python 3.12
+source .venv/bin/activate
+
+pip3 install uv
+uv pip sync requirements/requirements_base.txt
+uv pip install requirements/requirements_base.txt
 ```
 
 Export the env variables for the project.\
 Launch these commands once and the site is initialised.
 
 ```sh
+source .venv/bin/activate
 set -a && . env/.env && set +a
 python3 srcs/manage.py makemigrations
 python3 srcs/manage.py migrate
@@ -200,6 +211,8 @@ Is used by the service command to automatically start the Admin panel on boot.*
 #### Linter
 
 ```sh
+uv run ruff check --fix
+# or
 ruff format . && ruff check --select I --fix . && ruff check . --fix
 ```
 

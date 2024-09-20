@@ -1,6 +1,7 @@
 from functools import cached_property
 
 from django.db import models
+
 from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 from features.products_controller.grpc import products_controller_pb2 as proto_lib
 from features.products_controller.models.products.base_product import BaseProduct

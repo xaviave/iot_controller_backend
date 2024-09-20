@@ -1,3 +1,5 @@
+# ruff: noqa: S106, S104, S311
+
 import asyncio
 import logging
 import random
@@ -5,6 +7,7 @@ import string
 from datetime import datetime
 
 import grpc
+
 from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,

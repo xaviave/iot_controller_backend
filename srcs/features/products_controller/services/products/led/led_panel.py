@@ -1,4 +1,5 @@
 from asgiref.sync import sync_to_async
+
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.products.led.led_panel import (
     LedPanelSerializer,

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django_socio_grpc import proto_serializers
 from django_socio_grpc.proto_serializers import ListProtoSerializer
 from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
+from rest_framework.serializers import LIST_SERIALIZER_KWARGS
+
 from features.products_controller.grpc.products_controller_pb2 import (
     ProjectListResponse,
     ProjectResponse,
@@ -13,7 +15,6 @@ from features.products_controller.serializers.products.base_product import (
     BaseProductPolymorphicSerializer,
 )
 from features.products_controller.serializers.user import UserSerializer
-from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
 
@@ -98,23 +99,33 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
         return instance
 
     def update(self, instance, validated_data):
+        # refacto to make sure the partial_update is smooth
         instance.name = validated_data.get("name", instance.name)
-        instance.owner = validated_data.get("owner", instance.owner)
         instance.pub_date = validated_data.get("pub_date", instance.pub_date)
+
+        if validated_data.get("owner") is not None:
+            try:
+                owner = User.objects.get(username=validated_data.get("owner").get("username"))
+            except User.DoesNotExist:
+                serializer = UserSerializer(data=validated_data.get("owner"))
+                serializer.is_valid(raise_exception=True)
+                owner = serializer.save()
+            instance.owner = owner
+
         instance.save()
 
-        print(f"update projects {validated_data}")
-        new_products = []
-        for product in validated_data.pop("products", instance.products.all()):
-            try:
-                p = BaseProduct.objects.get(name=product.get("name") if isinstance(product, dict) else product.name)
-                BaseProductPolymorphicSerializer().update(p, product)
-            except BaseProduct.DoesNotExist:
-                serializer = BaseProductPolymorphicSerializer(data=product)
-                serializer.is_valid(raise_exception=True)
-                p = serializer.save()
-            new_products.append(p)
-        instance.products.set(new_products)
+        if validated_data.get("products") is not None:
+            new_products = []
+            for product in validated_data.pop("products"):
+                try:
+                    p = BaseProduct.objects.get(name=product.get("name") if isinstance(product, dict) else product.name)
+                    BaseProductPolymorphicSerializer().update(p, product)
+                except BaseProduct.DoesNotExist:
+                    serializer = BaseProductPolymorphicSerializer(data=product)
+                    serializer.is_valid(raise_exception=True)
+                    p = serializer.save()
+                new_products.append(p)
+            instance.products.set(new_products)
         return instance
 
     @property

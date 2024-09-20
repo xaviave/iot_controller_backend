@@ -1,4 +1,6 @@
 from django_socio_grpc import proto_serializers
+from rest_framework import serializers
+
 from features.products_controller.grpc.products_controller_pb2 import (
     CoffeeMachineListResponse,
     CoffeeMachineResponse,
@@ -6,7 +8,6 @@ from features.products_controller.grpc.products_controller_pb2 import (
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.coffee_machine import CoffeeMachine
 from features.products_controller.serializers.category import CategorySerializer
-from rest_framework import serializers
 
 
 class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
@@ -50,7 +51,7 @@ class CoffeeMachineSerializer(proto_serializers.ModelProtoSerializer):
         instance.ip_port = validated_data.get("ip_port", instance.ip_port)
         instance.save()
 
-        if "categories" not in validated_data.keys():
+        if "categories" not in validated_data:
             return instance
 
         new_categories = []

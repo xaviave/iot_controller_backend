@@ -1,8 +1,9 @@
 from zoneinfo import ZoneInfo
 
-from base_app import settings
 from django_celery_beat.models import CrontabSchedule
 from django_socio_grpc import proto_serializers
+
+from base_app import settings
 from features.products_controller.grpc.products_controller_pb2 import (
     CrontabScheduleListResponse,
     CrontabScheduleResponse,

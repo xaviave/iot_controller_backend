@@ -7,3 +7,6 @@ class ProjectService(IotMixin):
     # https://django-socio-grpc.readthedocs.io/en/stable/features/authentication-permissions.html
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+
+

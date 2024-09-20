@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+
 from features.products_controller.models.products.base_product import BaseProduct
 
 

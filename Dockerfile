@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 RUN apt update && \
     apt install -y \
@@ -17,17 +17,11 @@ RUN apt update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
-WORKDIR /srcs
-
-# Copy the entire requirements directory into the container
-COPY requirements/ /srcs/requirements/
-RUN pip install --no-cache-dir -r requirements/requirements_dev.txt
+WORKDIR /iot_controller_backend
 
 # Copy the rest of the application code into the container
-COPY srcs/ /srcs/
+COPY . /iot_controller_backend/
 
-# Expose the port that the app runs on
-EXPOSE 8000
-
-# Command to run the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copy the entire requirements directory into the container
+RUN pip install --no-cache-dir uv
+RUN uv pip install --no-cache-dir -r requirements/requirements_dev.txt --system

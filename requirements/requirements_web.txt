@@ -1,8 +1,9 @@
 django
-psycopg2
+psycopg2-binary
 django-polymorphic
 django-colorfield
 django-socio-grpc
+django_filter
 djangorestframework
 django-rest-polymorphic
 django-cors-headers

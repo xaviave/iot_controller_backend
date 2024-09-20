@@ -1,7 +1,8 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from features.products_controller.models.category import Category
 from polymorphic.models import PolymorphicModel
+
+from features.products_controller.models.category import Category
 
 
 class BaseProduct(PolymorphicModel):

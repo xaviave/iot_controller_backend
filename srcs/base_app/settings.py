@@ -12,10 +12,10 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "features"))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-w+!_w=mqch_pw8(6^78q+pklcg@f-(xwy5of8s9ceq9rlqt)am"
+SECRET_KEY = os.environ["SECRET_KEY"].strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ["DEBUG"] == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1", "iot_controller.gmx", "192.168.1.148", "*"]
 
@@ -32,11 +32,13 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "django_filters",
     "polymorphic",
     "colorfield",
     "django_socio_grpc",
     "corsheaders",
     "celery",
+    "django_celery_results",
     "django_celery_beat",
 ]
 
@@ -51,7 +53,7 @@ GRPC_FRAMEWORK = {
     "ROOT_HANDLERS_HOOK": "features.products_controller.handlers.grpc_handlers",
     "GRPC_CHANNEL_PORT": 50051,
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    # "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     # "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.BasicAuthentication"],
 }
@@ -94,11 +96,16 @@ WSGI_APPLICATION = "base_app.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "led_controller_db",
-        "USER": "gmx",
-        "PASSWORD": "1234",
-        "HOST": "db",
-        "PORT": 5432,
+        "NAME": os.environ["POSTGRES_NAME"].strip(),
+        "USER": os.environ["POSTGRES_USER"].strip(),
+        "PASSWORD": os.environ["POSTGRES_PASSWORD"].strip(),
+        "HOST": os.environ["POSTGRES_HOST"].strip(),
+        "PORT": os.environ["POSTGRES_PORT"].strip(),
+        # "NAME": "led_controller_db",
+        # "USER": "gmx",
+        # "PASSWORD": "1234",
+        # "HOST": "db",
+        # "PORT": 5432,
     },
 }
 
@@ -168,12 +175,14 @@ LOGGING = {
 }
 
 # Celery Configuration Options
-CELERY_BROKER_URL = "redis://redis:6378/0"
-CELERY_RESULT_BACKEND = "redis://redis:6378/0"
-CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"].strip()
+CELERY_RESULT_BACKEND = os.environ["CELERY_RESULT_BACKEND"].strip()
+CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = "UTC"
+CELERY_IMPORT = (
+    # "srcs.features.accounts",
+    "features.products_controller.tasks",)
 
 CELERY_TIMEZONE = "Europe/Paris"
 CELERY_TASK_TRACK_STARTED = True

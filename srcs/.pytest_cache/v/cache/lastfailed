@@ -1,0 +1,8 @@
+{
+  "features/products_controller/tests/grpc/products/led/test_color_mode.py": true,
+  "features/products_controller/tests/grpc/products/led/test_led_panel.py": true,
+  "features/products_controller/tests/grpc/products/led/test_pattern_mode.py": true,
+  "features/products_controller/tests/grpc/products/test_coffee_machine.py": true,
+  "features/products_controller/tests/grpc/test_category.py": true,
+  "features/products_controller/tests/grpc/test_project.py": true
+}

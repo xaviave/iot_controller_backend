@@ -3,6 +3,7 @@ import logging
 from datetime import datetime
 
 import grpc
+
 from features.products_controller.grpc import (
     products_controller_pb2,
     products_controller_pb2_grpc,

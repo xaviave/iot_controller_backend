@@ -1,5 +1,12 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
+from polymorphic.admin import (
+    PolymorphicChildModelAdmin,
+    PolymorphicChildModelFilter,
+    PolymorphicParentModelAdmin,
+    StackedPolymorphicInline,
+)
+
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.products.coffee_machine import CoffeeMachine
@@ -10,12 +17,6 @@ from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.models.products.led.pattern_mode import PatternMode
 from features.products_controller.models.products.led.video_mode import VideoMode
 from features.products_controller.models.project import Project
-from polymorphic.admin import (
-    PolymorphicChildModelAdmin,
-    PolymorphicChildModelFilter,
-    PolymorphicParentModelAdmin,
-    StackedPolymorphicInline,
-)
 
 
 class LedModeChildAdmin(PolymorphicChildModelAdmin):
@@ -26,11 +27,11 @@ class LedModeChildAdmin(PolymorphicChildModelAdmin):
 class ImageModeAdmin(LedModeChildAdmin):
     @staticmethod
     def img_preview(obj):
-        return mark_safe(f"<img src='{obj.image.url}' width='200' />")
+        return format_html(f"<img src='{obj.image.url}' width='200' />")
 
     @staticmethod
     def img_low_pixel_preview(obj):
-        return mark_safe(f"<img src='{obj.image_low_pixel.url}' width='200' />")
+        return format_html(f"<img src='{obj.image_low_pixel.url}' width='200' />")
 
     show_in_index = False
     list_display = ("name", "image")
@@ -42,7 +43,7 @@ class ImageModeAdmin(LedModeChildAdmin):
 class VideoModeAdmin(LedModeChildAdmin):
     @staticmethod
     def video_preview(obj):
-        return mark_safe(
+        return format_html(
             f"""
             <div>
                 <video controls preload="metadata" width="480" loop="loop" autoplay="autoplay" controls muted>
@@ -55,7 +56,7 @@ class VideoModeAdmin(LedModeChildAdmin):
 
     @staticmethod
     def video_low_pixel_preview(obj):
-        return mark_safe(
+        return format_html(
             f"""
             <div>
                 <video controls preload="metadata" width="240" loop="loop" autoplay="autoplay" controls muted>
