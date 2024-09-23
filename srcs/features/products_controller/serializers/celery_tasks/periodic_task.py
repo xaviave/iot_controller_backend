@@ -16,7 +16,7 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
 
     class Meta:
         model = PeriodicTask
-        fields = ["name", "task", "kwargs", "clocked", "crontab", "interval", "solar"]
+        fields = ["name", "task", "enabled", "kwargs", "clocked", "crontab", "interval", "solar"]
 
         proto_class = PeriodicTaskResponse
         proto_class_list = PeriodicTaskListResponse

@@ -4,29 +4,6 @@ from celery import shared_task
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.services.iot_mixin import execute_grpc_request
 
-"""
-from celery.schedules import crontab
-app.conf.beat_schedule = {
-    # Executes every Monday morning at 7:30 a.m.
-    'add-every-monday-morning': {
-        'task': 'tasks.add',
-        'schedule': crontab(hour=7, minute=30, day_of_week=1),
-        'args': (16, 16),
-    },
-}"""
-"""
-from celery.schedules import solar
-app.conf.beat_schedule = {
-    # Executes at sunset in Melbourne
-    'add-at-melbourne-sunset': {
-        'task': 'tasks.add',
-        'schedule': solar('sunset', -37.81753, 144.96715),
-        'args': (16, 16),
-    },
-}
-"""
-
-
 @shared_task
 def product_set_status(product_id: int):
     p = BaseProduct.objects.get(pk=product_id)

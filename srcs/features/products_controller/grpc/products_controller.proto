@@ -562,6 +562,7 @@ message PeriodicTaskPartialUpdateRequest {
     optional ClockedScheduleRequest clocked = 6;
     repeated string _partial_update_fields = 7;
     optional string kwargs = 8;
+    optional bool enabled = 9;
 }
 
 message PeriodicTaskRequest {
@@ -572,6 +573,7 @@ message PeriodicTaskRequest {
     optional SolarScheduleRequest solar = 5;
     optional ClockedScheduleRequest clocked = 6;
     optional string kwargs = 7;
+    optional bool enabled = 8;
 }
 
 message PeriodicTaskResponse {
@@ -582,6 +584,7 @@ message PeriodicTaskResponse {
     optional SolarScheduleResponse solar = 5;
     optional ClockedScheduleResponse clocked = 6;
     optional string kwargs = 7;
+    optional bool enabled = 8;
 }
 
 message PeriodicTaskRetrieveRequest {
