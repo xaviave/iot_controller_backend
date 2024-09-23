@@ -56,7 +56,7 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
     """
 
     def create(self, validated_data):
-        validated_data["task"] = f"srcs.features.products_controller.tasks.{validated_data['task']}"
+        validated_data["task"] = f"features.products_controller.tasks.{validated_data['task']}"
 
         if validated_data.get("clocked") is not None:
             try:

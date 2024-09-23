@@ -118,7 +118,9 @@ class TestPatternMode(TransactionTestCase):
 
         # Query one Update Object in dataset
         update_res = await grpc_stub.Update(
-            products_controller_pb2.PatternModeRequest(id=create_res.id, name="up", fps=120, blink=20, palette=["#000000"])
+            products_controller_pb2.PatternModeRequest(
+                id=create_res.id, name="up", fps=120, blink=20, palette=["#000000"]
+            )
         )
 
         # Query one PatternMode Object in dataset

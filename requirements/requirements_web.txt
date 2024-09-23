@@ -7,7 +7,7 @@ django_filter
 djangorestframework
 django-rest-polymorphic
 django-cors-headers
-celery
+celery[redis]
 django-celery-beat
 django-celery-results
-redis==4.0.0
+# redis==4.0.0

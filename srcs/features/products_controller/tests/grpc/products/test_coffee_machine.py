@@ -59,8 +59,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=1,
             categories=[category_request],
-            ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res = await grpc_stub.Create(request)
 
@@ -87,8 +86,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=0,
             categories=[category_request],
-            ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res = await grpc_stub.Create(request)
 
@@ -125,8 +123,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=3,
             categories=[category_1_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res_0 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -139,8 +136,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=0,
             categories=[category_2_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res_1 = await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -153,8 +149,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=1,
             categories=[category_3_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res_2 = await grpc_stub.Create(request)
 
@@ -185,8 +180,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=0,
             categories=[category_request],
-            ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res = await grpc_stub.Create(request)
 
@@ -230,8 +224,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=0,
             categories=[category_1_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -244,8 +237,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=0,
             categories=[category_2_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         await grpc_stub.Create(request)
         request = products_controller_pb2.CoffeeMachineRequest(
@@ -258,8 +250,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=False,
             mode_value=0,
             categories=[category_3_request],
-                        ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res = await grpc_stub.Create(request)
 
@@ -286,8 +277,7 @@ class TestCoffeeMachine(TransactionTestCase):
             filter_position=True,
             mode_value=2,
             categories=[category_request],
-            ip_address= "0.0.0.0",
-
+            ip_address="0.0.0.0",
         )
         create_res = await grpc_stub.Create(request)
 
@@ -308,8 +298,7 @@ class TestCoffeeMachine(TransactionTestCase):
                 filter_position=False,
                 mode_value=2,
                 categories=[category_request],
-            ip_address= "0.0.0.0",
-
+                ip_address="0.0.0.0",
             )
         )
 

@@ -10,6 +10,14 @@ services:
       - app-network
     restart: always
 
+  redis:
+    image: redis:latest
+#    ports:
+#      - "6379:6379"
+    networks:
+      - app-network
+    restart: always
+
   grpc_server:
     build: .
     command: python srcs/manage.py grpcrunaioserver 0.0.0.0:50053 --dev
@@ -49,27 +57,20 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - app-network
 
   celery_beat:
     build: .
     env_file: env/.env
-    command: celery -A srcs.base_app beat --loglevel=info
+    command: celery -A srcs.base_app beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/iot_controller_backend
     depends_on:
       - db
       - redis
-
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    expose:
-      - 6379
     networks:
       - app-network
-    restart: always
-
 
 volumes:
   postgres_data:

@@ -1,4 +1,3 @@
-
 from celery import shared_task
 
 # from scapy.all import ARP, Ether, conf, srp
@@ -35,6 +34,11 @@ def product_set_status(product_id: int):
     stub = p.get_stub()
     execute_grpc_request(stub, product_request)
     print("request sent")
+
+
+@shared_task
+def debug(**kwargs):
+    print(f"Request {kwargs}")
 
 #
 # def check_host_connection(host: str):
