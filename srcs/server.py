@@ -4,10 +4,7 @@ from datetime import datetime
 
 import grpc
 
-from features.products_controller.grpc import (
-    products_controller_pb2,
-    products_controller_pb2_grpc,
-)
+from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 
 # Create Category Object
 category_request = products_controller_pb2.CategoryRequest(id=1, name="cate")

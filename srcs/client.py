@@ -9,10 +9,7 @@ from datetime import datetime
 import grpc
 from google.protobuf import struct_pb2
 
-from features.products_controller.grpc import (
-    products_controller_pb2,
-    products_controller_pb2_grpc,
-)
+from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 
 # Create Category Object
 category_request = products_controller_pb2.CategoryRequest(name="cate")
@@ -98,14 +95,14 @@ Project filter/search/order
 """
 Product filter/search/order
 """
-filter_as_dict = {"search": "cate"}
+filter_as_dict = {"search": "cat"}
 filter_as_struct = struct_pb2.Struct()
 filter_as_struct.update(filter_as_dict)
 
 
 async def main():
     async with grpc.aio.insecure_channel("grpc_server:50053") as channel:
-        stub_project = products_controller_pb2_grpc.ProjectControllerStub(channel)
+        products_controller_pb2_grpc.ProjectControllerStub(channel)
         stub_product = products_controller_pb2_grpc.LedPanelControllerStub(channel)
         # response_stub = stub.Create(request)
         # print(await response_stub)
@@ -120,7 +117,7 @@ async def main():
         print("----- List Product -----")
         res = await stub_product.List(products_controller_pb2.LedPanelListRequest(_filters=filter_as_struct))
         for c in res.results:
-            print(c)
+            print(f"\n{c=}{'-' * 100}")
             # for p in c.products:
             #     print(f"{p=}")
             #     print(p.WhichOneof("product"))

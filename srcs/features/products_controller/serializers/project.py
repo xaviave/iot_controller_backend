@@ -5,15 +5,10 @@ from django_socio_grpc.proto_serializers import ListProtoSerializer
 from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
 from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
-from features.products_controller.grpc.products_controller_pb2 import (
-    ProjectListResponse,
-    ProjectResponse,
-)
+from features.products_controller.grpc.products_controller_pb2 import ProjectListResponse, ProjectResponse
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.models.project import Project
-from features.products_controller.serializers.products.base_product import (
-    BaseProductPolymorphicSerializer,
-)
+from features.products_controller.serializers.products.base_product import BaseProductPolymorphicSerializer
 from features.products_controller.serializers.user import UserSerializer
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")

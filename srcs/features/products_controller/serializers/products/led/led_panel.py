@@ -7,17 +7,12 @@ from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
 from rest_framework import serializers
 from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
-from features.products_controller.grpc.products_controller_pb2 import (
-    LedPanelListResponse,
-    LedPanelResponse,
-)
+from features.products_controller.grpc.products_controller_pb2 import LedPanelListResponse, LedPanelResponse
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.category import CategorySerializer
-from features.products_controller.serializers.products.led.led_mode import (
-    LedModePolymorphicSerializer,
-)
+from features.products_controller.serializers.products.led.led_mode import LedModePolymorphicSerializer
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
 

@@ -6,9 +6,7 @@ from features.products_controller.services.celery_tasks.crontab_schedule import 
 from features.products_controller.services.celery_tasks.interval_schedule import IntervalScheduleService
 from features.products_controller.services.celery_tasks.periodic_task import PeriodicTaskService
 from features.products_controller.services.celery_tasks.solar_schedule import SolarScheduleService
-from features.products_controller.services.products.coffee_machine import (
-    CoffeeMachineService,
-)
+from features.products_controller.services.products.coffee_machine import CoffeeMachineService
 from features.products_controller.services.products.led.led_mode import (
     ColorModeService,
     ImageModeService,

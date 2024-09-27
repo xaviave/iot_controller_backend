@@ -8,14 +8,9 @@ from django.test import TransactionTestCase, override_settings
 from django_socio_grpc.tests.grpc_test_utils.fake_grpc import FakeFullAIOGRPC
 from freezegun import freeze_time
 
-from features.products_controller.grpc import (
-    products_controller_pb2,
-    products_controller_pb2_grpc,
-)
+from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 from features.products_controller.services.category import CategoryService
-from features.products_controller.services.products.coffee_machine import (
-    CoffeeMachineService,
-)
+from features.products_controller.services.products.coffee_machine import CoffeeMachineService
 from features.products_controller.services.products.led.led_mode import ColorModeService
 from features.products_controller.services.products.led.led_panel import LedPanelService
 from features.products_controller.services.project import ProjectService
