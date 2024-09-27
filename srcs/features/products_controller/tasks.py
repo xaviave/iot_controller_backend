@@ -4,6 +4,7 @@ from celery import shared_task
 from features.products_controller.models.products.base_product import BaseProduct
 from features.products_controller.services.iot_mixin import execute_grpc_request
 
+
 @shared_task
 def product_set_status(product_id: int):
     p = BaseProduct.objects.get(pk=product_id)
@@ -16,6 +17,7 @@ def product_set_status(product_id: int):
 @shared_task
 def debug(**kwargs):
     print(f"Request {kwargs}")
+
 
 #
 # def check_host_connection(host: str):

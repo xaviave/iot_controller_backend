@@ -7,6 +7,7 @@ import string
 from datetime import datetime
 
 import grpc
+from google.protobuf import struct_pb2
 
 from features.products_controller.grpc import (
     products_controller_pb2,
@@ -86,18 +87,43 @@ request = products_controller_pb2.ProjectRequest(
 #     products=[base_product_1_response, base_product_2_response],
 # )
 
+"""
+Project filter/search/order
+"""
+# filter_as_dict = {"ordering": "-pub_date"}
+# filter_as_dict = {"search": "gmx", "ordering": "-pub_date"}
+# filter_as_dict = {"name": "project no filter", "ordering": "-pub_date"}
+# filter_as_dict = {"search": "gmx", "name": "project no filter", "ordering": "-pub_date"}
+
+"""
+Product filter/search/order
+"""
+filter_as_dict = {"search": "cate"}
+filter_as_struct = struct_pb2.Struct()
+filter_as_struct.update(filter_as_dict)
+
 
 async def main():
-    async with grpc.aio.insecure_channel("localhost:50053") as channel:
-        stub = products_controller_pb2_grpc.ProjectControllerStub(channel)
-        response_stub = stub.Create(request)
-        print(await response_stub)
-        print("----- List -----")
-        res = await stub.List(products_controller_pb2.ProjectListRequest())
+    async with grpc.aio.insecure_channel("grpc_server:50053") as channel:
+        stub_project = products_controller_pb2_grpc.ProjectControllerStub(channel)
+        stub_product = products_controller_pb2_grpc.LedPanelControllerStub(channel)
+        # response_stub = stub.Create(request)
+        # print(await response_stub)
+        # print("----- List Project -----")
+        # res = await stub_project.List(products_controller_pb2.ProjectListRequest(_filters=filter_as_struct))
+        # for c in res.results:
+        #     print(c)
+        #     # for p in c.products:
+        #     #     print(f"{p=}")
+        #     #     print(p.WhichOneof("product"))
+
+        print("----- List Product -----")
+        res = await stub_product.List(products_controller_pb2.LedPanelListRequest(_filters=filter_as_struct))
         for c in res.results:
-            for p in c.products:
-                print(f"{p=}")
-                print(p.WhichOneof("product"))
+            print(c)
+            # for p in c.products:
+            #     print(f"{p=}")
+            #     print(p.WhichOneof("product"))
 
 
 if __name__ == "__main__":
