@@ -20,7 +20,7 @@ class PatternMode(LedMode):
                 # name=self.name,
                 fps=self.fps,
                 blink=self.blink,
-                palette=[c for c in self.palette],
+                palette=list(self.palette),
             )
         )
         return grpc_request

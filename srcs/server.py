@@ -1,13 +1,12 @@
+# ruff: noqa: N802
+
 import asyncio
 import logging
 from datetime import datetime
 
 import grpc
 
-from features.products_controller.grpc import (
-    products_controller_pb2,
-    products_controller_pb2_grpc,
-)
+from features.products_controller.grpc import products_controller_pb2, products_controller_pb2_grpc
 
 # Create Category Object
 category_request = products_controller_pb2.CategoryRequest(id=1, name="cate")
@@ -89,11 +88,11 @@ response = products_controller_pb2.ProjectResponse(
 
 
 class ProjectServicer(products_controller_pb2_grpc.ProjectControllerServicer):
-    async def Create(self, *args, **kwargs):
+    async def Create(self, *args: list, **kwargs: dict) -> products_controller_pb2.ProjectResponse:
         print(args, kwargs)
         return response
 
-    async def List(self, *args, **kwargs):
+    async def List(self, *args: list, **kwargs: dict) -> products_controller_pb2.ProjectListResponse:
         print(args, kwargs)
         return products_controller_pb2.ProjectListResponse(results=[response], count=1)
 

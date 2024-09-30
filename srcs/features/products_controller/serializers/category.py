@@ -1,10 +1,7 @@
 from django_socio_grpc import proto_serializers
 from rest_framework import serializers
 
-from features.products_controller.grpc.products_controller_pb2 import (
-    CategoryListResponse,
-    CategoryResponse,
-)
+from features.products_controller.grpc.products_controller_pb2 import CategoryListResponse, CategoryResponse
 from features.products_controller.models.category import Category
 
 

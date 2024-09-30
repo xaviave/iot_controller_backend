@@ -7,17 +7,12 @@ from django_socio_grpc.utils.constants import LIST_ATTR_MESSAGE_NAME
 from rest_framework import serializers
 from rest_framework.serializers import LIST_SERIALIZER_KWARGS
 
-from features.products_controller.grpc.products_controller_pb2 import (
-    LedPanelListResponse,
-    LedPanelResponse,
-)
+from features.products_controller.grpc.products_controller_pb2 import LedPanelListResponse, LedPanelResponse
 from features.products_controller.models.category import Category
 from features.products_controller.models.products.led.led_mode import LedMode
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.category import CategorySerializer
-from features.products_controller.serializers.products.led.led_mode import (
-    LedModePolymorphicSerializer,
-)
+from features.products_controller.serializers.products.led.led_mode import LedModePolymorphicSerializer
 
 LIST_PROTO_SERIALIZER_KWARGS = (*LIST_SERIALIZER_KWARGS, LIST_ATTR_MESSAGE_NAME, "message")
 
@@ -26,12 +21,12 @@ class LedPanelListSerializer(ListProtoSerializer):
     def data_to_message(self, data):
         """
         List of protobuf messages <- List of dicts of python primitive datatypes.
-        Add a custom serializer for Oneof
+        Add a custom serializer for Oneof.
         """
         if data:
             for i, mode in enumerate(data):
                 m = mode.get("mode")
-                data[i]["mode"] = {m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
+                data[i]["mode"] = {m["resourcetype"]: {k: m[k] for k in set(m.keys()) - {"resourcetype"}}}
         return super().data_to_message(data)
 
 
@@ -52,7 +47,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
     def to_internal_value(self, data):
         """
         Serialize the products to allow Oneof fields to be serialized into
-        Polymorphic data types
+        Polymorphic data types.
         """
         if data.get("mode") is not None:
             m = data.get("mode")
@@ -124,19 +119,17 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
     async def raw_adata(self):
         """
         De-Serialize the products to allow Oneof fields to be transformed to a protobuf message
-        while keeping the original data and dataset ids
+        while keeping the original data and dataset ids.
         """
         adata = await sync_to_async(getattr)(self, "data")
         if adata.get("mode") is not None:
             m = adata.get("mode")
-            adata["mode"] = {m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
+            adata["mode"] = {m["resourcetype"]: {k: m[k] for k in set(m.keys()) - {"resourcetype"}}}
         return adata
 
     @property
     async def amessage(self):
-        """
-        Surchage amessage to use raw_adata instead of adata
-        """
+        """Surchage amessage to use raw_adata instead of adata."""
         if not hasattr(self, "_message"):
             self._message = self.data_to_message(await self.raw_adata)
         return self._message
@@ -145,7 +138,7 @@ class LedPanelSerializer(proto_serializers.ModelProtoSerializer):
     def many_init(cls, *args, **kwargs):
         """
         Surcharge the function to initialize the custom ProjectListSerializer
-        instead of the ListProtoSerializer
+        instead of the ListProtoSerializer.
         """
         allow_empty = kwargs.pop("allow_empty", None)
         child_serializer = cls(*args, **kwargs)

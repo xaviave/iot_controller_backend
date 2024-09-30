@@ -16,7 +16,7 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
 
     class Meta:
         model = PeriodicTask
-        fields = ["name", "task", "kwargs", "clocked", "crontab", "interval", "solar"]
+        fields = ["name", "task", "enabled", "kwargs", "clocked", "crontab", "interval", "solar"]
 
         proto_class = PeriodicTaskResponse
         proto_class_list = PeriodicTaskListResponse
@@ -56,7 +56,7 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
     """
 
     def create(self, validated_data):
-        validated_data["task"] = f"srcs.features.products_controller.tasks.{validated_data['task']}"
+        validated_data["task"] = f"features.products_controller.tasks.{validated_data['task']}"
 
         if validated_data.get("clocked") is not None:
             try:
@@ -106,5 +106,4 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
                 solar = serializer.save()
             validated_data["solar"] = solar
 
-        instance = PeriodicTask.objects.create(**validated_data)
-        return instance
+        return PeriodicTask.objects.create(**validated_data)

@@ -7,5 +7,5 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name

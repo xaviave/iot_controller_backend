@@ -8,6 +8,5 @@ class SolarScheduleSerializer(proto_serializers.ModelProtoSerializer):
     class Meta:
         model = SolarSchedule
         fields = "__all__"
-        #
         proto_class = SolarScheduleResponse
         proto_class_list = SolarScheduleListResponse

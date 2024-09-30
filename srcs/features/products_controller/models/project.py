@@ -11,5 +11,5 @@ class Project(models.Model):
     name = models.CharField(max_length=200, unique=True)
     products = models.ManyToManyField(BaseProduct)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name

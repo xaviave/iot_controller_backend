@@ -1,3 +1,5 @@
+from typing import Never
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from polymorphic.models import PolymorphicModel
@@ -11,9 +13,9 @@ class BaseProduct(PolymorphicModel):
     ip_port = models.IntegerField(default=50051, validators=[MaxValueValidator(65536), MinValueValidator(0)])
     categories = models.ManyToManyField(Category)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     @staticmethod
-    def get_stub():
+    def get_stub() -> Never:
         raise NotImplementedError

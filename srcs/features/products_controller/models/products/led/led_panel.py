@@ -44,7 +44,7 @@ class LedPanel(BaseProduct):
             # categories=[c.get_grpc_request() for c in self.categories],
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def get_status(self):
@@ -53,4 +53,4 @@ class LedPanel(BaseProduct):
     def get_mode(self) -> str:
         return f"{self.grpc_mode_value} {self.mode.name}"
 
-    def get(self, *args, **kwargs): ...
+    def get(self, *args, **kwargs) -> None: ...
