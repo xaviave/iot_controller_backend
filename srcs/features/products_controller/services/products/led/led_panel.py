@@ -1,6 +1,7 @@
 from asgiref.sync import sync_to_async
 from django_filters import rest_framework as filters
 from rest_framework import filters as rest_filters
+from rest_framework.pagination import PageNumberPagination
 
 from features.products_controller.models.products.led.led_panel import LedPanel
 from features.products_controller.serializers.products.led.led_panel import LedPanelSerializer
@@ -10,6 +11,7 @@ from features.products_controller.services.iot_mixin import IotMixin
 class LedPanelService(IotMixin):
     queryset = LedPanel.objects.all()
     serializer_class = LedPanelSerializer
+    pagination_class = PageNumberPagination
 
     # Filter / Search / Order settings
     filter_backends = (filters.DjangoFilterBackend, rest_filters.SearchFilter)

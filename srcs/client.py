@@ -99,6 +99,11 @@ filter_as_dict = {"search": "cat"}
 filter_as_struct = struct_pb2.Struct()
 filter_as_struct.update(filter_as_dict)
 
+# Getting the 11 to 20 elements following backend ordering
+pagination_as_dict = {"page": 2, "page_size": 6}
+pagination_as_struct = struct_pb2.Struct()
+pagination_as_struct.update(pagination_as_dict)
+
 
 async def main():
     async with grpc.aio.insecure_channel("grpc_server:50053") as channel:
@@ -115,7 +120,9 @@ async def main():
         #     #     print(p.WhichOneof("product"))
 
         print("----- List Product -----")
-        res = await stub_product.List(products_controller_pb2.LedPanelListRequest(_filters=filter_as_struct))
+        res = await stub_product.List(
+            products_controller_pb2.LedPanelListRequest(_filters=filter_as_struct, _pagination=pagination_as_struct)
+        )
         for c in res.results:
             print(f"\n{c=}{'-' * 100}")
             # for p in c.products:

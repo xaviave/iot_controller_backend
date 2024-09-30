@@ -171,10 +171,12 @@ message CategoryDestroyRequest {
 
 message CategoryListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message CategoryListResponse {
     repeated CategoryResponse results = 1;
+    int32 count = 2;
 }
 
 message CategoryPartialUpdateRequest {
@@ -203,10 +205,12 @@ message ClockedScheduleDestroyRequest {
 
 message ClockedScheduleListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message ClockedScheduleListResponse {
     repeated ClockedScheduleResponse results = 1;
+    int32 count = 2;
 }
 
 message ClockedSchedulePartialUpdateRequest {
@@ -235,10 +239,12 @@ message CoffeeMachineDestroyRequest {
 
 message CoffeeMachineListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message CoffeeMachineListResponse {
     repeated CoffeeMachineResponse results = 1;
+    int32 count = 2;
 }
 
 message CoffeeMachinePartialUpdateRequest {
@@ -298,10 +304,12 @@ message ColorModeDestroyRequest {
 
 message ColorModeListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message ColorModeListResponse {
     repeated ColorModeResponse results = 1;
+    int32 count = 2;
 }
 
 message ColorModePartialUpdateRequest {
@@ -334,10 +342,12 @@ message CrontabScheduleDestroyRequest {
 
 message CrontabScheduleListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message CrontabScheduleListResponse {
     repeated CrontabScheduleResponse results = 1;
+    int32 count = 2;
 }
 
 message CrontabSchedulePartialUpdateRequest {
@@ -381,10 +391,12 @@ message ImageModeDestroyRequest {
 
 message ImageModeListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message ImageModeListResponse {
     repeated ImageModeResponse results = 1;
+    int32 count = 2;
 }
 
 message ImageModePartialUpdateRequest {
@@ -420,10 +432,12 @@ message IntervalScheduleDestroyRequest {
 
 message IntervalScheduleListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message IntervalScheduleListResponse {
     repeated IntervalScheduleResponse results = 1;
+    int32 count = 2;
 }
 
 message IntervalSchedulePartialUpdateRequest {
@@ -455,10 +469,12 @@ message LedPanelDestroyRequest {
 
 message LedPanelListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message LedPanelListResponse {
     repeated LedPanelResponse results = 1;
+    int32 count = 2;
 }
 
 message LedPanelPartialUpdateRequest {
@@ -506,10 +522,12 @@ message PatternModeDestroyRequest {
 
 message PatternModeListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message PatternModeListResponse {
     repeated PatternModeResponse results = 1;
+    int32 count = 2;
 }
 
 message PatternModePartialUpdateRequest {
@@ -548,10 +566,12 @@ message PeriodicTaskDestroyRequest {
 
 message PeriodicTaskListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message PeriodicTaskListResponse {
     repeated PeriodicTaskResponse results = 1;
+    int32 count = 2;
 }
 
 message PeriodicTaskPartialUpdateRequest {
@@ -598,10 +618,12 @@ message ProjectDestroyRequest {
 
 message ProjectListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message ProjectListResponse {
     repeated ProjectResponse results = 1;
+    int32 count = 2;
 }
 
 message ProjectPartialUpdateRequest {
@@ -639,10 +661,12 @@ message SolarScheduleDestroyRequest {
 
 message SolarScheduleListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message SolarScheduleListResponse {
     repeated SolarScheduleResponse results = 1;
+    int32 count = 2;
 }
 
 message SolarSchedulePartialUpdateRequest {
@@ -677,10 +701,12 @@ message UserDestroyRequest {
 
 message UserListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message UserListResponse {
     repeated UserResponse results = 1;
+    int32 count = 2;
 }
 
 message UserPartialUpdateRequest {
@@ -721,10 +747,12 @@ message VideoModeDestroyRequest {
 
 message VideoModeListRequest {
     optional google.protobuf.Struct _filters = 1;
+    optional google.protobuf.Struct _pagination = 2;
 }
 
 message VideoModeListResponse {
     repeated VideoModeResponse results = 1;
+    int32 count = 2;
 }
 
 message VideoModePartialUpdateRequest {
