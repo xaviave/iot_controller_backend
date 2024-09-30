@@ -10,7 +10,7 @@ from features.products_controller.services.products.coffee_machine import Coffee
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestCoffeeMachine(TransactionTestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.category_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,
             CategoryService.as_servicer(),
@@ -20,7 +20,7 @@ class TestCoffeeMachine(TransactionTestCase):
             CoffeeMachineService.as_servicer(),
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.category_fake_grpc.close()
         self.coffee_machine_fake_grpc.close()
 
@@ -31,7 +31,7 @@ class TestCoffeeMachine(TransactionTestCase):
         response = products_controller_pb2.CategoryResponse(name=name)
         return request, response
 
-    async def test_async_create_coffee_machine(self):
+    async def test_async_create_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -60,9 +60,9 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Check one CoffeeMachine dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
-    async def test_async_destroy_coffee_machine(self):
+    async def test_async_destroy_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -87,7 +87,7 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Check one CoffeeMachine Object in dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Delete CoffeeMachine Object
         request = products_controller_pb2.CoffeeMachineDestroyRequest(id=create_res.id)
@@ -97,7 +97,7 @@ class TestCoffeeMachine(TransactionTestCase):
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
         self.assertListEqual(list(res.results), [])
 
-    async def test_async_list_coffee_machine(self):
+    async def test_async_list_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -150,9 +150,9 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Query all CoffeeMachine
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
+        assert res.results == [create_res_0, create_res_1, create_res_2]
 
-    async def test_async_partial_update_coffee_machine(self):
+    async def test_async_partial_update_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -181,11 +181,11 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Check one coffee_machine in dataset
         res = await grpc_stub.List(products_controller_pb2.CoffeeMachineListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Query one CoffeeMachine Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Partial Update CoffeeMachine Object in dataset
         partial_create_res = await grpc_stub.PartialUpdate(
@@ -196,9 +196,9 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Query one CoffeeMachine Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=partial_create_res.id))
-        self.assertEqual(res, partial_create_res)
+        assert res == partial_create_res
 
-    async def test_async_retrieve_coffee_machine(self):
+    async def test_async_retrieve_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -251,9 +251,9 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Query one CoffeeMachine Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
-    async def test_async_update_coffee_machine(self):
+    async def test_async_update_coffee_machine(self) -> None:
         grpc_stub = self.coffee_machine_fake_grpc.get_fake_stub(
             products_controller_pb2_grpc.CoffeeMachineControllerStub
         )
@@ -278,7 +278,7 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Query one CoffeeMachine Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Query one Update Object in dataset
         update_res = await grpc_stub.Update(
@@ -299,4 +299,4 @@ class TestCoffeeMachine(TransactionTestCase):
 
         # Query one CoffeeMachine Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.CoffeeMachineRetrieveRequest(id=update_res.id))
-        self.assertEqual(res, update_res)
+        assert res == update_res

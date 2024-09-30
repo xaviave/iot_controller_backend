@@ -19,7 +19,7 @@ from features.products_controller.services.user import UserService
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestProject(TransactionTestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.category_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,
             CategoryService.as_servicer(),
@@ -45,7 +45,7 @@ class TestProject(TransactionTestCase):
             ProjectService.as_servicer(),
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.category_fake_grpc.close()
         self.color_mode_fake_grpc.close()
         self.led_panel_fake_grpc.close()
@@ -112,7 +112,7 @@ class TestProject(TransactionTestCase):
         return (base_product_1_request, base_product_2_request), (base_product_1_response, base_product_2_response)
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_create_project(self):
+    async def test_async_create_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         owner_request = products_controller_pb2.UserRequest(username="hannah_montana")
         await user_grpc_stub.Create(owner_request)
@@ -137,10 +137,10 @@ class TestProject(TransactionTestCase):
 
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_destroy_project(self):
+    async def test_async_destroy_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         project_owner_request = products_controller_pb2.UserRequest(username="21 savage")
         await user_grpc_stub.Create(project_owner_request)
@@ -161,7 +161,7 @@ class TestProject(TransactionTestCase):
 
         # Check one Project dataset
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Delete Project Object
         request = products_controller_pb2.ProjectDestroyRequest(id=create_res.id)
@@ -172,7 +172,7 @@ class TestProject(TransactionTestCase):
         self.assertListEqual(list(res.results), [])
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_list_project(self):
+    async def test_async_list_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         project_owner_0_request = products_controller_pb2.UserRequest(username="wow")
         project_owner_1_request = products_controller_pb2.UserRequest(username="test test")
@@ -216,10 +216,10 @@ class TestProject(TransactionTestCase):
 
         # Query all Project
         res = await grpc_stub.List(products_controller_pb2.ProjectListRequest())
-        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
+        assert res.results == [create_res_0, create_res_1, create_res_2]
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_partial_update_project(self):
+    async def test_async_partial_update_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         project_owner_request = products_controller_pb2.UserRequest(username="k-dot")
         await user_grpc_stub.Create(project_owner_request)
@@ -243,7 +243,7 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Partial Update Project Object in dataset
         new_date = project_date + datetime.timedelta(days=30)
@@ -258,10 +258,10 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=partial_update_res.id))
-        self.assertEqual(res, partial_update_res)
+        assert res == partial_update_res
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_retrieve_project(self):
+    async def test_async_retrieve_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         project_owner_0_request = products_controller_pb2.UserRequest(username="thermal")
         project_owner_1_request = products_controller_pb2.UserRequest(username="radar")
@@ -304,10 +304,10 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
     @freeze_time("2024-02-02 03:21:34")
-    async def test_async_update_project(self):
+    async def test_async_update_project(self) -> None:
         user_grpc_stub = self.user_fake_grpc.get_fake_stub(products_controller_pb2_grpc.UserControllerStub)
         project_owner_request = products_controller_pb2.UserRequest(username="jpegmafia X danny brown")
         await user_grpc_stub.Create(project_owner_request)
@@ -331,7 +331,7 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Partial Update Project Object in dataset
         new_date = project_date + datetime.timedelta(days=3)
@@ -347,4 +347,4 @@ class TestProject(TransactionTestCase):
 
         # Query one Project Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ProjectRetrieveRequest(id=update_res.id))
-        self.assertEqual(res, update_res)
+        assert res == update_res

@@ -17,7 +17,7 @@ class ImageMode(LedMode):
         ret, buf = cv2.imencode(".jpg", pixel_img)
         return ContentFile(buf.tobytes())
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
         if not self.image_low_pixel:
             self.image_low_pixel.save(

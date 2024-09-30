@@ -39,7 +39,7 @@ class VideoMode(LedMode):
         os.remove(output_path)
         return ContentFile(content)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
         if not self.video_low_pixel:
             self.video_low_pixel.save(

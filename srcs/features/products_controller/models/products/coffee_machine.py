@@ -30,7 +30,7 @@ class CoffeeMachine(BaseProduct):
     def get_stub():
         return products_controller_pb2_grpc.CoffeeMachineControllerStub
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def get_water_level(self):

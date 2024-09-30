@@ -106,5 +106,4 @@ class PeriodicTaskSerializer(proto_serializers.ModelProtoSerializer):
                 solar = serializer.save()
             validated_data["solar"] = solar
 
-        instance = PeriodicTask.objects.create(**validated_data)
-        return instance
+        return PeriodicTask.objects.create(**validated_data)

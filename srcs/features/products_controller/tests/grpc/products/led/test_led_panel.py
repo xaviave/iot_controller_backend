@@ -11,7 +11,7 @@ from features.products_controller.services.products.led.led_panel import LedPane
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestLedPanel(TransactionTestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.category_fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_CategoryControllerServicer_to_server,
             CategoryService.as_servicer(),
@@ -25,7 +25,7 @@ class TestLedPanel(TransactionTestCase):
             LedPanelService.as_servicer(),
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.category_fake_grpc.close()
         self.led_mode_fake_grpc.close()
         self.led_panel_fake_grpc.close()
@@ -49,7 +49,7 @@ class TestLedPanel(TransactionTestCase):
         led_mode_response.ColorMode.CopyFrom(response)
         return led_mode_request, led_mode_response
 
-    async def test_async_create_led_panel(self):
+    async def test_async_create_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Check empty dataset
@@ -73,9 +73,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Check led_panel in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
-    async def test_async_destroy_led_panel(self):
+    async def test_async_destroy_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Create Category & ColorMode request and response
@@ -96,7 +96,7 @@ class TestLedPanel(TransactionTestCase):
 
         # Check one LedPanel Object in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Delete LedPanel Object
         request = products_controller_pb2.LedPanelDestroyRequest(id=create_res.id)
@@ -106,7 +106,7 @@ class TestLedPanel(TransactionTestCase):
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
         self.assertListEqual(list(res.results), [])
 
-    async def test_async_list_led_panel(self):
+    async def test_async_list_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Create Category & ColorMode Object
@@ -147,9 +147,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Query all LedPanel
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
-        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
+        assert res.results == [create_res_0, create_res_1, create_res_2]
 
-    async def test_async_partial_update_led_panel(self):
+    async def test_async_partial_update_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Check empty dataset
@@ -173,11 +173,11 @@ class TestLedPanel(TransactionTestCase):
 
         # Check one led_panel in dataset
         res = await grpc_stub.List(products_controller_pb2.LedPanelListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Partial Update LedPanel Object in dataset
         partial_update_res = await grpc_stub.PartialUpdate(
@@ -191,9 +191,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=partial_update_res.id))
-        self.assertEqual(res, partial_update_res)
+        assert res == partial_update_res
 
-    async def test_async_retrieve_led_panel(self):
+    async def test_async_retrieve_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Create Category & ColorMode Object
@@ -234,9 +234,9 @@ class TestLedPanel(TransactionTestCase):
 
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
-    async def test_async_update_led_panel(self):
+    async def test_async_update_led_panel(self) -> None:
         grpc_stub = self.led_panel_fake_grpc.get_fake_stub(products_controller_pb2_grpc.LedPanelControllerStub)
 
         # Create Category & ColorMode Object
@@ -256,7 +256,7 @@ class TestLedPanel(TransactionTestCase):
 
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         request = products_controller_pb2.LedPanelRequest(
             id=create_res.id,
@@ -273,4 +273,4 @@ class TestLedPanel(TransactionTestCase):
 
         # Query one LedPanel Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.LedPanelRetrieveRequest(id=update_res.id))
-        self.assertEqual(res, update_res)
+        assert res == update_res

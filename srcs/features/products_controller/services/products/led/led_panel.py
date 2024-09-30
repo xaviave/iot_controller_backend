@@ -22,7 +22,7 @@ class LedPanelService(IotMixin):
     async def Update(self, request, context):
         """
         Update django server DB
-        Send request to the client as a new Update Request from the updated object
+        Send request to the client as a new Update Request from the updated object.
         """
         message = await super().Update(request, context)
         # need to add a filter of the vars that have to update the task

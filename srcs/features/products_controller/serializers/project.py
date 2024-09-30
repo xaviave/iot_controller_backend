@@ -27,14 +27,14 @@ def proto_dict_to_rest_dict(products: list[dict]) -> list[dict]:
 def rest_dict_to_proto_dict(products: list[dict]) -> list[dict]:
     """
     rest polymorphic dict are {**data_dict, "resourcetype": resourcetype_class_name}
-    proto dict are {"resourcetype_class_name": data_dict}
+    proto dict are {"resourcetype_class_name": data_dict}.
     """
     new_products = []
     for p in products:
         if p.get("resourcetype") == "LedPanel":
             m = p["mode"]
-            p["mode"] = {m["resourcetype"]: {k: m[k] for k in set(list(m.keys())) - set(["resourcetype"])}}
-        new_products.append({p["resourcetype"]: {k: p[k] for k in set(list(p.keys())) - set(["resourcetype"])}})
+            p["mode"] = {m["resourcetype"]: {k: m[k] for k in set(m.keys()) - {"resourcetype"}}}
+        new_products.append({p["resourcetype"]: {k: p[k] for k in set(p.keys()) - {"resourcetype"}}})
     return new_products
 
 
@@ -42,7 +42,7 @@ class ProjectListSerializer(ListProtoSerializer):
     def data_to_message(self, data):
         """
         List of protobuf messages <- List of dicts of python primitive datatypes.
-        Add a custom serializer for Oneof
+        Add a custom serializer for Oneof.
         """
         if data:
             for i, project in enumerate(data):
@@ -65,7 +65,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
     def to_internal_value(self, data):
         """
         Serialize the products to allow Oneof fields to be serialized into
-        Polymorphic data types
+        Polymorphic data types.
         """
         if data.get("products") is not None:
             data["products"] = proto_dict_to_rest_dict(data["products"])
@@ -127,7 +127,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
     async def raw_adata(self):
         """
         De-Serialize the products to allow Oneof fields to be transformed to a protobuf message
-        while keeping the original data and dataset ids
+        while keeping the original data and dataset ids.
         """
         adata = await sync_to_async(getattr)(self, "data")
         if adata.get("products") is not None:
@@ -136,9 +136,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
 
     @property
     async def amessage(self):
-        """
-        Surchage amessage to use raw_adata instead of adata
-        """
+        """Surchage amessage to use raw_adata instead of adata."""
         if not hasattr(self, "_message"):
             self._message = self.data_to_message(await self.raw_adata)
         return self._message
@@ -147,7 +145,7 @@ class ProjectSerializer(proto_serializers.ModelProtoSerializer):
     def many_init(cls, *args, **kwargs):
         """
         Surcharge the function to initialize the custom ProjectListSerializer
-        instead of the ListProtoSerializer
+        instead of the ListProtoSerializer.
         """
         allow_empty = kwargs.pop("allow_empty", None)
         child_serializer = cls(*args, **kwargs)

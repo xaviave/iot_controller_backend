@@ -1,4 +1,5 @@
 from django_socio_grpc.services.app_handler_registry import AppHandlerRegistry
+from grpc.aio._server import Server as GrpcServer
 
 from features.products_controller.services.category import CategoryService
 from features.products_controller.services.celery_tasks.clocked_schedule import ClockedScheduleService
@@ -18,7 +19,7 @@ from features.products_controller.services.project import ProjectService
 from features.products_controller.services.user import UserService
 
 
-def grpc_handlers(server):
+def grpc_handlers(server: GrpcServer) -> None:
     app_registry = AppHandlerRegistry("products_controller", server)
     app_registry.register(UserService)
     app_registry.register(ProjectService)

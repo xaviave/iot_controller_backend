@@ -105,7 +105,7 @@ pagination_as_struct = struct_pb2.Struct()
 pagination_as_struct.update(pagination_as_dict)
 
 
-async def main():
+async def main() -> None:
     async with grpc.aio.insecure_channel("grpc_server:50053") as channel:
         products_controller_pb2_grpc.ProjectControllerStub(channel)
         stub_product = products_controller_pb2_grpc.LedPanelControllerStub(channel)

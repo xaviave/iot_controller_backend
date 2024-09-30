@@ -7,21 +7,21 @@ from features.products_controller.services.products.led.led_mode import ColorMod
 
 @override_settings(GRPC_FRAMEWORK={"GRPC_ASYNC": True})
 class TestColorMode(TransactionTestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.fake_grpc = FakeFullAIOGRPC(
             products_controller_pb2_grpc.add_ColorModeControllerServicer_to_server,
             ColorModeService.as_servicer(),
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.fake_grpc.close()
 
-    async def test_async_create_color_mode(self):
+    async def test_async_create_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Check empty dataset
         res = await grpc_stub.List(products_controller_pb2.ColorModeListRequest())
-        self.assertEqual(list(res.results), [])
+        assert list(res.results) == []
 
         # Create ColorMode Object
         request = products_controller_pb2.ColorModeRequest(name="tom", color="#949200")
@@ -29,9 +29,9 @@ class TestColorMode(TransactionTestCase):
 
         # Check one color_mode in dataset
         res = await grpc_stub.List(products_controller_pb2.ColorModeListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
-    async def test_async_destroy_color_mode(self):
+    async def test_async_destroy_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Create ColorMode Object
@@ -40,7 +40,7 @@ class TestColorMode(TransactionTestCase):
 
         # Check one ColorMode Object in dataset
         res = await grpc_stub.List(products_controller_pb2.ColorModeListRequest())
-        self.assertEqual(res.results, [create_res])
+        assert res.results == [create_res]
 
         # Delete ColorMode Object
         request = products_controller_pb2.ColorModeDestroyRequest(id=create_res.id)
@@ -48,9 +48,9 @@ class TestColorMode(TransactionTestCase):
 
         # Check empty dataset
         res = await grpc_stub.List(products_controller_pb2.ColorModeListRequest())
-        self.assertEqual(list(res.results), [])
+        assert list(res.results) == []
 
-    async def test_async_list_color_mode(self):
+    async def test_async_list_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Create ColorMode Objects
@@ -63,9 +63,9 @@ class TestColorMode(TransactionTestCase):
 
         # Check three ColorMode Objects in dataset
         res = await grpc_stub.List(products_controller_pb2.ColorModeListRequest())
-        self.assertEqual(res.results, [create_res_0, create_res_1, create_res_2])
+        assert res.results == [create_res_0, create_res_1, create_res_2]
 
-    async def test_async_partial_update_color_mode(self):
+    async def test_async_partial_update_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Create ColorMode Objects
@@ -74,7 +74,7 @@ class TestColorMode(TransactionTestCase):
 
         # Query one ColorMode Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ColorModeRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Query one Partial Update Object in dataset
         partial_update_res = await grpc_stub.PartialUpdate(
@@ -85,9 +85,9 @@ class TestColorMode(TransactionTestCase):
 
         # Query one ColorMode Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ColorModeRetrieveRequest(id=partial_update_res.id))
-        self.assertEqual(res, partial_update_res)
+        assert res == partial_update_res
 
-    async def test_async_retrieve_color_mode(self):
+    async def test_async_retrieve_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Create two ColorMode Object
@@ -98,9 +98,9 @@ class TestColorMode(TransactionTestCase):
 
         # Query one ColorMode Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ColorModeRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
-    async def test_async_update_color_mode(self):
+    async def test_async_update_color_mode(self) -> None:
         grpc_stub = self.fake_grpc.get_fake_stub(products_controller_pb2_grpc.ColorModeControllerStub)
 
         # Create ColorMode Objects
@@ -109,7 +109,7 @@ class TestColorMode(TransactionTestCase):
 
         # Query one ColorMode Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ColorModeRetrieveRequest(id=create_res.id))
-        self.assertEqual(res, create_res)
+        assert res == create_res
 
         # Query one Update Object in dataset
         update_res = await grpc_stub.Update(
@@ -118,4 +118,4 @@ class TestColorMode(TransactionTestCase):
 
         # Query one ColorMode Object in dataset
         res = await grpc_stub.Retrieve(products_controller_pb2.ColorModeRetrieveRequest(id=update_res.id))
-        self.assertEqual(res, update_res)
+        assert res == update_res

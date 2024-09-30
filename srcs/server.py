@@ -1,3 +1,5 @@
+# ruff: noqa: N802
+
 import asyncio
 import logging
 from datetime import datetime
@@ -86,11 +88,11 @@ response = products_controller_pb2.ProjectResponse(
 
 
 class ProjectServicer(products_controller_pb2_grpc.ProjectControllerServicer):
-    async def Create(self, *args, **kwargs):
+    async def Create(self, *args: list, **kwargs: dict) -> products_controller_pb2.ProjectResponse:
         print(args, kwargs)
         return response
 
-    async def List(self, *args, **kwargs):
+    async def List(self, *args: list, **kwargs: dict) -> products_controller_pb2.ProjectListResponse:
         print(args, kwargs)
         return products_controller_pb2.ProjectListResponse(results=[response], count=1)
 

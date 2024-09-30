@@ -6,7 +6,7 @@ class LedMode(PolymorphicModel):
     name = models.CharField(max_length=200, unique=True)
     # add a field for temporary mode that will be cleaned by celery
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def get_grpc_request(self) -> dict:
